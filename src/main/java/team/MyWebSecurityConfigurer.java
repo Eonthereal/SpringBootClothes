@@ -7,6 +7,7 @@ package team;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -15,6 +16,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import team.service.UserService;
+
 
 @EnableWebSecurity
 public class MyWebSecurityConfigurer extends WebSecurityConfigurerAdapter {
@@ -41,6 +43,7 @@ public class MyWebSecurityConfigurer extends WebSecurityConfigurerAdapter {
                 //                 .antMatchers("product/view").hasAnyRole("USER")
                 .antMatchers("/admin/**").hasRole("ADMIN")//Only Admin has access to /admin                
                 .antMatchers("/user/**").hasAnyRole("USER", "ADMIN")
+                .antMatchers("/images/**", "/css/**", "/js/**").permitAll()
                 .antMatchers("/").permitAll()
                 
                 .and()

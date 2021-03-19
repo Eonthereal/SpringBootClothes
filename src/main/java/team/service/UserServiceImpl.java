@@ -61,7 +61,7 @@ public class UserServiceImpl implements UserService {
         return userOfSpringSecurity;
     }
 
-    
+    //H saveUser του UserService χρησιμοποιητέ στο RegistrationController που είναι για το register 
     @Override
     public User saveUser(User user){
         String plainPassword = user.getPassword();
@@ -73,7 +73,7 @@ public class UserServiceImpl implements UserService {
         return user;
 }
     
-
+    //H createUser χρησιμοποιήτε στο UserContollerAdmin για το createUser
     @Override
     public User createUser(User user) {
         String plainPassword = user.getPassword();
@@ -82,6 +82,10 @@ public class UserServiceImpl implements UserService {
         user = userRepo.save(user);
         return user;
     }
+    
+    
+    
+    
     
     
     
