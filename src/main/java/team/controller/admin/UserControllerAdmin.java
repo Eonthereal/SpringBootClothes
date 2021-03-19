@@ -79,16 +79,14 @@ public class UserControllerAdmin {
         return "redirect:/admin/user";
     }
 
-
 //===========================================UPDATE===============================================
-  
     @GetMapping("/update/{userid}")
     public String update(
             User user,
             @PathVariable(value = "userid") int userid, Model model) {
 
         User userToUpdate = userRepo.findById(userid).get();
-
+       
         model.addAttribute("user", userToUpdate);
         return "Admin/userFormUPDATE";
     }
@@ -98,9 +96,7 @@ public class UserControllerAdmin {
         if (result.hasErrors()) {
             return "Admin/userFormUPDATE";
         }
-
-        userRepo.save(user);
-
+        userService.updateUser(user);
         String minima = "User updated successfully!!";
         attributes.addFlashAttribute("message", minima);
         return "redirect:/admin/user";

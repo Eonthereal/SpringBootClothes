@@ -13,7 +13,7 @@ import team.entity.User;
 
 @Service
 //@Transactional
-public interface UserService extends UserDetailsService {
+public interface UserService  { //extends UserDetailsService ==> (έφτιαξα class που το κάνει Implement)
     
     User findByUsernane(String username);
     
@@ -21,7 +21,7 @@ public interface UserService extends UserDetailsService {
 
     User createUser(User user);
     
-    
+    User updateUser(User user);
     
     
 }

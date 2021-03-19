@@ -48,7 +48,12 @@
             <label for="credits">credits :</label>
             <form:input id="credits" path="credits" />
             <form:errors path="credits"/>
-            <br/>            
+            <br/>
+
+            <!--BAN-->
+<!--             <input type="checkbox" name="enabled" value="true"><br/>-->
+             
+            <br/>
 
             <%--path = το όνομα το που "καταγράφετε" το στοιχείο. Εδώ είναι to userList του User --%>
             <%--items = το ονομα που έχουμε δώσει στο πεδίο του ModelAttributes(βλ. UserControllerAdmin class) --%>

@@ -52,7 +52,7 @@
                     <div class="row">
                         <sec:authorize access ="hasAnyRole('ADMIN','USER')"> <!--Το sec:authedication το έβαλα ενδιάμεσα του sec:authorize γιατί έσκαγε όλο το Home όταν δεν υπήρχε Login με κάποιο ROLE -->
                             
-                            <a href="${pageContext.request.contextPath}/user/profile/<sec:authentication property="principal.username"/>"> <sec:authentication property="principal.username"/></a>
+                            <a href="${pageContext.request.contextPath}/user/profile/<sec:authentication property="principal.username"/>"><span sec:authentication="name"></span></a>
                          
                             <%--<spa><sec:authentication property="principal.authorities"/></spa>--%>
                         </sec:authorize> 

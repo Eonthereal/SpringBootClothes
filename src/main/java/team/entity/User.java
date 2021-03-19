@@ -12,6 +12,7 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -88,7 +89,11 @@ public class User implements Serializable {
     @Column(name = "credits", insertable = false) //Το insertable το έβαλα για να πέρνει το defaul value 5000 που έχουμε ορίσει στη βάση
     private int credits;
     
-    @ManyToMany
+    @Basic (optional = false)
+    @Column(name = "enabled", insertable = false)
+    private boolean enabled;
+    
+    @ManyToMany (fetch = FetchType.EAGER)
     @JoinTable(name = "user_role",
             joinColumns = {
                 @JoinColumn(name = "userid", referencedColumnName = "userid")},
@@ -111,7 +116,7 @@ public class User implements Serializable {
 //        this.credits = credits;
 //    }
 
-    public User(Integer userid, String username, String password, String email, String firstname, String lastname, String phonenumber, int credits) {
+    public User(Integer userid, String username, String password, String email, String firstname, String lastname, String phonenumber, int credits, boolean enabled) {
         this.userid = userid;
         this.username = username;
         this.password = password;
@@ -120,6 +125,7 @@ public class User implements Serializable {
         this.lastname = lastname;
         this.phonenumber = phonenumber;
         this.credits = credits;
+        this.enabled = enabled;
     }
 
     public Integer getUserid() {
@@ -185,6 +191,8 @@ public class User implements Serializable {
     public void setCredits(int credits) {
         this.credits = credits;
     }
+    
+    
 
     @XmlTransient
     public List<Role> getRoleList() {
@@ -237,5 +245,16 @@ public class User implements Serializable {
                 + ", Last Name " + lastname + ", Phone  " + phonenumber + ", email " + email + " ]";
 
     }
+
+    
+    
+    public boolean isEnabled() {
+        return this.enabled;
+    }
+    
+    public void setActive(boolean enabled){
+        this.enabled=enabled;
+    }
+    
 
 }

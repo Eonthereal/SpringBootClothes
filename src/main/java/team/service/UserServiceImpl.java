@@ -46,20 +46,20 @@ public class UserServiceImpl implements UserService {
         return authorities;
     }
 
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        //Get User from DB
-        User user = findByUsernane(username); // η μεθοδος από πάνω είναι.
-
-        //if user not exists then throw exception
-        if (user == null) {
-            throw new UsernameNotFoundException("Invalid username");
-        }
-        //else return The User Object that Spring Security needs
-        List<GrantedAuthority> authorities = convertRolesToGrantedAuthorities(user.getRoleList()); //μετατρέπουμε τους custom roles που έχουμε στη βάση μας σε List<GrantedAuthority> το οποίο γίνεται βάζοντας το roleList του user στη convertRolesToGrantedAuthorities() method που έχουμε φτιάξει πάνω   
-        org.springframework.security.core.userdetails.User userOfSpringSecurity = new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), authorities); //έχει παιχτεί μλκια με το User Entity των πινάκων μας γιατί το User είναι δεσμευμένο από το Spring...
-        return userOfSpringSecurity;
-    }
+//    @Override
+//    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+//        //Get User from DB
+//        User user = findByUsernane(username); // η μεθοδος από πάνω είναι.
+//
+//        //if user not exists then throw exception
+//        if (user == null) {
+//            throw new UsernameNotFoundException("Invalid username");
+//        }
+//        //else return The User Object that Spring Security needs
+//        List<GrantedAuthority> authorities = convertRolesToGrantedAuthorities(user.getRoleList()); //μετατρέπουμε τους custom roles που έχουμε στη βάση μας σε List<GrantedAuthority> το οποίο γίνεται βάζοντας το roleList του user στη convertRolesToGrantedAuthorities() method που έχουμε φτιάξει πάνω   
+//        org.springframework.security.core.userdetails.User userOfSpringSecurity = new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), authorities); //έχει παιχτεί μλκια με το User Entity των πινάκων μας γιατί το User είναι δεσμευμένο από το Spring...
+//        return userOfSpringSecurity;
+//    }
 
     
     @Override
@@ -83,6 +83,14 @@ public class UserServiceImpl implements UserService {
         return user;
     }
     
-    
+    @Override
+    public User updateUser(User user) {
+//        String plainPassword = user.getPassword();
+//        String hashedPassword = passwordEncoder.encode(plainPassword);
+//        user.setPassword(hashedPassword);
+        user.setActive(true);
+        user = userRepo.save(user);
+        return user;
+    }
     
 }

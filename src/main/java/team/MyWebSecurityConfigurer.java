@@ -12,8 +12,11 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
+import team.service.UserLoginDetailsService;
 import team.service.UserService;
 
 @EnableWebSecurity
@@ -53,17 +56,18 @@ public class MyWebSecurityConfigurer extends WebSecurityConfigurerAdapter {
                 .logout()
                 .permitAll()
                 .logoutSuccessUrl("/")
+               
                 
                 .and().exceptionHandling().accessDeniedPage("/access-denied");
     }
 
-    
-    
+   
     
      @Bean
     public DaoAuthenticationProvider authenticationProvider(){
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
-        provider.setUserDetailsService(userService);
+//        provider.setUserDetailsService(userService);
+        provider.setUserDetailsService(userDetailsService());
         provider.setPasswordEncoder(passwordEncoder());
         return provider;
     }
@@ -72,4 +76,11 @@ public class MyWebSecurityConfigurer extends WebSecurityConfigurerAdapter {
     public PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
     }
+    
+    @Bean
+    public UserDetailsService userDetailsService(){
+        return new UserLoginDetailsService();
+    }
+    
+    
 }
