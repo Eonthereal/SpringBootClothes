@@ -25,7 +25,7 @@
             
             
         </style>
-        <script>
+<!--        <script>
                 function FormValidation(){
     //First Name Validation 
     var fn=document.getElementById('firstname').value;
@@ -53,7 +53,7 @@
         document.getElementById('firstname').style.borderColor = "green";
     }
 }   
-            </script>
+            </script>-->
     </head>
     <body>
         <div>
