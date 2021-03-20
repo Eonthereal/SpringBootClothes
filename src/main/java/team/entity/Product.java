@@ -94,10 +94,26 @@ public class Product implements Serializable {
         this.productid = productid;
     }
 
-    public Product(Integer productid, String offer) {
+//    public Product(Integer productid, String offer) {
+//        this.productid = productid;
+//        this.offer = offer;
+//    }
+
+    public Product(Integer productid, String title, String image, Double price, String offer, List<Color> colorList, List<Orders> ordersList, List<Sizes> sizesList, Brand brand, Category category, Gender gender) {
         this.productid = productid;
+        this.title = title;
+        this.image = image;
+        this.price = price;
         this.offer = offer;
+        this.colorList = colorList;
+        this.ordersList = ordersList;
+        this.sizesList = sizesList;
+        this.brand = brand;
+        this.category = category;
+        this.gender = gender;
     }
+    
+    
 
     public Integer getProductid() {
         return productid;

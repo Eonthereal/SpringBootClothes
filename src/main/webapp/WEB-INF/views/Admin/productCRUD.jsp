@@ -20,7 +20,7 @@
             <p>
                 ${message}
             </p>
-            <a href="${pageContext.request.contextPath}/product/create">Add product</a>
+            <a href="${pageContext.request.contextPath}/admin/product/create">Add product</a>
             <table border="1">
                 <thead>
                     <tr>

@@ -24,7 +24,7 @@ public class RegistrationController {
 
     @GetMapping("/register")
     public String showRegisterForm(@ModelAttribute("reguser") User reguser) {
-
+        
         return "Login-Authentication/register-form";
 
     }

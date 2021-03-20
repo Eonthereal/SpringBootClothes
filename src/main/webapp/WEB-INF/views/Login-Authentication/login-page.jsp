@@ -53,6 +53,60 @@
         </form:form>
 
         <div>
+            
+            <div>
+            <a href="${pageContext.request.contextPath}/">Home Page</a>
+        </div>
+        <c:if test="${param.logout !=null}">
+            <div class="logout">
+                You logged out successfully
+            </div>
+        </c:if>
+        <c:if test="${param.error !=null}">
+            <div class="error">
+                Invalid Credentials
+            </div>
+        </c:if>
+   
+        <form:form action="${pageContext.request.contextPath}/register" method="POST" modelAttribute="reguser"> 
+            <p id="error-message"></p>
+                <%-- Αφού βάλαμε modelAttribute πρέπει να το στείλουμε και από τη get method (δες registration controller) --%>
+            <p>
+                First Name: <form:input class= "firstname" path="firstname" id="firstname" placeholder="Enter your First Name" />
+                 <form:errors class="form-control firstname" path="firstname"  />
+
+            </p>
+            <p>
+                Last Name: <form:input path="lastname" id="lastname" placeholder="Enter your Last Name"/>
+                 <form:errors class="form-control" path="lastname"  />
+
+            </p>
+
+            <p>
+                E-Mail: <form:input type="email" path="email" id="email" placeholder="Enter your E-mail"/>
+                 <form:errors class="form-control" path="email"  />
+            </p>
+            <p>
+                Phone Number: <form:input path="phonenumber" id="phonenumber" maxlength="20" placeholder="Enter your Phone Number" />
+                 <form:errors class="form-control" path="phonenumber"  />
+            </p>
+
+            <p>
+                Username: <form:input path="username" id="username" placeholder="Enter your Username"/>
+                <form:errors class="form-control" path="username"  />
+            </p>
+
+            <p>
+                Password: <form:password  path="password" placeholder="Enter your Password"/>
+                 <form:errors class="form-control" path="password"  />
+            </p>
+
+            <input id="submit" type="submit" value="Register" onclick="FormValidation()"/>
+
+        </form:form>
+            
+            
+            
             <a href="${pageContext.request.contextPath}/register">Register</a>
 
         </div>

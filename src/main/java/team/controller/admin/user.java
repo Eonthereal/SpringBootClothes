@@ -7,8 +7,8 @@ package team.controller.admin;
 
 /**
  *
- * @author AngPan
+ * @author eon_A
  */
-public class TestController {
+class user {
     
 }
