@@ -38,9 +38,7 @@ public class MyWebSecurityConfigurer extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()//Restrict access based on HttpServletRequest
-                //                 .antMatchers(HttpMethod.DELETE,"/admin/product").hasRole("ADMIN") //Πάραδειγμα για το πώς θα έχει πρόσβασει σε μία μέθοδο μόνο ένα συγκεκριμένο account (πχ. στη μέθοδο DELETE για το view ProduceCRUD θα έχει μονο ο admin πρόσβαση)
-                //                .antMatchers("/product/manage").hasAnyRole("ADMIN", "TEACHER")
-                //                 .antMatchers("product/view").hasAnyRole("USER")
+                //                 .antMatchers(HttpMethod.DELETE,"/admin/product").hasRole("ADMIN") //Πάραδειγμα για το πώς θα έχει πρόσβασει σε μία μέθοδο μόνο ένα συγκεκριμένο account (πχ. στη μέθοδο DELETE για το view ProductCRUD θα έχει μονο ο admin πρόσβαση)
                 .antMatchers("/admin/**").hasRole("ADMIN")//Only Admin has access to /admin                
                 .antMatchers("/user/**").hasAnyRole("USER", "ADMIN")
                 .antMatchers("/images/**", "/css/**", "/js/**").permitAll()

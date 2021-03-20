@@ -4,7 +4,7 @@
 <%@taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
 <!DOCTYPE html>
 <html>
-<head>
+    <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Java</title><meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -52,74 +52,84 @@
                 </div>
             </div>
         </div>
-                 <div class="small-container">
-        <div class="row row-2">
-            <h2>PAGE TITLE</h2>
+        <div class="small-container">
+            <div class="row row-2">
+                <h2>Your Profile Page</h2>
 
-        </div>
-        <div class="row">
-            ROW 1
-        </div>
-        <div class="row">
-            ROW 2
-        </div>
-        <div class="row">
-            ROW 3
-        </div>
-        <!-- <div class="page-btn">
-            <span>1</span>
-            <span>2</span>
-            <span>3</span>
-            <span>4</span>
-            <span>&#8594;</span>
-        </div> -->
-    </div>
-    <!-- /MAIN -->
-
-    <!-- FOOTER -->
-
-    <div class="footer">
-        <div class="container">
+            </div>
             <div class="row">
-                <div class="footer-col-1">
-                    <h3>Download Our App</h3>
-                    <p>Download App for Android and IOS mobile phone.</p>
-                    <div class="app-logo">
-                        <img src="${pageContext.request.contextPath}/images/play-store.png">
-                        <img src="${pageContext.request.contextPath}/images/app-store.png">
+               Name: ${user.firstname}                
+                <br>
+               Last Name: ${user.lastname}
+                <br>
+               E-mail: ${user.email}
+                <br>
+               Username: ${user.username}
+                <br>
+               Phone: ${user.phonenumber}
+                <br>
+               Credits: ${user.credits}
+            </div>
+            <div class="row">
+                ROW 2
+            </div>
+            <div class="row">
+                ROW 3
+            </div>
+            <!-- <div class="page-btn">
+                <span>1</span>
+                <span>2</span>
+                <span>3</span>
+                <span>4</span>
+                <span>&#8594;</span>
+            </div> -->
+        </div>
+        <!-- /MAIN -->
+
+        <!-- FOOTER -->
+
+        <div class="footer">
+            <div class="container">
+                <div class="row">
+                    <div class="footer-col-1">
+                        <h3>Download Our App</h3>
+                        <p>Download App for Android and IOS mobile phone.</p>
+                        <div class="app-logo">
+                            <img src="${pageContext.request.contextPath}/images/play-store.png">
+                            <img src="${pageContext.request.contextPath}/images/app-store.png">
+                        </div>
+                    </div>
+                    <div class="footer-col-2">
+                        <img src="${pageContext.request.contextPath}/images/logo transparent.png">
+                        <p>Our Purpose Is To Learn How to Make Beautiful, User-friendly and Responsive Sites.
+                        </p>
+                    </div>
+                    <div class="footer-col-3">
+                        <h3>Useful Links</h3>
+                        <ul>
+                            <li>Coupons</li>
+                            <li>Blog Post</li>
+                            <li>Return Policy</li>
+                            <li>Join Affiliate</li>
+                        </ul>
+                    </div>
+                    <div class="footer-col-4">
+                        <h3>Follow us</h3>
+                        <ul>
+                            <li>Facebook</li>
+                            <li>Twitter</li>
+                            <li>Instagram</li>
+                            <li>Youtube</li>
+                        </ul>
                     </div>
                 </div>
-                <div class="footer-col-2">
-                    <img src="${pageContext.request.contextPath}/images/logo transparent.png">
-                    <p>Our Purpose Is To Learn How to Make Beautiful, User-friendly and Responsive Sites.
-                    </p>
-                </div>
-                <div class="footer-col-3">
-                    <h3>Useful Links</h3>
-                    <ul>
-                        <li>Coupons</li>
-                        <li>Blog Post</li>
-                        <li>Return Policy</li>
-                        <li>Join Affiliate</li>
-                    </ul>
-                </div>
-                <div class="footer-col-4">
-                    <h3>Follow us</h3>
-                    <ul>
-                        <li>Facebook</li>
-                        <li>Twitter</li>
-                        <li>Instagram</li>
-                        <li>Youtube</li>
-                    </ul>
-                </div>
+                <hr>
+                <p class="copyright">Copyright 2021 - CB12 Part Time</p>
             </div>
-            <hr>
-            <p class="copyright">Copyright 2021 - CB12 Part Time</p>
-        </div>
 
-      
-    </div>
-  <!-- /FOOTER -->
-    <script src="${pageContext.request.contextPath}/js/burgermenu.js"></script>
+
+        </div>
+        <!-- /FOOTER -->
+        <script src="${pageContext.request.contextPath}/js/burgermenu.js"></script>
     </body>
 </html>
