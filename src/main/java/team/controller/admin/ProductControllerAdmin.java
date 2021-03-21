@@ -10,9 +10,11 @@ import team.repository.ProductRepo;
 import java.util.List;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,11 +22,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import team.entity.Brand;
 import team.entity.Category;
+import team.entity.Color;
 import team.entity.Gender;
+import team.entity.Sizes;
 import team.service.BrandService;
 import team.service.CategoryService;
+import team.service.ColorService;
 import team.service.GenderService;
 import team.service.ProductService;
+import team.service.SizesService;
 
 /**
  *
@@ -50,6 +56,12 @@ public class ProductControllerAdmin {
     @Autowired
     ProductService productService;
     
+    @Autowired
+    SizesService sizesService;
+    
+    @Autowired
+    ColorService colorService;
+    
      @ModelAttribute("brands")
     public List<Brand> getBrands() {
         return brandService.findAll();
@@ -64,7 +76,15 @@ public class ProductControllerAdmin {
         return genderService.findAll();
     }
     
+    @ModelAttribute("sizes")
+    public List<Sizes> getSizes(){
+        return sizesService.findAll();
+    }
     
+    @ModelAttribute("colors")
+    public List<Color> getColors(){
+        return colorService.findAll();
+    }
     
     @GetMapping
     public String showProducts(Model model){
@@ -94,7 +114,12 @@ public class ProductControllerAdmin {
         return "redirect:/admin/product";
     }   
     
-    
+     @ExceptionHandler(DataIntegrityViolationException.class)
+    public String handleDataIntegrityViolationException(RedirectAttributes attributes) {
+        String minima = "Could not commit transaction!!";
+        attributes.addFlashAttribute("message", minima);
+        return "redirect:/admin/product";
+    }
     
     
 }

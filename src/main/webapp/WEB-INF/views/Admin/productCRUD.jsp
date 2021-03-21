@@ -32,6 +32,9 @@
                         <th>Category</th>
                         <th>Gender</th>
                         <th>Offer</th>
+                        <th>Size</th>
+                        <th>Color</th>
+                        <th>Stock</th>
                         <th colspan="2">Actions</th>
                     </tr>
                 </thead>
@@ -45,6 +48,9 @@
                         <td>${product.category.categoryname}</td>
                         <td>${product.gender.gendername}</td>
                         <td>${product.offer}</td>
+                        <td>${product.size.sizename}</td>
+                        <td>${product.color.colorname}</td>
+                        <td>${product.stock}</td>
 
                         <td>      
                             <a href="${pageContext.request.contextPath}/product/update/${product.productid}">Update</a>

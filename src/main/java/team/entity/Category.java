@@ -25,6 +25,7 @@ import javax.xml.bind.annotation.XmlTransient;
  *
  * @author eon_A
  */
+
 @Entity
 @Table(name = "category")
 @XmlRootElement

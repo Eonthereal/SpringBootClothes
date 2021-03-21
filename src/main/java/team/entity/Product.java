@@ -6,9 +6,7 @@
 package team.entity;
 
 import java.io.Serializable;
-import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,14 +14,14 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinColumns;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -38,7 +36,8 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Product.findByTitle", query = "SELECT p FROM Product p WHERE p.title = :title")
     , @NamedQuery(name = "Product.findByImage", query = "SELECT p FROM Product p WHERE p.image = :image")
     , @NamedQuery(name = "Product.findByPrice", query = "SELECT p FROM Product p WHERE p.price = :price")
-    , @NamedQuery(name = "Product.findByOffer", query = "SELECT p FROM Product p WHERE p.offer = :offer")})
+    , @NamedQuery(name = "Product.findByOffer", query = "SELECT p FROM Product p WHERE p.offer = :offer")
+    , @NamedQuery(name = "Product.findByStock", query = "SELECT p FROM Product p WHERE p.stock = :stock")})
 public class Product implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -47,45 +46,39 @@ public class Product implements Serializable {
     @Basic(optional = false)
     @Column(name = "productid")
     private Integer productid;
+    @Size(max = 45)
     @Column(name = "title")
     private String title;
+    @Size(max = 100)
     @Column(name = "image")
     private String image;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "price")
     private Double price;
     @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 3)
     @Column(name = "offer")
     private String offer;
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "product_color",
-            joinColumns ={ 
-                @JoinColumn(name = "productid", referencedColumnName = "productid")},inverseJoinColumns = {
-                @JoinColumn(name = "colorid", referencedColumnName = "colorid")})
-    private List<Color> colorList;
-    
-    //Sto mathima eixame pei oti isws na itan kalo na valoume diko tou ID (2:26:00) 19/02/2021 kai o syndiasmos twn 2 fk na einai unique
-    //endiameso entity product_order (ManyToOne kai gia dyo), apo ti plevra tou order oneToMany kai apo ti plevra tou product oneToMany 
-    //to product kai to order tha exoun apo mia lista product_order. 
-    //product_oder tha exei kai pedio Order kai pedio Product
-    @ManyToMany(mappedBy = "productList")
-    private List<Orders> ordersList;
-    
-    
-    @JoinTable(name = "product_sizes", joinColumns = {
-    @JoinColumn(name = "productid", referencedColumnName = "productid")}, inverseJoinColumns = {
-    @JoinColumn(name = "sizesid", referencedColumnName = "sizesid")})
-    @ManyToMany
-    private List<Sizes> sizesList;
-  
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "stock")
+    private int stock;
     @JoinColumn(name = "brandid", referencedColumnName = "brandid")
     @ManyToOne(optional = false)
     private Brand brand;
     @JoinColumn(name = "categoryid", referencedColumnName = "categoryid")
     @ManyToOne(optional = false)
-    private Category category;@JoinColumn(name = "genderid", referencedColumnName = "genderid")
+    private Category category;
+    @JoinColumn(name = "colorid", referencedColumnName = "colorid")
+    @ManyToOne(optional = false)
+    private Color color;
+    @JoinColumn(name = "genderid", referencedColumnName = "genderid")
     @ManyToOne(optional = false)
     private Gender gender;
+    @JoinColumn(name = "sizeid", referencedColumnName = "sizesid")
+    @ManyToOne(optional = false)
+    private Sizes size;
 
     public Product() {
     }
@@ -94,23 +87,24 @@ public class Product implements Serializable {
         this.productid = productid;
     }
 
-//    public Product(Integer productid, String offer) {
+//    public Product(Integer productid, String offer, int stock) {
 //        this.productid = productid;
 //        this.offer = offer;
+//        this.stock = stock;
 //    }
 
-    public Product(Integer productid, String title, String image, Double price, String offer, List<Color> colorList, List<Orders> ordersList, List<Sizes> sizesList, Brand brand, Category category, Gender gender) {
+    public Product(Integer productid, String title, String image, Double price, String offer, int stock, Brand brand, Category category, Color color, Gender gender, Sizes sizeid) {
         this.productid = productid;
         this.title = title;
         this.image = image;
         this.price = price;
         this.offer = offer;
-        this.colorList = colorList;
-        this.ordersList = ordersList;
-        this.sizesList = sizesList;
+        this.stock = stock;
         this.brand = brand;
         this.category = category;
+        this.color = color;
         this.gender = gender;
+        this.size = sizeid;
     }
     
     
@@ -155,31 +149,12 @@ public class Product implements Serializable {
         this.offer = offer;
     }
 
-    @XmlTransient
-    public List<Color> getColorList() {
-        return colorList;
+    public int getStock() {
+        return stock;
     }
 
-    public void setColorList(List<Color> colorList) {
-        this.colorList = colorList;
-    }
-
-    @XmlTransient
-    public List<Orders> getOrdersList() {
-        return ordersList;
-    }
-
-    public void setOrdersList(List<Orders> ordersList) {
-        this.ordersList = ordersList;
-    }
-
-    @XmlTransient
-    public List<Sizes> getSizesList() {
-        return sizesList;
-    }
-
-    public void setSizesList(List<Sizes> sizesList) {
-        this.sizesList = sizesList;
+    public void setStock(int stock) {
+        this.stock = stock;
     }
 
     public Brand getBrand() {
@@ -198,12 +173,28 @@ public class Product implements Serializable {
         this.category = category;
     }
 
+    public Color getColor() {
+        return color;
+    }
+
+    public void setColor(Color color) {
+        this.color = color;
+    }
+
     public Gender getGender() {
         return gender;
     }
 
     public void setGender(Gender gender) {
         this.gender = gender;
+    }
+
+    public Sizes getSize() {
+        return size;
+    }
+
+    public void setSize(Sizes size) {
+        this.size = size;
     }
 
     @Override
@@ -228,7 +219,7 @@ public class Product implements Serializable {
 
     @Override
     public String toString() {
-        return "team.entity.Product[ productid=" + productid + " ]";
+        return "team.repository.Product[ productid=" + productid + " ]";
     }
-
+    
 }
