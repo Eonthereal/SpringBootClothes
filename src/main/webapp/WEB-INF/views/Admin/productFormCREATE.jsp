@@ -55,6 +55,21 @@
             <form:radiobuttons path="gender" items="${genders}" itemLabel="gendername" itemValue="genderid" element="li" required="required"/>
             <form:errors path="gender"/>
             
+            
+            <br/>
+           
+            <form:radiobuttons path="size" items="${sizes}" itemLabel="sizename" itemValue="sizesid" element="li" required="required"/>
+            <form:errors path="size"/>
+            
+            
+            <br/>
+           
+            <form:radiobuttons path="color" items="${colors}" itemLabel="colorname" itemValue="colorid" element="li" required="required"/>
+            <form:errors path="color"/>
+            
+            
+            
+            
 
             <%--path = το όνομα το που "καταγράφετε" το στοιχείο. Εδώ είναι to userList του User --%>
             <%--items = το ονομα που έχουμε δώσει στο πεδίο του ModelAttributes(βλ. UserControllerAdmin class) --%>

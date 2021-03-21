@@ -8,15 +8,17 @@ package team.entity;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -39,9 +41,10 @@ public class Sizes implements Serializable {
     @Basic(optional = false)
     @Column(name = "sizesid")
     private Integer sizesid;
+    @Size(max = 45)
     @Column(name = "sizename")
     private String sizename;
-    @ManyToMany(mappedBy = "sizesList")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "size")
     private List<Product> productList;
 
     public Sizes() {
@@ -98,7 +101,7 @@ public class Sizes implements Serializable {
 
     @Override
     public String toString() {
-        return "team.entity.Sizes[ sizesid=" + sizesid + " ]";
+        return "team.repository.Sizes[ sizesid=" + sizesid + " ]";
     }
     
 }
