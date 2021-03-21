@@ -53,10 +53,10 @@
                         <td>${product.stock}</td>
 
                         <td>      
-                            <a href="${pageContext.request.contextPath}/product/update/${product.productid}">Update</a>
+                            <a href="${pageContext.request.contextPath}/admin/product/update/${product.productid}">Update</a>
                         </td>
                         <td>
-                            <a href="${pageContext.request.contextPath}/product/delete?id=${product.productid}">Delete</a>
+                            <a href="${pageContext.request.contextPath}/admin/product/delete?id=${product.productid}">Delete</a>
                         </td>
                     </tr>
                 </c:forEach>
