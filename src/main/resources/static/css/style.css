@@ -85,7 +85,7 @@ p {
 }
 
 .btn:hover {
-  background: #563434;
+  background: #033b21;
 }
 
 .categories {
@@ -336,6 +336,9 @@ select:focus{
     color: #fff;
 }
 
+
+
+
 /* -----------single product details----------- */
 
 .single-product{
@@ -456,15 +459,15 @@ th:last-child{
 /* ------------------------account page--------------------- */
 .account-page{
   padding: 50px 0;
-  background: radial-gradient(#fff, #ffd6d6);
+  background: radial-gradient(#fff, #e2ffd6);
 }
 .form-container{
   background: #fff;
   width: 300px;
-  height: 400px;
+  height: 500px;
   position: relative;
   text-align: center;
-  padding: 20px 0;
+  padding: 40px 0;
   margin: auto;
   box-shadow: 0 0 20px 0px rgba(0, 0, 0, 0.1);
   overflow: hidden;
@@ -509,11 +512,11 @@ form .btn:focus{
 }
 
 #LoginForm{
-  left: -300px;
+  left: 0px;
 }
 
 #RegForm{
-  left: 0;
+  left: -300px;
 }
 
 form a{
@@ -568,6 +571,7 @@ form a{
     width: 100%;
     overflow: hidden;
     transition: max-height 0.5s;
+    z-index: 10;
   }
 
   nav ul li {
@@ -586,30 +590,30 @@ form a{
   }
 }
 
+
 /* -------media query for less than 600 screen size ---------------*/
 @media only screen and (max-width: 600px) {
-    .row{
-        text-align: center;
-    }
-    .col-2, .col-3, .col-4{
-        flex-basis: 100%;
-    }
+  .row{
+      text-align: center;
+  }
+  .col-2, .col-3, .col-4{
+      flex-basis: 100%;
+  }
 
-    .single-product .row{
-      text-align: left;
-    }
-  
-    .single-product .col-2{
-      padding: 20px 0;
-    }
-    .single-product h1{
-      font-size: 26px;
-      line-height: 32px;
-    }
-  
-    .cart-info p{
-      display: none;
-    }
+  .single-product .row{
+    text-align: left;
+  }
+
+  .single-product .col-2{
+    padding: 20px 0;
+  }
+  .single-product h1{
+    font-size: 26px;
+    line-height: 32px;
+  }
+
+  .cart-info p{
+    display: none;
+  }
 
 }
-

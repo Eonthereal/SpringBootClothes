@@ -53,6 +53,8 @@
                 </div>
             </div>
         </div>
+                    
+         <!-----MAIN----->
         <div class="small-container">
             <div class="row row-2">
                 <h2>PAGE TITLE</h2>
