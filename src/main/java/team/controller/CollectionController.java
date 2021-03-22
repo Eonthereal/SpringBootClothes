@@ -79,19 +79,25 @@ public class CollectionController {
         return colorService.findAll();
     }
     
-    
-    @GetMapping
-    public String showCollection(Model model){
-        
-        List<Product> listOfProducts = productRepo.findAll();
-        model.addAttribute("listOfProducts", listOfProducts);
-        return ("Navigation/collection");
+    @ModelAttribute("products")
+    public List<Product> getProducts(){
+        return productRepo.findAll();
     }
+   
     
-//    
+    //Αυτό δε δουλεύει μαζί με τα filters
 //    @GetMapping
-//    public String showFilters(@ModelAttribute("product") Product product){
-//
+//    public String showCollection(Model model){
+//        
+//        List<Product> listOfProducts = productRepo.findAll();
+//        model.addAttribute("listOfProducts", listOfProducts);
 //        return ("Navigation/collection");
 //    }
+    
+//    
+    @GetMapping
+    public String showFilters(@ModelAttribute("product") Product product){
+
+        return ("Navigation/collection");
+    }
 }
