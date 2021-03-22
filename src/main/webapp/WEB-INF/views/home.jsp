@@ -344,10 +344,10 @@
             <div class="small-container">
                 <div class="row">
                     <div class="col-5">
-                        <img src="images/logo-godrej.png">
+                        <img src="images/peoplecert-logo.png">
                     </div>
                     <div class="col-5">
-                        <img src="images/logo-oppo.png">
+                        <img src="images/spring-boot-logo.png">
                     </div>
                     <div class="col-5">
                         <img src="images/logo-coca-cola.png">
@@ -356,7 +356,7 @@
                         <img src="images/logo-paypal.png">
                     </div>
                     <div class="col-5">
-                        <img src="images/logo-philips.png">
+                        <img src="images/asus-logo.png">
                     </div>
                 </div>
             </div>
