@@ -68,7 +68,7 @@
                             <div class="form-btn">
                                 <span onclick="register()">Register</span>
                                 <span onclick="login()">Login</span>
-                                
+
                                 <hr id="Indicator">
                             </div>
                             <c:if test="${requestScope.registered != null}">

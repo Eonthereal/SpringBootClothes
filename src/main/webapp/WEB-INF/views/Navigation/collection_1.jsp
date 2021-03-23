@@ -23,20 +23,16 @@
                 display: flex;
                 flex-direction: row;
                 flex-wrap: wrap;
-
+                
                 list-style: none;
             }
-
+            
             li{
                 margin: 10px;
             }
 
 
         </style>
-        <script
-            src="https://code.jquery.com/jquery-3.6.0.js"
-            integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
-        crossorigin="anonymous"></script>
     </head>
     <body>
         <h1>COLLECTION</h1>
@@ -53,54 +49,44 @@
 
 
         <div>
-            <ul id="filters">
-                <li>
-                    <h4>Brands</h4>
-                    <c:forEach items="${brands}" var="brand">
-                        <input type="checkbox" name="brand" value="${brand.brandname}" id="${brand.brandname}">${brand.brandname}
-                    </c:forEach>
-                </li>    
-                <li>
+            <form:form action="${pageContext.request.contextPath}/collection" method="GET" modelAttribute="product">
 
-                    <h4>Categories</h4>
-                    <c:forEach items="${categories}" var="category">
-                        <input type="checkbox" name="category" value="${category.categoryname}" id="${category.categoryname} ">${category.categoryname} 
-                    </c:forEach>
-                </li> 
-                <li>
-                    <h4>Gender</h4>
-                    <c:forEach items="${genders}" var="gender">
-                        <input type="checkbox" name="gender" value="${gender.gendername}" id="${gender.gendername}">${gender.gendername}
-                    </c:forEach>
-                </li>
-                <li>
-                    <h4>Sizes</h4>
-                    <c:forEach items="${sizes}" var="size">
-                        <input type="checkbox" name="size"  value="${size.sizename}" id="${size.sizename}">${size.sizename}
-                    </c:forEach>
-                </li> 
-                <li>
-                    <h4>Colors</h4>
-                    <c:forEach items="${colors}" var="color">
-                        <input type="checkbox" name="color"  value="${color.colorname}" id="${color.colorname}">${color.colorname}
-                    </c:forEach>
-                </li>     
+                <h4>Brands</h4>
+                <c:forEach items="${brands}" var="brand">
+                    <input type="checkbox" name="brand" value="${brand.brandid}">${brand.brandname}
+                </c:forEach>            
+                <br>
+                <h4>Categories</h4>
+                <c:forEach items="${categories}" var="category">
+                    <input type="checkbox" name="category" value="${category.categoryid}">${category.categoryname} 
+                </c:forEach>
+                <br>
+                <h4>Gender</h4>
+                <c:forEach items="${genders}" var="gender">
+                    <input type="checkbox" name="gender" value="${gender.genderid}">${gender.gendername}
+                </c:forEach>
+                <br>
+                <h4>Sizes</h4>
+                <c:forEach items="${sizes}" var="size">
+                    <input type="checkbox" name="size"  value="${size.sizesid}"/>${size.sizename}
+                </c:forEach>
+                <br>
+                <h4>Colors</h4>
+                <c:forEach items="${colors}" var="color">
+                    <input type="checkbox" name="color"  value="${color.colorid}"/>${color.colorname}
+                </c:forEach>
+                <br>
 
-            </ul>
-            
-            <!--Έβαλα ένα hidden "select" πεδίο "All" και έδωσα ακόμα μία class all σε όλα τα products ώστε όταν δεν έχει φίλτρα να τα εμφανίζει πάλι όλα--> 
-            <select id="genre" hidden>
-                <option value="all">All</option>
-            </select>
-
-
+                <br>
+                <input type="submit" value="Submit"/>
+            </form:form>
         </div>
-
+          
         <div>
             <ul>
                 <c:forEach items="${products}" var="product">
                     <li>
-                        <div id="${product.title}" class="category ${product.brand.brandname} ${product.category.categoryname} ${product.gender.gendername} ${product.size.sizename} ${product.color.colorname} all">
+                        <div>
                             <img src="${pageContext.request.contextPath}/images/${product.image}"></img>
                             <h4>${product.title}</h4>
                             <div></div>
@@ -127,20 +113,5 @@
         <form:form action="${pageContext.request.contextPath}/logout" method="POST">
             <input type="submit" value="Logout">            
         </form:form>
-
-
-
-
-        <script>
-            $(document).ready(function () {
-                $(':input').change(function (evt) {
-                    var filter = $(':input:checked,select').map(function (index, el) {
-                        return "." + el.value;
-                    }).toArray().join("");
-                    $(".category").hide().filter(filter).show();
-                });
-            });
-        </script>
-
     </body>
 </html>
