@@ -51,15 +51,16 @@
             <a href="${pageContext.request.contextPath}/loginpage">Login</a>
         </div>
 
-
         <div>
+
             <ul id="filters" class="sections">
                 <li>
+
                     <h4>Brands</h4>
                     <c:forEach items="${brands}" var="brand">                        
                         <input type="checkbox" name="brand" value="${brand.brandname}" id="${brand.brandname}">${brand.brandname}
                     </c:forEach>
-                </li>    
+                    
                 <li>
 
                     <h4>Categories</h4>
@@ -85,9 +86,11 @@
                         <input type="checkbox" name="color"  value="${color.colorname}" id="${color.colorname}">${color.colorname}
                     </c:forEach>
                 </li>     
+
                 
             </ul>
                <input type="button" id="none" value="Clear All"/>
+
             <!--Έβαλα ένα hidden "select" πεδίο "All" και έδωσα ακόμα μία class all σε όλα τα products ώστε όταν δεν έχει φίλτρα να τα εμφανίζει πάλι όλα--> 
 <!--            <select id="genre" hidden>
                 <option value="all">All</option>
