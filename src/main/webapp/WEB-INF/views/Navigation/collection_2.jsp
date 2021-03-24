@@ -51,16 +51,15 @@
             <a href="${pageContext.request.contextPath}/loginpage">Login</a>
         </div>
 
+
         <div>
-
-            <ul id="filters" class="sections">
+            <ul id="filters">
                 <li>
-
                     <h4>Brands</h4>
-                    <c:forEach items="${brands}" var="brand">                        
+                    <c:forEach items="${brands}" var="brand">
                         <input type="checkbox" name="brand" value="${brand.brandname}" id="${brand.brandname}">${brand.brandname}
                     </c:forEach>
-                    
+                </li>    
                 <li>
 
                     <h4>Categories</h4>
@@ -87,44 +86,25 @@
                     </c:forEach>
                 </li>     
 
-                
             </ul>
-               <input type="button" id="none" value="Clear All"/>
-
+            
             <!--Έβαλα ένα hidden "select" πεδίο "All" και έδωσα ακόμα μία class all σε όλα τα products ώστε όταν δεν έχει φίλτρα να τα εμφανίζει πάλι όλα--> 
-<!--            <select id="genre" hidden>
+            <select id="genre" hidden>
                 <option value="all">All</option>
-            </select>-->
+            </select>
 
 
         </div>
 
         <div>
-            <ul class="sections">
+            <ul>
                 <c:forEach items="${products}" var="product">
                     <li>
-                        <!--data-brand="${product.brand.brandname}" data-category="${product.category.categoryname}" data-gender="${product.gender.gendername}"  data-size="${product.size.sizename}" data-color="${product.color.colorname}"-->
-                        <div id="${product.title}" class="grid-products" data-brand="${product.brand.brandname}" data-category="${product.category.categoryname}" data-gender="${product.gender.gendername}"  data-size="${product.size.sizename}" data-color="${product.color.colorname}">
+                        <div id="${product.title}" class="category ${product.brand.brandname} ${product.category.categoryname} ${product.gender.gendername} ${product.size.sizename} ${product.color.colorname} all">
                             <img src="${pageContext.request.contextPath}/images/${product.image}"></img>
                             <h4>${product.title}</h4>
                             <div></div>
-                            <p>${product.price} €</p> 
-                            <div>
-                                ${product.brand.brandname}
-                            </div>
-                            <div>
-                                ${product.category.categoryname}
-                            </div>
-                            <div>
-                                ${product.gender.gendername}
-                            </div>
-                            <div>
-                                ${product.size.sizename}
-                            </div>
-                            <div>
-                                ${product.color.colorname}
-                            </div>
-                            
+                            <p>${product.price} €</p>       
                         </div>
                     </li>
                 </c:forEach> 
@@ -152,61 +132,14 @@
 
 
         <script>
-//            $(document).ready(function () {
-//                $(':input').change(function (evt) {
-//                    var filter = $(':input:checked,select').map(function (index, el) {
-//                        return "." + el.value;
-//                    }).toArray().join("");
-//                    $(".category").hide().filter(filter).show();
-//                });
-//            });
-
-    $(document).ready(function () {
-
-            var $products = $('.grid-products'),
-
-                $filters = $("#filters input[type='checkbox']"),
-
-                product_filter = new ProductFilterLevel1($products, $filters);
-
-            product_filter.init();
-
-        });
-        function ProductFilterLevel1(products, filters) {
-            var _this = this;
-
-            this.init = function () {
-                this.products = products;
-                this.filters = filters;
-                this.bindEvents();
-            };
-            this.bindEvents = function () {
-                this.filters.click(this.filterGridProducts);
-                $('#none').click(this.removeAllFilters);
-            };
-            this.filterGridProducts = function () {
-                _this.products.hide();
-                var selectedFilters = _this.filters.filter(':checked');
-                if (selectedFilters.length) {
-                    var selectedFiltersValues = [];
-                    selectedFilters.each(function () {
-                        var currentFilter = $(this);
-
-                        selectedFiltersValues.push("[data-" + currentFilter.attr('name') + "='" + currentFilter.val() + "']");
-
-                    });
-
-                    _this.products.filter(selectedFiltersValues.join(',')).show();
-                } else {
-                    _this.products.show();
-                }
-            };
-            this.removeAllFilters = function () {
-                _this.filters.prop('checked', false);
-                _this.products.show();
-            }
-        }
-
+            $(document).ready(function () {
+                $(':input').change(function (evt) {
+                    var filter = $(':input:checked,select').map(function (index, el) {
+                        return "." + el.value;
+                    }).toArray().join("");
+                    $(".category").hide().filter(filter).show();
+                });
+            });
         </script>
 
     </body>
