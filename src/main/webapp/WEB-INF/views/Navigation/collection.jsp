@@ -50,39 +50,38 @@
             <a href="${pageContext.request.contextPath}/contact">Contact</a>
             <a href="${pageContext.request.contextPath}/loginpage">Login</a>
         </div>
-<!--            pageContext.setAttribute("brandlist", brandlist);%>-->
 
         <div>
             
                 
                     <h4>Brands</h4>
                     <c:forEach items="${brands}" var="brand">
-                        <input type="radio" name="brand" value="${brand.brandname}" id="${brand.brandname}">${brand.brandname}
+                        <input type="checkbox" name="brand" value="${brand.brandname}" id="${brand.brandname}">${brand.brandname}
                     </c:forEach>
                     
                 <li>
 
                     <h4>Categories</h4>
                     <c:forEach items="${categories}" var="category">
-                        <input type="radio" name="category" value="${category.categoryname}" id="${category.categoryname} ">${category.categoryname} 
+                        <input type="checkbox" name="category" value="${category.categoryname}" id="${category.categoryname} ">${category.categoryname} 
                     </c:forEach>
                 </li> 
                 <li>
                     <h4>Gender</h4>
                     <c:forEach items="${genders}" var="gender">
-                        <input type="radio" name="gender" value="${gender.gendername}" id="${gender.gendername}">${gender.gendername}
+                        <input type="checkbox" name="gender" value="${gender.gendername}" id="${gender.gendername}">${gender.gendername}
                     </c:forEach>
                 </li>
                 <li>
                     <h4>Sizes</h4>
                     <c:forEach items="${sizes}" var="size">
-                        <input type="radio" name="size"  value="${size.sizename}" id="${size.sizename}">${size.sizename}
+                        <input type="checkbox" name="size"  value="${size.sizename}" id="${size.sizename}">${size.sizename}
                     </c:forEach>
                 </li> 
                 <li>
                     <h4>Colors</h4>
                     <c:forEach items="${colors}" var="color">
-                        <input type="radio" name="color"  value="${color.colorname}" id="${color.colorname}">${color.colorname}
+                        <input type="checkbox" name="color"  value="${color.colorname}" id="${color.colorname}">${color.colorname}
                     </c:forEach>
                 </li>     
 
