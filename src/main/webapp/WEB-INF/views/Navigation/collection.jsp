@@ -31,6 +31,13 @@
                 margin: 10px;
             }
 
+            body{
+                background-color: lightgray;
+            }
+            img{
+                width: 50%;
+                
+            }
 
         </style>
         <script
@@ -106,7 +113,7 @@
                         <!--data-brand="${product.brand.brandname}" data-category="${product.category.categoryname}" data-gender="${product.gender.gendername}"  data-size="${product.size.sizename}" data-color="${product.color.colorname}"-->
                         <div id="${product.title}" class="grid-products" data-brand="${product.brand.brandname}" data-category="${product.category.categoryname}" data-gender="${product.gender.gendername}"  data-size="${product.size.sizename}" data-color="${product.color.colorname}">
                             <img src="${pageContext.request.contextPath}/images/${product.image}"></img>
-                            <h4>${product.title}</h4>
+                            <h4><a href="${pageContext.request.contextPath}/collection/${product.productid}"> ${product.title}  </a></h4>
                             <div></div>
                             <p>${product.price} €</p> 
                             <div>

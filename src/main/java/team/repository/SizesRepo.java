@@ -15,7 +15,7 @@ import team.entity.Sizes;
  */
 public interface SizesRepo extends JpaRepository<Sizes, Integer> {
 
-public List<Sizes>findAll();
+//public List<Sizes>findAll();
 
 public Sizes findById(int id);
 

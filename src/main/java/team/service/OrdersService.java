@@ -6,12 +6,19 @@
 package team.service;
 
 import org.springframework.stereotype.Service;
-import team.entity.Product;
+import team.entity.Orders;
 
+/**
+ *
+ * @author eon_A
+ */
 @Service
-public interface ProductService {
+public interface OrdersService {
     
-    Product createProduct(Product product);
+    Orders saveOrder(Orders order);
     
-    Product findById(int productId);
+    Orders createOrder(Orders order);
+    
+    
+    
 }

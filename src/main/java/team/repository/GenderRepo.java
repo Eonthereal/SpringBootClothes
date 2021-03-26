@@ -15,7 +15,7 @@ import team.entity.Gender;
  */
 public interface GenderRepo extends JpaRepository<Gender, Integer> {
     
- public List<Gender>findAll();
+// public List<Gender>findAll();
  
  public Gender findById(int id);
         

@@ -15,7 +15,7 @@ import team.entity.Color;
  */
 public interface ColorRepo extends JpaRepository <Color, Integer>{
     
-    public List<Color> findAll();
+//    public List<Color> findAll();
     
     public Color findById(int id);
     

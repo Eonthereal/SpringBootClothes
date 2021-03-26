@@ -5,6 +5,7 @@
  */
 package team.service;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,8 +25,16 @@ public class ProductServiceImpl implements ProductService{
 
     @Override
     public Product createProduct(Product product) {       
-       return product=productRepo.save(product);
+       return productRepo.save(product);
     
+    }
+
+    @Override
+    public Product findById(int productId) {
+          
+        Product product=productRepo.findById(productId).get();
+//        System.out.println("Service implement>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"+product.toString());
+        return product;
     }
     
 }

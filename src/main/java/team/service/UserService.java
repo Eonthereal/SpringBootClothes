@@ -15,7 +15,7 @@ import team.entity.User;
 //@Transactional
 public interface UserService extends UserDetailsService {
     
-    User findByUsernane(String username);
+    User findByUsername(String username);
     
     User saveUser(User user);
 

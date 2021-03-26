@@ -36,8 +36,8 @@
                     <nav>
                         <ul id="MenuItems">
                             <sec:authorize access ="hasRole('ADMIN')">
-                            <li><a href="${pageContext.request.contextPath}/admin">Admin</a></li>
-                            </sec:authorize> 
+                                <li><a href="${pageContext.request.contextPath}/admin">Admin</a></li>
+                                </sec:authorize> 
                             <li><a href="${pageContext.request.contextPath}/">Home</a></li>
                             <li><a href="${pageContext.request.contextPath}/collection">Collection</a></li>
                             <li><a href="${pageContext.request.contextPath}/offers">Offers</a></li>
@@ -46,14 +46,14 @@
                             <li><a href="${pageContext.request.contextPath}/loginpage">Login</a></li>
                         </ul>
                     </nav>
-                    <img src="images/cart.png" width="30px" height="30px">
+                    <a href="${pageContext.request.contextPath}/user/cart"><img src="images/cart.png" width="30px" height="30px"></a>
                     <img src="images/menu.png" class="menu-icon" onclick="menutoggle()">
 
                     <div class="row">
                         <sec:authorize access ="hasAnyRole('ADMIN','USER')"> <!--Το sec:authedication το έβαλα ενδιάμεσα του sec:authorize γιατί έσκαγε όλο το Home όταν δεν υπήρχε Login με κάποιο ROLE -->
-                            
+
                             <a href="${pageContext.request.contextPath}/user/profile/<sec:authentication property="principal.username"/>"> <sec:authentication property="principal.username"/></a>
-                         
+
                             <%--<spa><sec:authentication property="principal.authorities"/></spa>--%>
                         </sec:authorize> 
 
@@ -62,12 +62,12 @@
                         </form:form>
                     </div>
                 </div>
-                        
-                        
-                        
-                        
-                        
-                        
+
+
+
+
+
+
                 <div class="row">
                     <div class="col-2">
                         <h1>Give Your Spring Boot Project<br> A New Style!</h1>
@@ -400,12 +400,12 @@
                     </div>
                 </div>
                 <hr>
-               <p class="copyright">Copyright 2021 - CB12 Part Time</p>
+                <p class="copyright">Copyright 2021 - CB12 Part Time</p>
             </div>
         </div>
 
         <!-- js for toggle menu -->
-         <script src="js/burgermenu.js"></script>
+        <script src="js/burgermenu.js"></script>
 
     </body>
 </html>

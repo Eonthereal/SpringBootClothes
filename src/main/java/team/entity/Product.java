@@ -46,15 +46,18 @@ public class Product implements Serializable {
     @Basic(optional = false)
     @Column(name = "productid")
     private Integer productid;
+
     @Size(max = 45)
     @Column(name = "title")
     private String title;
+
     @Size(max = 100)
     @Column(name = "image")
     private String image;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
+
     @Column(name = "price")
     private Double price;
+
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 3)
@@ -92,7 +95,6 @@ public class Product implements Serializable {
 //        this.offer = offer;
 //        this.stock = stock;
 //    }
-
     public Product(Integer productid, String title, String image, Double price, String offer, int stock, Brand brand, Category category, Color color, Gender gender, Sizes sizeid) {
         this.productid = productid;
         this.title = title;
@@ -106,8 +108,6 @@ public class Product implements Serializable {
         this.gender = gender;
         this.size = sizeid;
     }
-    
-    
 
     public Integer getProductid() {
         return productid;
@@ -219,7 +219,8 @@ public class Product implements Serializable {
 
     @Override
     public String toString() {
-        return "team.repository.Product[ productid=" + productid + " ]";
+        return "team.repository.Product[ productid=" + productid + " title " + title+ " image " + image + " price "+ price + " offer " + offer
+          + " stock " + stock + " brand " + brand + " category " + category+ " color " + color +" gender " + gender +" size "+ size + " ]";
     }
-    
+
 }
