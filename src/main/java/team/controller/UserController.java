@@ -51,27 +51,20 @@ public class UserController {
     }
 
     //===========================CART IMPLEMENTATION============================
-    
     @GetMapping("/cart")
-    public String showCart(Principal principal, Model model){
-      
+    public String showCart(Principal principal, Model model) {
         try {
             List<Product> cartProducts = pendindOrder(principal.getName());
-        for (Product x : cartProducts){
-            System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>" + x.toString());  
-        }
-        model.addAttribute("cartProducts", cartProducts);
+            for (Product x : cartProducts) {
+                System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>" + x.toString());
+            }
+            model.addAttribute("cartProducts", cartProducts);
         } catch (NullPointerException e) {
-            
             System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>EMPTY LIST");
         }
-        
-        
-        
         return "Navigation/cart";
     }
-    
-    
+
     @GetMapping("/cart/{productid}")
     public String addToCart(Principal principal, Model model, @PathVariable("productid") int productid) {
 
@@ -100,7 +93,7 @@ public class UserController {
                 order.setOrderdate(LocalDate.now());
                 order.setStatus("PENDING");
                 ordersService.saveOrder(order);
-                cartList=x.getProductList();
+                cartList = x.getProductList();
                 break;
             }
 
@@ -108,16 +101,15 @@ public class UserController {
 
         return cartList;
     }
-    
+
     private List<Product> pendindOrder(String userName) {
-         User user = userService.findByUsername(userName);
-         for (Orders x : user.getOrdersList()) {
-             if (x.getStatus().equalsIgnoreCase("PENDING")) {
-                 return x.getProductList();
-             }
-         }
-         return null;
+        User user = userService.findByUsername(userName);
+        for (Orders x : user.getOrdersList()) {
+            if (x.getStatus().equalsIgnoreCase("PENDING")) {
+                return x.getProductList();
+            }
+        }
+        return null;
     }
-    
 
 }
