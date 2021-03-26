@@ -13,7 +13,7 @@ import team.entity.Brand;
 @Repository
 public interface BrandRepo extends JpaRepository<Brand, Integer> {
     
-    public List<Brand> findAll();
+//    public List<Brand> findAll();
     
     public Brand findById(int id);
     

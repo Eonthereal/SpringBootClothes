@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import team.entity.Brand;
 import team.entity.Category;
@@ -100,4 +101,16 @@ public class CollectionController {
 
         return ("Navigation/collection");
     }
+    
+    //======================================SHOW SINGLE PRODUCT INFO==========================================
+    @GetMapping("/{productid}")
+    public String showProduct(/*Product product,*/ @PathVariable("productid") int productid, Model model){
+        
+        Product productToShow = productRepo.findById(productid).get();
+        
+        model.addAttribute("product", productToShow);
+
+        return ("Navigation/product");
+    }
+    
 }

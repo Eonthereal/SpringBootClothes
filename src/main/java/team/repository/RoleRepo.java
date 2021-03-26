@@ -20,7 +20,7 @@ public interface RoleRepo extends JpaRepository<Role, Integer> {
     
     public Role findByTypeContaining(String type); // SELECT * FROM role WHERE type LIKE '%USER%' υπάρχει μέσα στο Spring Data JPA
     
-    public List<Role> findAll();
+//    public List<Role> findAll();
 
     
     

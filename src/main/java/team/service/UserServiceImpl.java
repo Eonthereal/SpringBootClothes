@@ -33,7 +33,7 @@ public class UserServiceImpl implements UserService {
     RoleRepo roleRepo;
 
     @Override
-    public User findByUsernane(String username) {
+    public User findByUsername(String username) {
         return userRepo.findByUsername(username);
     }
 
@@ -49,7 +49,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         //Get User from DB
-        User user = findByUsernane(username); // η μεθοδος από πάνω είναι.
+        User user = findByUsername(username); // η μεθοδος από πάνω είναι.
 
         //if user not exists then throw exception
         if (user == null) {
@@ -82,6 +82,9 @@ public class UserServiceImpl implements UserService {
         user = userRepo.save(user);
         return user;
     }
+    
+    
+    
     
     
     

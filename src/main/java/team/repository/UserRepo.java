@@ -16,5 +16,9 @@ public interface UserRepo extends JpaRepository<User, Integer> {
     //Μέθοδος που θα φέρει το username από τη βάση (π.χ. για το login) 
     @Query(value = "SELECT u FROM User u WHERE u.username = ?1")
     User findByUsername(String username);
+    
+    
+    
+    
      
 }

@@ -6,6 +6,7 @@
 package team.entity;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
@@ -62,9 +63,9 @@ public class Orders implements Serializable {
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "totalcost")
     private Double totalcost;
-    @Column(name = "orderdate")
-    @Temporal(TemporalType.DATE)
-    private Date orderdate;
+    @Column(name = "orderdate", columnDefinition = "DATE")
+//    @Temporal(TemporalType.DATE)
+    private LocalDate orderdate;
     
     //endiameso entity product_order (ManyToOne kai gia dyo), apo ti plevra tou order oneToMany kai apo ti plevra tou product oneToMany 
     //to product kai to order tha exoun apo mia lista product_order. 
@@ -85,6 +86,18 @@ public class Orders implements Serializable {
 
     public Orders(Integer ordersid) {
         this.ordersid = ordersid;
+    }
+
+    public Orders(Integer ordersid, String city, String address, String zipcode, String status, Double totalcost, LocalDate orderdate, List<Product> productList, User user) {
+        this.ordersid = ordersid;
+        this.city = city;
+        this.address = address;
+        this.zipcode = zipcode;
+        this.status = status;
+        this.totalcost = totalcost;
+        this.orderdate = orderdate;
+        this.productList = productList;
+        this.user = user;
     }
 
     public Integer getOrdersid() {
@@ -135,11 +148,11 @@ public class Orders implements Serializable {
         this.totalcost = totalcost;
     }
 
-    public Date getOrderdate() {
+    public LocalDate getOrderdate() {
         return orderdate;
     }
 
-    public void setOrderdate(Date orderdate) {
+    public void setOrderdate(LocalDate orderdate) {
         this.orderdate = orderdate;
     }
 
