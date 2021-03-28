@@ -101,17 +101,29 @@ public class UserController {
         for (Orders x : user.getOrdersList()) {
             if (x.getStatus().equalsIgnoreCase("PENDING")) {
               
-                  for (ProductOrders y : x.getProductList()){
+
                   ProductOrders temp = new ProductOrders(product.getProductid(), x.getOrdersid(), 1, 1);               
+                  System.out.println("PoducutList before adding product>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> "+x.getProductList().size());
+
                   x.getProductList().add(temp);
+                  System.out.println("TEMPITEM >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> "+temp);
                   productOrdersRepo.save(temp);
-                  for (ProductOrders c : x.getProductList()){
-                  cartItems.add(c.getProduct());
+                  
+                  
+                  cartItems.add(product);
+                  for (int i=0 ; i<x.getProductList().size()-1; i++ ){
+//                  for (ProductOrders c : x.getProductList()){
+//                  cartItems.add(c.getProduct());
+                      cartItems.add(x.getProductList().get(i).getProduct());
+                      
+                      System.out.println("cartItems before adding product>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> "+cartItems.size());
                   }
-                  cartItems.add(product);               
+//                     
+                     System.out.println("cartItems after adding product>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> "+cartItems.size());
+
                   break;
-                  }
-                break;  
+
+
                   
 
             } else {
