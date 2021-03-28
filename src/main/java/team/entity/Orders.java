@@ -22,6 +22,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -70,11 +71,17 @@ public class Orders implements Serializable {
     //endiameso entity product_order (ManyToOne kai gia dyo), apo ti plevra tou order oneToMany kai apo ti plevra tou product oneToMany 
     //to product kai to order tha exoun apo mia lista product_order. 
     //product_oder tha exei kai pedio Order kai pedio Product
-    @JoinTable(name = "product_order", joinColumns = {
-        @JoinColumn(name = "ordersid", referencedColumnName = "ordersid")}, inverseJoinColumns = {
-        @JoinColumn(name = "productid", referencedColumnName = "productid")})
-    @ManyToMany(cascade = CascadeType.ALL)
-    private List<Product> productList;
+//    @JoinTable(name = "product_order", joinColumns = {
+//        @JoinColumn(name = "ordersid", referencedColumnName = "ordersid")}, inverseJoinColumns = {
+//        @JoinColumn(name = "productid", referencedColumnName = "productid")})
+//    @ManyToMany(cascade = CascadeType.ALL)
+//    private List<Product> productList;
+    
+    @OneToMany(mappedBy = "orders")
+    private List<ProductOrders> productList;
+    
+    
+    
     
     
     @JoinColumn(name = "userid", referencedColumnName = "userid")      
@@ -88,7 +95,7 @@ public class Orders implements Serializable {
         this.ordersid = ordersid;
     }
 
-    public Orders(Integer ordersid, String city, String address, String zipcode, String status, Double totalcost, LocalDate orderdate, List<Product> productList, User user) {
+    public Orders(Integer ordersid, String city, String address, String zipcode, String status, Double totalcost, LocalDate orderdate, List<ProductOrders> productList, User user) {
         this.ordersid = ordersid;
         this.city = city;
         this.address = address;
@@ -157,11 +164,11 @@ public class Orders implements Serializable {
     }
 
     @XmlTransient
-    public List<Product> getProductList() {
+    public List<ProductOrders> getProductList() {
         return productList;
     }
 
-    public void setProductList(List<Product> productList) {
+    public void setProductList(List<ProductOrders> productList) {
         this.productList = productList;
     }
 

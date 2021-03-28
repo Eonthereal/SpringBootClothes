@@ -17,8 +17,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import team.entity.Orders;
 import team.entity.Product;
+import team.entity.ProductOrders;
 import team.entity.User;
 import team.repository.OrdersRepo;
+import team.repository.ProductOrdersRepo;
 import team.repository.ProductRepo;
 import team.service.OrdersService;
 import team.service.ProductService;
@@ -39,6 +41,9 @@ public class UserController {
 
     @Autowired
     OrdersService ordersService;
+    
+    @Autowired
+    ProductOrdersRepo productOrdersRepo;
 
     @GetMapping("/profile/{principal.username}")
     public String showUserProfile(Principal principal, Model model) {
@@ -55,14 +60,28 @@ public class UserController {
     public String showCart(Principal principal, Model model) {
         try {
             List<Product> cartProducts = pendindOrder(principal.getName());
-            for (Product x : cartProducts) {
-                System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>" + x.toString());
-            }
+//            for (Product x : cartProducts) {
+//                System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>" + x.toString());
+//            }
             model.addAttribute("cartProducts", cartProducts);
         } catch (NullPointerException e) {
             System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>EMPTY LIST");
         }
         return "Navigation/cart";
+    }
+    
+    private List<Product> pendindOrder(String userName) {
+        User user = userService.findByUsername(userName);
+        for (Orders x : user.getOrdersList()) {
+            if (x.getStatus().equalsIgnoreCase("PENDING")) {
+             List<Product> cartItems = new ArrayList();   
+                for (ProductOrders y : x.getProductList()){
+                    cartItems.add(y.getProduct());
+                }
+                return cartItems;
+            }
+        }
+        return null;
     }
 
     @GetMapping("/cart/{productid}")
@@ -77,39 +96,40 @@ public class UserController {
     private List<Product> addToOrder(String userName, int productId) {
         User user = userService.findByUsername(userName);
         Product product = productService.findById(productId);
-        List<Product> cartList = new ArrayList();
+        List<Product> cartItems = new ArrayList();
 
         for (Orders x : user.getOrdersList()) {
             if (x.getStatus().equalsIgnoreCase("PENDING")) {
-                cartList = x.getProductList();
-                cartList.add(product);
-                x.setProductList(cartList);
-                ordersService.saveOrder(x);
-                break;
+              
+                  for (ProductOrders y : x.getProductList()){
+                  ProductOrders temp = new ProductOrders(product.getProductid(), x.getOrdersid(), 1, 1);               
+                  x.getProductList().add(temp);
+                  productOrdersRepo.save(temp);
+                  for (ProductOrders c : x.getProductList()){
+                  cartItems.add(c.getProduct());
+                  }
+                  cartItems.add(product);               
+                  break;
+                  }
+                break;  
+                  
+
             } else {
-                Orders order = new Orders();
-                order.getProductList().add(product);
-                order.setUser(user);
-                order.setOrderdate(LocalDate.now());
-                order.setStatus("PENDING");
-                ordersService.saveOrder(order);
-                cartList = x.getProductList();
-                break;
+//                Orders order = new Orders();
+//                order.getProductList().add(product);
+//                order.setUser(user);
+//                order.setOrderdate(LocalDate.now());
+//                order.setStatus("PENDING");
+//                ordersService.saveOrder(order);
+//                cartList = x.getProductList();
+//                break;
             }
-
+//
         }
 
-        return cartList;
+        return cartItems;
     }
 
-    private List<Product> pendindOrder(String userName) {
-        User user = userService.findByUsername(userName);
-        for (Orders x : user.getOrdersList()) {
-            if (x.getStatus().equalsIgnoreCase("PENDING")) {
-                return x.getProductList();
-            }
-        }
-        return null;
-    }
+    
 
 }
