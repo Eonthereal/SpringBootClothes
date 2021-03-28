@@ -6,6 +6,7 @@
 package team.entity;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -82,6 +83,10 @@ public class Product implements Serializable {
     @JoinColumn(name = "sizeid", referencedColumnName = "sizesid")
     @ManyToOne(optional = false)
     private Sizes size;
+    
+    @OneToMany(mappedBy = "orders")
+    private List<ProductOrders> ordersList;
+    
 
     public Product() {
     }
@@ -95,7 +100,7 @@ public class Product implements Serializable {
 //        this.offer = offer;
 //        this.stock = stock;
 //    }
-    public Product(Integer productid, String title, String image, Double price, String offer, int stock, Brand brand, Category category, Color color, Gender gender, Sizes sizeid) {
+    public Product(Integer productid, String title, String image, Double price, String offer, int stock, Brand brand, Category category, Color color, Gender gender, Sizes sizeid, List<ProductOrders> ordersList) {
         this.productid = productid;
         this.title = title;
         this.image = image;
@@ -107,6 +112,7 @@ public class Product implements Serializable {
         this.color = color;
         this.gender = gender;
         this.size = sizeid;
+        this.ordersList=ordersList;
     }
 
     public Integer getProductid() {
@@ -195,6 +201,14 @@ public class Product implements Serializable {
 
     public void setSize(Sizes size) {
         this.size = size;
+    }
+
+    public List<ProductOrders> getOrdersList() {
+        return ordersList;
+    }
+
+    public void setOrdersList(List<ProductOrders> ordersList) {
+        this.ordersList = ordersList;
     }
 
     @Override
