@@ -15,6 +15,11 @@
         <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
               rel="stylesheet">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        <script
+            src="https://code.jquery.com/jquery-3.6.0.js"
+            integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+            crossorigin="anonymous">          
+        </script>
     </head>
     <body>
         <div class="container">
@@ -91,8 +96,8 @@
                         <option>Small</option>
                     </select>
                     <!------------------->
-                    <input type="number" value="1">
-                    <a href="${pageContext.request.contextPath}/user/cart/${product.productid}" class="btn">Add To Cart</a>
+                    <input type="number" min="1" max="${product.stock}" value="1" id="qty" oninput="linkchange()">
+                    <a href="${pageContext.request.contextPath}/user/cart/${product.productid}?qty=1" class="btn" id="qtylink">Add To Cart</a>
                     <h3>Product Details <i class="fa fa-indent"></i></h3>
                     <br>
                     <!--Θέλει φτιάξιμο-->
@@ -221,25 +226,35 @@
     <script src="${pageContext.request.contextPath}/js/burgermenu.js"></script>
 
     <script>
+        //script για να αλλάζουν οι εικόνες
                    var ProductImg = document.getElementById("productImg");
                    var SmallImg = document.getElementsByClassName("small-img");
 
                    SmallImg[0].onclick = function () {
                        ProductImg.src = SmallImg[0].src;
-                   }
+                   };
                    SmallImg[1].onclick = function () {
                        ProductImg.src = SmallImg[1].src;
-                   }
+                   };
                    SmallImg[2].onclick = function () {
                        ProductImg.src = SmallImg[2].src;
-                   }
+                   };
                    SmallImg[3].onclick = function () {
                        ProductImg.src = SmallImg[3].src;
-                   }
+                   };
 
 
     </script>
 
+    <script>  
+        //script για να αλλάζει το Link του add to cart
+            function linkchange(){
+            var num = $("#qty").val();
+            var link = "<a style='color:white' href='${pageContext.request.contextPath}/user/cart/${product.productid}?qty=" +num +"' >Add To Cart</a>";
+            document.getElementById("qtylink").innerHTML =link;
+        };
+     
+    </script>
 
 </body>
 </html>

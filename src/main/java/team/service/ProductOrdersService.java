@@ -5,24 +5,14 @@
  */
 package team.service;
 
+import java.util.List;
 import org.springframework.stereotype.Service;
-import team.entity.Orders;
+import team.entity.ProductOrders;
 
-/**
- *
- * @author eon_A
- */
 @Service
-public interface OrdersService {
+public interface ProductOrdersService {
     
-    Orders saveOrder(Orders order);
-    
-    Orders createOrder(Orders order);
-    
-    Orders findById(int ordersid);
-   
-
-    
+    public List<ProductOrders> findAll();
     
     
 }

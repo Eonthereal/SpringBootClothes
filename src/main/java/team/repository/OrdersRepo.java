@@ -13,6 +13,8 @@ import team.entity.Orders;
 @Repository
 public interface OrdersRepo extends JpaRepository<Orders, Integer>{
     
+    public Orders findById(int id);
     
+   
     
 }

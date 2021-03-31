@@ -2,6 +2,7 @@
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
+<%@taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix = "fn" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -15,6 +16,11 @@
         <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
               rel="stylesheet">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        <script
+            src="https://code.jquery.com/jquery-3.6.0.js"
+            integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+        crossorigin="anonymous"></script>
+
     </head>
     <body>
         <div class="container">
@@ -72,11 +78,30 @@
                                     <p>${product.title}</p>
                                     <small>${product.price} €</small>
                                     <br>
-                                    <a href="">Remove</a>
+                                    <a href="${pageContext.request.contextPath}/user/cart/delete/${pendingorder.ordersid}?pid=${product.productid}">Remove</a>
                                 </div>
                             </div>
                         </td>
-                        <td><input type="number" value="1"></td>
+                        <td>    
+                            <!--Το παρακάτω jstl μέσα στην input type number, φέρνει το quantity σε κάθε product της pending παραγγελίας του user-->
+                            <input type="number" 
+
+                                       <c:forEach items="${productorders}" var="productorder" >
+                                           <c:if test="${productorder.getOrders()==pendingorder}">  
+                                               <c:if test="${productorder.getProduct()==product}">
+                                                   value="${productorder.getQuantity()}"
+                                               </c:if>
+                                           </c:if>
+                                       </c:forEach>  
+                                       max="${product.stock}">
+
+                            <%--<c:forEach  items="${productorders}" var="productorder" >  
+                                <c:if test="${productorder.getOrders().getOrdersid()==pendingorder.getOrdersid()}">          
+                                    value="${pendingorder.getProductList().get(3).getQuantity()}"
+                                </c:if>
+                            </c:forEach>
+                            min="1" max="${product.stock}" class="qty">--%>
+                        </td>
                         <!--Εδώ πρέπει να μπεί ο υπολογισμός του quantity με το product.price-->
                         <td>${product.price} €</td>
                         <!--------------------------------------------------------------------->
@@ -84,7 +109,7 @@
                 </c:forEach>
 
             </table>
-
+<!--            <input type="button" onclick="quantity()" value="1000000"/>-->
             <div class="total-price">
 
                 <table>
@@ -158,26 +183,7 @@
         </div>
         <!-- /FOOTER -->
         <script src="${pageContext.request.contextPath}/js/burgermenu.js"></script>
-
-        <script>
-                        var ProductImg = document.getElementById("productImg");
-                        var SmallImg = document.getElementsByClassName("small-img");
-
-                        SmallImg[0].onclick = function () {
-                            ProductImg.src = SmallImg[0].src;
-                        }
-                        SmallImg[1].onclick = function () {
-                            ProductImg.src = SmallImg[1].src;
-                        }
-                        SmallImg[2].onclick = function () {
-                            ProductImg.src = SmallImg[2].src;
-                        }
-                        SmallImg[3].onclick = function () {
-                            ProductImg.src = SmallImg[3].src;
-                        }
-
-
-        </script>
+        
 
 
     </body>

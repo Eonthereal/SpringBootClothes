@@ -9,11 +9,9 @@ import java.util.List;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -45,16 +43,16 @@ public class UserControllerAdmin {
 
     @Autowired
     UserRepo userRepo;
-
+    
     @ModelAttribute("roles")
     public List<Role> getRoles() {
         return roleService.findAll();
     }
-
+    
     @GetMapping
     public String showUsers(Model model) {
         List<User> listOfUsers = userRepo.findAll();
-
+       
         model.addAttribute("listOfUsers", listOfUsers);
         return "Admin/userCRUD";
     }
