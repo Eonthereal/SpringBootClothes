@@ -39,7 +39,7 @@ public class ProductOrders implements Serializable {
 
     @Basic(optional = false)
     @Column(name = "quantity")
-    private int quantity;
+    private Integer quantity;
 
     @Basic(optional = false)
     @Column(name = "price")
@@ -66,11 +66,11 @@ public class ProductOrders implements Serializable {
         this.productOrdersId = productOrdersId;
     }
 
-    public ProductOrders(int productid, int ordersid) {
+    public ProductOrders(Integer productid, Integer ordersid) {
         this.productOrdersId = new ProductOrdersId(productid, ordersid);
     }
 
-    public ProductOrders(int productid, int ordersid,  int quantity, double price) {
+    public ProductOrders(Integer productid, Integer ordersid,  Integer quantity, double price) {
         this.productOrdersId = new ProductOrdersId(productid, ordersid);
         this.quantity = quantity;
         this.price = price;
@@ -100,11 +100,11 @@ public class ProductOrders implements Serializable {
         this.orders = orders;
     }
 
-    public int getQuantity() {
+    public Integer getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(int quantity) {
+    public void setQuantity(Integer quantity) {
         this.quantity = quantity;
     }
 

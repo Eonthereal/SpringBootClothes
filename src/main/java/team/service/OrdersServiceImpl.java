@@ -35,5 +35,10 @@ public class OrdersServiceImpl implements OrdersService {
        return order;
               
    }
+   
+    @Override
+    public Orders findById(int ordersid) {
+        return ordersRepo.findById(ordersid);
+    }
     
 }

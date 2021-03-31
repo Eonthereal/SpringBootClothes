@@ -22,32 +22,32 @@ public class ProductOrdersId implements Serializable {
 
     @Basic(optional = false)
     @Column(name = "productid")
-    private int productid;
+    private Integer productid;
     @Basic(optional = false)
     @Column(name = "ordersid")
-    private int ordersid;
+    private Integer ordersid;
 
     public ProductOrdersId() {
     }
 
-    public ProductOrdersId(int productid, int ordersid) {
+    public ProductOrdersId(Integer productid, Integer ordersid) {
         this.productid = productid;
         this.ordersid = ordersid;
     }
 
-    public int getProductid() {
+    public Integer getProductid() {
         return productid;
     }
 
-    public void setProductid(int productid) {
+    public void setProductid(Integer productid) {
         this.productid = productid;
     }
 
-    public int getOrdersid() {
+    public Integer getOrdersid() {
         return ordersid;
     }
 
-    public void setOrdersid(int ordersid) {
+    public void setOrdersid(Integer ordersid) {
         this.ordersid = ordersid;
     }
 

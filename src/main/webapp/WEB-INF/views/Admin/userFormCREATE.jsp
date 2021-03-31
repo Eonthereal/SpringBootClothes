@@ -53,8 +53,8 @@
             <label for="credits">credits :</label>
             <form:input id="credits" path="credits" />
             <form:errors path="credits"/>
-            <br/>            
-
+            <br/> 
+            
             <%--path = το όνομα το που "καταγράφετε" το στοιχείο. Εδώ είναι to userList του User --%>
             <%--items = το ονομα που έχουμε δώσει στο πεδίο του ModelAttributes(βλ. UserControllerAdmin class) --%>
             <%--itemLabel = από πιο πεδίο θα πέρνουν τα ονόματα τους τα Labels στην HTML --%>
@@ -64,7 +64,7 @@
             <p><strong>Choose Role:</strong></p>
             <form:radiobuttons path="roleList" items="${roles}" itemLabel="type" itemValue="roleid" element="li" required="required"/>
             <form:errors path="roleList"/>
-
+            
 
             <br/>
             <input type="submit" value="Submit"/>

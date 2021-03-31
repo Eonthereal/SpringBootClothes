@@ -7,6 +7,7 @@ package team.entity;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
@@ -89,6 +90,14 @@ public class Orders implements Serializable {
     private User user;
 
     public Orders() {
+    }
+    
+    
+
+    public Orders(User user , String status ) {
+        this.user=user;
+        this.status=status;
+        this.productList = new ArrayList<>();
     }
 
     public Orders(Integer ordersid) {
@@ -202,7 +211,8 @@ public class Orders implements Serializable {
 
     @Override
     public String toString() {
-        return "team.entity.Orders[ ordersid=" + ordersid + " ]";
+        return "Orders{" + "ordersid=" + ordersid + ", city=" + city + ", address=" + address + ", zipcode=" + zipcode + ", status=" + status + ", totalcost=" + totalcost + ", orderdate=" + orderdate + ", productList=" + productList + ", user=" + user + '}';
     }
+
     
 }

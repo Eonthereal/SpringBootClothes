@@ -36,10 +36,7 @@ import team.service.GenderService;
 import team.service.ProductService;
 import team.service.SizesService;
 
-/**
- *
- * @author tasos
- */
+
 @RequestMapping("/admin/product")
 @Controller
 public class ProductControllerAdmin {

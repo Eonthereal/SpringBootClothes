@@ -97,7 +97,7 @@ public class User implements Serializable {
     private List<Role> roleList;
     @OneToMany(mappedBy = "user" ,cascade = CascadeType.ALL) //
     private List<Orders> ordersList;
-
+    
     public User() {
     }
 
