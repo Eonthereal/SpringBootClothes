@@ -44,6 +44,7 @@
                             <li><a href="${pageContext.request.contextPath}/about">About</a></li>
                             <li><a href="${pageContext.request.contextPath}/contact">Contact</a></li>
                             <li><a href="${pageContext.request.contextPath}/loginpage">Login</a></li>
+                            <li><a href="${pageContext.request.contextPath}/chat">Chat</a></li>
                         </ul>
                     </nav>
                     <a href="${pageContext.request.contextPath}/user/cart"><img src="images/cart.png" width="30px" height="30px"></a>
