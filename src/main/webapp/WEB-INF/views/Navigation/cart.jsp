@@ -21,12 +21,16 @@
             integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
         crossorigin="anonymous"></script>
         <style>
+            .qty {
+                text-align:center;
+            }
+
             #pSubtotal {
                 -moz-appearance: textfield;
                 width: 75px;
                 border:0;
                 outline:0;
-                text-align: left;
+                text-align: right;
                 padding: 5px;
                 font-weight: normal;
                 font-family: "Poppins", sans-serif;
@@ -44,6 +48,7 @@
             .qty{
                 width: 50px;
             }
+
 
 
         </style>
@@ -131,8 +136,6 @@
                             <br>
                             <a href="" id="qtylink${product.productid}"></a>   
                         </td>
-                        <!--Εδώ πρέπει να μπεί ο υπολογισμός του quantity με το product.price-->
-
                         <td><input type="number" 
                                    <c:forEach items="${productorders}" var="productorder" >
                                        <c:if test="${productorder.getOrders()==pendingorder}">  
@@ -153,85 +156,100 @@
                 <table>
                     <tr>
                         <td>SubTotal</td>
-                        <!--<td>$200.00</td>-->
-                    </tr>
-                    <tr>
-                        <td>Tax</td>
-                        <!--<td>$35.00</td>-->
-                    </tr>
-                    <tr>
-                        <td>Total</td>
-                        <!--<td>$235.00</td>-->
-                    </tr>
-                </table>
+                        <td>
+             <!--------------------------------------Αυτό δε γράφει στη βάση------------------------------------------------->
+                            <c:set var ="subtotal" value="${0}"/>
+                                <c:forEach items="${cartProducts}" var = "product">
+                                    <c:forEach items="${productorders}" var="productorder" >
+                                        <c:if test="${productorder.getOrders()==pendingorder}">  
+                                            <c:if test="${productorder.getProduct()==product}">
+                                                <c:set var ="subtotal"  value="${subtotal+productorder.price}"/>  
+                                            </c:if>
+                                        </c:if>
+                                    </c:forEach>  
+                                </c:forEach>  
+                                <c:out  value= "${subtotal}"/>
+             <!------------------------------------------------------------------------------------------------------------->                  
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Tax (${tax.getVat()*100}) %</td>
+                            <td>${subtotal*tax.getVat()} €</td>
+                        </tr>
+                        <tr>
+                            <td>Total</td>
+                            <td>${pendingorder.getTotalcost()} €</td>
+                        </tr>
+                    </table>
 
-            </div>
-            <!-- εγώ το έβαλα αυτό -->
-            <a href="" class="btn">Next Step</a>
+                </div>
+                <!-- εγώ το έβαλα αυτό -->
+                <a href="" class="btn">Next Step</a>
 
-        </div>   
-
-
+            </div>   
 
 
-        <!-- /MAIN -->
 
-        <!-- FOOTER -->
 
-        <div class="footer">
-            <div class="container">
-                <div class="row">
-                    <div class="footer-col-1">
-                        <h3>Download Our App</h3>
-                        <p>Download App for Android and IOS mobile phone.</p>
-                        <div class="app-logo">
-                            <img src="${pageContext.request.contextPath}/images/play-store.png">
-                            <img src="${pageContext.request.contextPath}/images/app-store.png">
+            <!-- /MAIN -->
+
+            <!-- FOOTER -->
+
+            <div class="footer">
+                <div class="container">
+                    <div class="row">
+                        <div class="footer-col-1">
+                            <h3>Download Our App</h3>
+                            <p>Download App for Android and IOS mobile phone.</p>
+                            <div class="app-logo">
+                                <img src="${pageContext.request.contextPath}/images/play-store.png">
+                                <img src="${pageContext.request.contextPath}/images/app-store.png">
+                            </div>
+                        </div>
+                        <div class="footer-col-2">
+                            <img src="${pageContext.request.contextPath}/images/logo transparent.png">
+                            <p>Our Purpose Is To Learn How to Make Beautiful, User-friendly and Responsive Sites.
+                            </p>
+                        </div>
+                        <div class="footer-col-3">
+                            <h3>Useful Links</h3>
+                            <ul>
+                                <li>Coupons</li>
+                                <li>Blog Post</li>
+                                <li>Return Policy</li>
+                                <li>Join Affiliate</li>
+                            </ul>
+                        </div>
+                        <div class="footer-col-4">
+                            <h3>Follow us</h3>
+                            <ul>
+                                <li>Facebook</li>
+                                <li>Twitter</li>
+                                <li>Instagram</li>
+                                <li>Youtube</li>
+                            </ul>
                         </div>
                     </div>
-                    <div class="footer-col-2">
-                        <img src="${pageContext.request.contextPath}/images/logo transparent.png">
-                        <p>Our Purpose Is To Learn How to Make Beautiful, User-friendly and Responsive Sites.
-                        </p>
-                    </div>
-                    <div class="footer-col-3">
-                        <h3>Useful Links</h3>
-                        <ul>
-                            <li>Coupons</li>
-                            <li>Blog Post</li>
-                            <li>Return Policy</li>
-                            <li>Join Affiliate</li>
-                        </ul>
-                    </div>
-                    <div class="footer-col-4">
-                        <h3>Follow us</h3>
-                        <ul>
-                            <li>Facebook</li>
-                            <li>Twitter</li>
-                            <li>Instagram</li>
-                            <li>Youtube</li>
-                        </ul>
-                    </div>
+                    <hr>
+                    <p class="copyright">Copyright 2021 - CB12 Part Time</p>
                 </div>
-                <hr>
-                <p class="copyright">Copyright 2021 - CB12 Part Time</p>
+
+
             </div>
+            <!-- /FOOTER -->
+            <script src="${pageContext.request.contextPath}/js/burgermenu.js"></script>
 
+            <script>
+                    //script για να αλλάζει το Link του add to cart
+                    function linkchange(productId, orderId) {
 
-        </div>
-        <!-- /FOOTER -->
-        <script src="${pageContext.request.contextPath}/js/burgermenu.js"></script>
+                        var num = $("#" + productId).val();
+                        var link = "<a href='${pageContext.request.contextPath}/user/cart/update/" + productId + "?qty=" + num + "&oid=" + orderId + "'>Update</a>";
+                        document.getElementById("qtylink" + productId).innerHTML = link;
+                    }
+                    ;
 
- <script>  
-        //script για να αλλάζει το Link του add to cart
-            function linkchange(productId, orderId){
-           
-            var num = $("#"+productId).val();
-            var link = "<a href='${pageContext.request.contextPath}/user/cart/update/"+productId+"?qty=" +num +"&oid="+orderId+"'>Update</a>";
-            document.getElementById("qtylink"+productId).innerHTML =link;
-        };
-     
-    </script>
+            </script>
 
-    </body>
-</html>
+        </body>
+    </html>

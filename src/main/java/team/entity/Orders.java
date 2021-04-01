@@ -68,6 +68,9 @@ public class Orders implements Serializable {
     @Column(name = "orderdate", columnDefinition = "DATE")
 //    @Temporal(TemporalType.DATE)
     private LocalDate orderdate;
+    @Column(name = "tax")
+    private double tax;
+    
     
     //endiameso entity product_order (ManyToOne kai gia dyo), apo ti plevra tou order oneToMany kai apo ti plevra tou product oneToMany 
     //to product kai to order tha exoun apo mia lista product_order. 
@@ -94,17 +97,20 @@ public class Orders implements Serializable {
     
     
 
-    public Orders(User user , String status ) {
+    public Orders(User user , String status, Double tax) {
         this.user=user;
         this.status=status;
         this.productList = new ArrayList<>();
+        this.tax = tax;
+        
     }
 
-    public Orders(Integer ordersid) {
+    public Orders(Integer ordersid, Double tax) {
         this.ordersid = ordersid;
+        this.tax = tax;
     }
 
-    public Orders(Integer ordersid, String city, String address, String zipcode, String status, Double totalcost, LocalDate orderdate, List<ProductOrders> productList, User user) {
+    public Orders(Integer ordersid, String city, String address, String zipcode, String status, Double totalcost, LocalDate orderdate, List<ProductOrders> productList, User user, double tax) {
         this.ordersid = ordersid;
         this.city = city;
         this.address = address;
@@ -114,6 +120,7 @@ public class Orders implements Serializable {
         this.orderdate = orderdate;
         this.productList = productList;
         this.user = user;
+        this.tax = tax;
     }
 
     public Integer getOrdersid() {
