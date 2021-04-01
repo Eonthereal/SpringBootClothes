@@ -66,7 +66,6 @@ public class UserController {
     }
 
     //===========================CART IMPLEMENTATION============================
-    
     @ModelAttribute("productorders")
     public List<ProductOrders> getProductOrders() {
         return productOrdersService.findAll();
@@ -120,42 +119,55 @@ public class UserController {
         for (Orders x : user.getOrdersList()) {
             if (x.getStatus().equalsIgnoreCase("PENDING")) {
                 orderId = x.getOrdersid();
-                model.addAttribute("pendingorder", x); //Έχω εξηγήσει πιο πάνω στην pendingOrder() γιατί το κάνω αυτό.
+//                model.addAttribute("pendingorder", x); //Έχω εξηγήσει πιο πάνω στην pendingOrder() γιατί το κάνω αυτό.
                 pendingCheck = true;
                 break;
             }
         }
         if (pendingCheck == true) {
-//            System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>LATHOS");
             Orders order = ordersService.findById(orderId);
-            ProductOrders productAdded1 = new ProductOrders(product.getProductid(), orderId, qty, qty * product.getPrice());
-            order.getProductList().add(productAdded1);
-            productOrdersRepo.save(productAdded1);
-            cartItems.add(product);
-            for (int i = 0; i < order.getProductList().size() - 1; i++) {
-                cartItems.add(order.getProductList().get(i).getProduct());
-            }
+            cartItems = createList(product, order, qty, cartItems, model);
+            
+//            ProductOrders productAdded1 = new ProductOrders(product.getProductid(), orderId, qty, qty * product.getPrice());
+//            order.getProductList().add(productAdded1);
+//            productOrdersRepo.save(productAdded1);
+//            cartItems.add(product);
+//            for (int i = 0; i < order.getProductList().size() - 1; i++) {
+//                cartItems.add(order.getProductList().get(i).getProduct());
+//            }
         } else {
-//            System.out.println(">>>>>>>>>>>>>>>>>>test");
             Orders order = new Orders(user, "PENDING");
             ordersService.createOrder(order);
-            ProductOrders productAdded2 = new ProductOrders(product.getProductid(), order.getOrdersid(), qty, (qty * product.getPrice()));
-            order.getProductList().add(productAdded2);
-            productOrdersRepo.save(productAdded2);
-            cartItems.add(product);
-            model.addAttribute("pendingorder", order); //Έχω εξηγήσει πιο πάνω στην pendingOrder() γιατί το κάνω αυτό.
-            for (int i = 0; i < order.getProductList().size() - 1; i++) {
-                cartItems.add(order.getProductList().get(i).getProduct());
-            }
+            cartItems = createList(product, order, qty, cartItems, model);
+            
+//            ProductOrders productAdded2 = new ProductOrders(product.getProductid(), order.getOrdersid(), qty, (qty * product.getPrice()));
+//            order.getProductList().add(productAdded2);
+//            productOrdersRepo.save(productAdded2);
+//            cartItems.add(product);
+//            model.addAttribute("pendingorder", order); //Έχω εξηγήσει πιο πάνω στην pendingOrder() γιατί το κάνω αυτό.
+//            for (int i = 0; i < order.getProductList().size() - 1; i++) {
+//                cartItems.add(order.getProductList().get(i).getProduct());
+//            }
         }
-//
+        return cartItems;
+    }
 
+    //H createList έγινε διότι ο κώδικας της addToOrder επαναλαμβανόταν στην if-else
+    private List<Product> createList(Product product, Orders order, int qty, List<Product> cartItems, Model model) {
+        ProductOrders productAdded = new ProductOrders(product.getProductid(), order.getOrdersid(), qty, qty * product.getPrice());
+        order.getProductList().add(productAdded);
+        productOrdersRepo.save(productAdded);
+        cartItems.add(product);
+        model.addAttribute("pendingorder", order);//Έχω εξηγήσει πιο πάνω στην pendingOrder() γιατί το κάνω αυτό.
+        for (int i = 0; i < order.getProductList().size() - 1; i++) {
+            cartItems.add(order.getProductList().get(i).getProduct());
+        }
         return cartItems;
     }
 
     @GetMapping("cart/delete/{pendingorder.ordersid}")
-    public String delete(@PathVariable("pendingorder.ordersid") int ordersid, 
-                         @RequestParam("pid") int pid){
+    public String delete(@PathVariable("pendingorder.ordersid") int ordersid,
+            @RequestParam("pid") int pid) {
 
         ProductOrders po = new ProductOrders(pid, ordersid);
 
@@ -167,21 +179,20 @@ public class UserController {
 
         return "redirect:/user/cart";
     }
-    
+
     @GetMapping("cart/update/{productid}")
-    public String updateQuantity(@PathVariable("productid") int productid, 
-                                 @RequestParam("qty") int qty,
-                                 @RequestParam("oid") int orderId   ){
-        
+    public String updateQuantity(@PathVariable("productid") int productid,
+            @RequestParam("qty") int qty,
+            @RequestParam("oid") int orderId) {
+
         productService.findById(productid);
         ProductOrders po = new ProductOrders(productid, orderId);
-        po =  productOrdersRepo.findById(po.getProductOrdersId()).get();
+        po = productOrdersRepo.findById(po.getProductOrdersId()).get();
         po.setQuantity(qty);
-        po.setPrice(qty*productService.findById(productid).getPrice());
+        po.setPrice(qty * productService.findById(productid).getPrice());
         productOrdersRepo.save(po);
-        
-      return "redirect:/user/cart"  ;
+
+        return "redirect:/user/cart";
     }
-    
 
 }
