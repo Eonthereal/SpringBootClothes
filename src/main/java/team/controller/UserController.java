@@ -21,10 +21,12 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import team.entity.Orders;
 import team.entity.Product;
 import team.entity.ProductOrders;
+import team.entity.Tax;
 import team.entity.User;
 import team.repository.OrdersRepo;
 import team.repository.ProductOrdersRepo;
 import team.repository.ProductRepo;
+import team.repository.TaxRepo;
 import team.service.OrdersService;
 import team.service.ProductOrdersService;
 import team.service.ProductService;
@@ -54,6 +56,9 @@ public class UserController {
 
     @Autowired
     ProductOrdersService productOrdersService;
+    
+    @Autowired
+    TaxRepo taxRepo;
 
     @GetMapping("/profile/{principal.username}")
     public String showUserProfile(Principal principal, Model model) {
@@ -70,6 +75,11 @@ public class UserController {
     public List<ProductOrders> getProductOrders() {
         return productOrdersService.findAll();
     }
+    
+    @ModelAttribute("tax")
+    public Tax getTax(){
+        return taxRepo.findById(1);
+    }
 
     @GetMapping("/cart")
     public String showCart(Principal principal, Model model) {
@@ -85,13 +95,22 @@ public class UserController {
     private List<Product> pendingOrder(String userName, Model model) {
         System.out.println("********************************PENDING ORDER***************************************************");
         User user = userService.findByUsername(userName);
+        Tax tax = new Tax();
+        tax= taxRepo.findById(tax.getTaxid()).get();
+        double sum=0.0d;
         for (Orders x : user.getOrdersList()) {
             if (x.getStatus().equalsIgnoreCase("PENDING")) {
                 model.addAttribute("pendingorder", x); //έφερα στο model την Order που είναι pending για να μπορώ να τραβίξω το quantity (ακόμα το ψάχνω όμως). Επίσης μαζί με την Order Pending, έφερα και όλο τα ProductOrders και με @ModelAttribute.
                 List<Product> cartItems = new ArrayList();
                 for (ProductOrders y : x.getProductList()) {
-                    cartItems.add(y.getProduct());
+                    cartItems.add(y.getProduct());     
+                    
+                    sum = sum + y.getPrice();
                 }
+                x.setTotalcost(sum + (tax.getVat()*sum));
+                ordersService.saveOrder(x);
+                
+                
                 return cartItems;
             }
         }
@@ -111,6 +130,8 @@ public class UserController {
 
     private List<Product> addToOrder(String userName, int productId, int qty, Model model) {
         System.out.println("********************************ADD TO ORDER***************************************************");
+        Tax tax = new Tax();
+        tax= taxRepo.findById(tax.getTaxid()).get();
         User user = userService.findByUsername(userName);
         Product product = productService.findById(productId);
         List<Product> cartItems = new ArrayList();
@@ -136,7 +157,7 @@ public class UserController {
 //                cartItems.add(order.getProductList().get(i).getProduct());
 //            }
         } else {
-            Orders order = new Orders(user, "PENDING");
+            Orders order = new Orders(user, "PENDING", tax.getVat());
             ordersService.createOrder(order);
             cartItems = createList(product, order, qty, cartItems, model);
             
@@ -194,5 +215,8 @@ public class UserController {
 
         return "redirect:/user/cart";
     }
+    
+    
+    
 
 }

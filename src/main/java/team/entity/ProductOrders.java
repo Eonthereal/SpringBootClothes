@@ -55,8 +55,9 @@ public class ProductOrders implements Serializable {
 //    @MapsId("ordersid")
     private Orders orders;
 
-    
-    
+//    @JoinColumn(name = "taxid",referencedColumnName = "taxid", insertable = false, updatable = false)
+//    @ManyToOne(optional = false)
+//    private Tax tax;
     
     
     public ProductOrders() {
@@ -115,6 +116,14 @@ public class ProductOrders implements Serializable {
     public void setPrice(Double price) {
         this.price = price;
     }
+
+//    public Tax getTax() {
+//        return tax;
+//    }
+//
+//    public void setTax(Tax tax) {
+//        this.tax = tax;
+//    }
 
     @Override
     public int hashCode() {
