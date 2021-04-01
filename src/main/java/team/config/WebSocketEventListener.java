@@ -1,7 +1,7 @@
-package team.controller;
+package team.config;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
+import java.util.logging.Logger;
 import team.entity.ChatMessage;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +16,7 @@ import org.springframework.web.socket.messaging.SessionDisconnectEvent;
 @Component
 public class WebSocketEventListener {
 
-    private static final Logger logger = LoggerFactory.getLogger(WebSocketEventListener.class);
+    private static final Logger logger = Logger.getLogger("WebSocketEventListener");
 
     @Autowired
     private SimpMessageSendingOperations messagingTemplate;
