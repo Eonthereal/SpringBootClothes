@@ -20,6 +20,38 @@
             src="https://code.jquery.com/jquery-3.6.0.js"
             integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
         crossorigin="anonymous"></script>
+        <style>
+            #pSubtotal {
+                -moz-appearance: textfield;
+                width: 75px;
+                border:0;
+                outline:0;
+                text-align: left;
+                padding: 5px;
+                font-weight: normal;
+                font-family: "Poppins", sans-serif;
+                font-size: 16px;
+
+
+            }
+
+            #pSubtotal::-webkit-outer-spin-button,
+            #pSubtotal::-webkit-inner-spin-button {
+                -webkit-appearance: none;
+                margin: 0;
+            }
+
+            .qty{
+                width: 50px;
+            }
+
+
+        </style>
+
+        <script>
+
+        </script> 
+
 
     </head>
     <body>
@@ -84,32 +116,38 @@
                         </td>
                         <td>    
                             <!--Το παρακάτω jstl μέσα στην input type number, φέρνει το quantity σε κάθε product της pending παραγγελίας του user-->
+                            <%--<form:form action="${pageContext.request.contextPath}/user/cart/quantity/${pendingorder.ordersid}?pid=${product.productid}" method="GET">--%>
+
                             <input type="number" 
 
-                                       <c:forEach items="${productorders}" var="productorder" >
-                                           <c:if test="${productorder.getOrders()==pendingorder}">  
-                                               <c:if test="${productorder.getProduct()==product}">
-                                                   value="${productorder.getQuantity()}"
-                                               </c:if>
+                                   <c:forEach items="${productorders}" var="productorder" >
+                                       <c:if test="${productorder.getOrders()==pendingorder}">  
+                                           <c:if test="${productorder.getProduct()==product}">
+                                               value="${productorder.getQuantity()}"
                                            </c:if>
-                                       </c:forEach>  
-                                       max="${product.stock}">
-
-                            <%--<c:forEach  items="${productorders}" var="productorder" >  
-                                <c:if test="${productorder.getOrders().getOrdersid()==pendingorder.getOrdersid()}">          
-                                    value="${pendingorder.getProductList().get(3).getQuantity()}"
-                                </c:if>
-                            </c:forEach>
-                            min="1" max="${product.stock}" class="qty">--%>
+                                       </c:if>
+                                   </c:forEach>  
+                                   min='1' max="${product.stock}" id="${product.productid}" oninput="linkchange(${product.productid}, ${pendingorder.ordersid})" class="qty" />
+                            <br>
+                            <a href="" id="qtylink${product.productid}"></a>   
                         </td>
                         <!--Εδώ πρέπει να μπεί ο υπολογισμός του quantity με το product.price-->
-                        <td>${product.price} €</td>
+
+                        <td><input type="number" 
+                                   <c:forEach items="${productorders}" var="productorder" >
+                                       <c:if test="${productorder.getOrders()==pendingorder}">  
+                                           <c:if test="${productorder.getProduct()==product}">       
+                                               value="${productorder.price}" 
+                                           </c:if>
+                                       </c:if>
+                                   </c:forEach>  
+                                   id="pSubtotal" readonly> ${productorder.price}€</td>
                         <!--------------------------------------------------------------------->
                     </tr>
                 </c:forEach>
 
             </table>
-<!--            <input type="button" onclick="quantity()" value="1000000"/>-->
+            <!--<input type="button" onclick="test()" value="1000000"/>-->
             <div class="total-price">
 
                 <table>
@@ -129,7 +167,7 @@
 
             </div>
             <!-- εγώ το έβαλα αυτό -->
-            <a href="" class="btn">Submit Order</a>
+            <a href="" class="btn">Next Step</a>
 
         </div>   
 
@@ -183,8 +221,17 @@
         </div>
         <!-- /FOOTER -->
         <script src="${pageContext.request.contextPath}/js/burgermenu.js"></script>
-        
 
+ <script>  
+        //script για να αλλάζει το Link του add to cart
+            function linkchange(productId, orderId){
+           
+            var num = $("#"+productId).val();
+            var link = "<a href='${pageContext.request.contextPath}/user/cart/update/"+productId+"?qty=" +num +"&oid="+orderId+"'>Update</a>";
+            document.getElementById("qtylink"+productId).innerHTML =link;
+        };
+     
+    </script>
 
     </body>
 </html>

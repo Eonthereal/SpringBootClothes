@@ -14,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -65,23 +66,7 @@ public class UserController {
     }
 
     //===========================CART IMPLEMENTATION============================
-//    @GetMapping("/")
-//    public String getquantity(Principal principal, Model model){
-//        User user = userService.findByUsername(principal.getName());
-//        int orderId = 0;
-//        List<ProductOrders> listOfproducts= new ArrayList();
-//        for (Orders x : user.getOrdersList()){
-//            if (x.getStatus().equalsIgnoreCase("PENDING")) {
-//                orderId = x.getOrdersid();
-//               listOfproducts = x.getProductList();
-//
-//               break;
-//
-//            }
-//             model.addAttribute("listOfproducts", listOfproducts);
-//        }
-//      return "Navigation/cart";
-//    } 
+    
     @ModelAttribute("productorders")
     public List<ProductOrders> getProductOrders() {
         return productOrdersService.findAll();
@@ -169,7 +154,8 @@ public class UserController {
     }
 
     @GetMapping("cart/delete/{pendingorder.ordersid}")
-    public String delete(@PathVariable("pendingorder.ordersid") int ordersid, @RequestParam("pid") int pid, RedirectAttributes attributes) {
+    public String delete(@PathVariable("pendingorder.ordersid") int ordersid, 
+                         @RequestParam("pid") int pid){
 
         ProductOrders po = new ProductOrders(pid, ordersid);
 
@@ -181,5 +167,21 @@ public class UserController {
 
         return "redirect:/user/cart";
     }
+    
+    @GetMapping("cart/update/{productid}")
+    public String updateQuantity(@PathVariable("productid") int productid, 
+                                 @RequestParam("qty") int qty,
+                                 @RequestParam("oid") int orderId   ){
+        
+        productService.findById(productid);
+        ProductOrders po = new ProductOrders(productid, orderId);
+        po =  productOrdersRepo.findById(po.getProductOrdersId()).get();
+        po.setQuantity(qty);
+        po.setPrice(qty*productService.findById(productid).getPrice());
+        productOrdersRepo.save(po);
+        
+      return "redirect:/user/cart"  ;
+    }
+    
 
 }
