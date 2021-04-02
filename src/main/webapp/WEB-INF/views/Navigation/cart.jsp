@@ -173,7 +173,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <td>Tax (${tax.getVat()*100}) %</td>
+                            <td>Tax (${tax.getVat()*100}%) </td>
                             <td>${subtotal*tax.getVat()} €</td>
                         </tr>
                         <tr>
