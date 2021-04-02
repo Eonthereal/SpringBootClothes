@@ -108,6 +108,7 @@ public class Orders implements Serializable {
     public Orders(Integer ordersid, Double tax) {
         this.ordersid = ordersid;
         this.tax = tax;
+        this.productList = new ArrayList<>();
     }
 
     public Orders(Integer ordersid, String city, String address, String zipcode, String status, Double totalcost, LocalDate orderdate, List<ProductOrders> productList, User user, double tax) {
@@ -178,6 +179,15 @@ public class Orders implements Serializable {
     public void setOrderdate(LocalDate orderdate) {
         this.orderdate = orderdate;
     }
+
+    public double getTax() {
+        return tax;
+    }
+
+    public void setTax(double tax) {
+        this.tax = tax;
+    }
+    
 
     @XmlTransient
     public List<ProductOrders> getProductList() {
