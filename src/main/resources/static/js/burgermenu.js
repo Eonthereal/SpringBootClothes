@@ -4,7 +4,7 @@
 
         function menutoggle() {
             if (MenuItems.style.maxHeight === "0px") {
-                MenuItems.style.maxHeight = "250px";
+                MenuItems.style.maxHeight = "300px";
             }
             else {
                 MenuItems.style.maxHeight = "0px";

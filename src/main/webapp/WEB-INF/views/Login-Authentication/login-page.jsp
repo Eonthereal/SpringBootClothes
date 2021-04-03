@@ -22,35 +22,40 @@
         <div class="container">
             <div class="navbar">
                 <div class="logo">
-                    <img src="images/logo black transparent.png" width="200px">
+                    <a href="${pageContext.request.contextPath}/"><img src="${pageContext.request.contextPath}/images/logo black transparent.png" width="200px"></a>
                 </div>
                 <nav>
                     <ul id="MenuItems">
-                        <sec:authorize access ="hasRole('ADMIN')">
-                            <li><a href="${pageContext.request.contextPath}/admin">Admin</a></li>
-                            </sec:authorize> 
-                        <li><a href="${pageContext.request.contextPath}/">Home</a></li>
+                        <!--<li><a href="${pageContext.request.contextPath}/">Home</a></li>-->
                         <li><a href="${pageContext.request.contextPath}/collection">Collection</a></li>
                         <li><a href="${pageContext.request.contextPath}/offers">Offers</a></li>
                         <li><a href="${pageContext.request.contextPath}/about">About</a></li>
                         <li><a href="${pageContext.request.contextPath}/contact">Contact</a></li>
-                        <li><a href="${pageContext.request.contextPath}/loginpage">Login</a></li>
+                        <li><a href="${pageContext.request.contextPath}/chat">Chat</a></li>
+                            <sec:authorize access ="!isAuthenticated()">  
+                            <li><a href="${pageContext.request.contextPath}/loginpage">Login</a></li>
+                            </sec:authorize> 
+                            <sec:authorize access ="isAuthenticated()">  
+                            <li>
+                                <form:form id="logoutform" action="${pageContext.request.contextPath}/logout" method="POST">
+                                    <a href="javascript:{}" onclick="document.getElementById('logoutform').submit();">Logout</a>       
+                                </form:form>      
+                            </li>
+                        </sec:authorize> 
                     </ul>
                 </nav>
-                <img src="images/cart.png" width="30px" height="30px">
+                <a href="${pageContext.request.contextPath}/user/cart"><img src="${pageContext.request.contextPath}/images/cart.png" width="30px" height="30px"></a>
                 <img src="images/menu.png" class="menu-icon" onclick="menutoggle()">
 
                 <div class="row">
-                    <sec:authorize access ="hasAnyRole('ADMIN','USER')"> <!--Το sec:authedication το έβαλα ενδιάμεσα του sec:authorize γιατί έσκαγε όλο το Home όταν δεν υπήρχε Login με κάποιο ROLE -->
+                    <sec:authorize access ="isAuthenticated()"> <!--Το sec:authedication το έβαλα ενδιάμεσα του sec:authorize γιατί έσκαγε όλο το Home όταν δεν υπήρχε Login με κάποιο ROLE -->
 
-                        <span><sec:authentication property="principal.username"/></span>
-
-                        <%--<spa><sec:authentication property="principal.authorities"/></spa>--%>
+                        <a href="${pageContext.request.contextPath}/user/profile/<sec:authentication property="principal.username"/>"> <sec:authentication property="principal.username"/></a>
+                        <sec:authorize access ="hasRole('ADMIN')">
+                            <a href="${pageContext.request.contextPath}/admin"><span style='color: red'>(Admin Menu)</span></a>
+                        </sec:authorize> 
                     </sec:authorize> 
 
-                    <form:form action="${pageContext.request.contextPath}/logout" method="POST">
-                        <input type="submit" value="Logout">            
-                    </form:form>
                 </div>
             </div>
         </div>
