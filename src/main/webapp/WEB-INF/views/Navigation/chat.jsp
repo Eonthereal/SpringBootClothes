@@ -1,13 +1,4 @@
-<%-- 
-    Document   : chat
-    Created on : 24 Μαρ 2021, 7:21:00 μμ
-    Author     : AngPan
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
-<%@taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -56,17 +47,13 @@
             </div>
             <br>
             <div  align="center">
-                <a href="${pageContext.request.contextPath}/chat">Home</a>
+                <a href="${pageContext.request.contextPath}/">Home</a>
             </div>
         </div>
 
+
         <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.4/sockjs.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
-        <script src="${pageContext.request.contextPath}/js/app.js"></script>       
-
-
-
-
-
+        <script src="${pageContext.request.contextPath}/js/app.js"></script>
     </body>
 </html>

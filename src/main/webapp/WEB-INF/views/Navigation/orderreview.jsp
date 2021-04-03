@@ -70,11 +70,12 @@
             </div>
         </div>
 
-        <h1>Order Details</h1>
+       
 
 
         <div class="small-container" >
-
+ <h1>Order Details</h1>
+ <br>
 <!--            <p>${order}</p>
             <p>${tax}</p>
             <p>${productorders}</p>
