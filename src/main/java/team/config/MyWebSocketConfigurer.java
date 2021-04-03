@@ -13,23 +13,19 @@ import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerCo
 
 /**
  *
- * @author AngPan
+ * @author eon_A
  */
-
 @Configuration
 @EnableWebSocketMessageBroker
-public class MyWebSocketConfigurer implements WebSocketMessageBrokerConfigurer {
-    
+public class MyWebSocketConfigurer implements WebSocketMessageBrokerConfigurer{
     @Override
-    public void registerStompEndpoints(StompEndpointRegistry registry){
+    public void registerStompEndpoints(StompEndpointRegistry registry) {
         registry.addEndpoint("/ws").withSockJS();
     }
-    
+
     @Override
-    public void configureMessageBroker(MessageBrokerRegistry registry){
+    public void configureMessageBroker(MessageBrokerRegistry registry) {
         registry.setApplicationDestinationPrefixes("/app");
         registry.enableSimpleBroker("/topic");
-
     }
-
 }
