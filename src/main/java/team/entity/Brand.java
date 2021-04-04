@@ -99,7 +99,7 @@ public class Brand implements Serializable {
 
     @Override
     public String toString() {
-        return "team.entity.Brand[ brandid=" + brandid + " ]";
+        return "team.entity.Brand[ brandid=" + brandid + " " + brandname+" ]";
     }
     
 }

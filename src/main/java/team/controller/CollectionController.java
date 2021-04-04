@@ -5,7 +5,10 @@
  */
 package team.controller;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,6 +16,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import team.entity.Brand;
 import team.entity.Category;
 import team.entity.Color;
@@ -80,34 +84,73 @@ public class CollectionController {
         return colorService.findAll();
     }
     
-    @ModelAttribute("products")
-    public List<Product> getProducts(){
-        return productRepo.findAll();
-    }
-   
-    
-    //Αυτό δε δουλεύει μαζί με τα filters
-//    @GetMapping
-//    public String showCollection(Model model){
-//        
-//        List<Product> listOfProducts = productRepo.findAll();
-//        model.addAttribute("listOfProducts", listOfProducts);
-//        return ("Navigation/collection");
-//    }
-    
-//    
-    @GetMapping
-    public String showFilters(@ModelAttribute("product") Product product){
 
+    
+    
+    
+    
+     @GetMapping()
+    public String showProducts(Model model){
+        List<Product> products = productRepo.findAll();
+        model.addAttribute("products", products);
         return ("Navigation/collection");
     }
     
+    @GetMapping("/filters")
+    public void getFilters(@RequestParam(value="brand", required=false) List<Brand> brands,  
+                             @RequestParam(value="category", required=false) List<Category> categories,
+                             @RequestParam(value="gender", required=false) List<Gender> genders,
+                             @RequestParam(value="size", required=false) List<Sizes> sizes,
+                             @RequestParam(value="color", required=false) List<Color> colors){
+        
+//        for (Brand x : brands){
+//            System.out.println(x);
+//              brandQ = "Select p from product p where p.brandid=1";  
+//        }    
+        
+//        for (Category x : categories){
+//            System.out.println(x);
+//              catQ = "Select p from product p where p.categoryid=1 and p.categoryid=2";
+//        }   
+//        
+//        for (Gender x : genders){
+//            System.out.println(x);
+//        }    
+//        
+//        for (Sizes x : sizes){
+//            System.out.println(x);
+//        }    
+//        
+//        for (Color x : colors){
+//            System.out.println(x);
+//        }    
+        String finalQ = "Select p from product p where p.brandid = ????? AND p.categoryid=????? AND p.genderid=?? AND p.sizesid=??? AND p.colorid=???";
+    }
+    
+//    
     //======================================SHOW SINGLE PRODUCT INFO==========================================
     @GetMapping("/{productid}")
     public String showProduct(/*Product product,*/ @PathVariable("productid") int productid, Model model){
         
         Product productToShow = productRepo.findById(productid).get();
         
+        //Four more related products
+        List<Product> relatedProducts = new ArrayList();
+        List<Integer> listOfIds = new ArrayList();
+        List<Product> allProducts= productRepo.findAll();
+
+        
+        for (Product x: allProducts){
+            listOfIds.add(x.getProductid());
+        }
+        listOfIds.remove(Integer.valueOf(productid)); //remove the product that shows as main in sigle product info page
+         
+        Collections.shuffle(listOfIds);
+        
+        for (int i=1; i<=4;i++){
+        relatedProducts.add(productRepo.findById(listOfIds.get(i)).get());
+        }
+        model.addAttribute("relatedProducts",relatedProducts );
         model.addAttribute("product", productToShow);
 
         return ("Navigation/product");
