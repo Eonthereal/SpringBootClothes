@@ -408,7 +408,6 @@
                 <hr>
                 <p class="copyright">Copyright 2021 - CB12 Part Time</p>
             </div>
-        </div>
 
         <!-- js for toggle menu -->
         <script src="js/burgermenu.js"></script>

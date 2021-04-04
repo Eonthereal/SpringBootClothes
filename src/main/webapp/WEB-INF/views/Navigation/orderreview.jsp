@@ -21,9 +21,16 @@
             integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
         crossorigin="anonymous"></script>
 
-        <script>
-
-        </script> 
+        <style>
+            .checkout:hover::after{
+                 content: ' >>'
+            }
+            
+            .contshopping:hover::before{
+                content: '<< '
+            }
+            
+        </style>
 
 
     </head>
@@ -92,12 +99,12 @@
             <table border="1">
                 <thead>
                     <tr>
-                        <th>firstname</th>
-                        <th>lastname</th>
-                        <th>phonenumber</th>
-                        <th>email</th>
-                        <th>address</th>
-                        <th>credits</th>                        
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Phone Number</th>
+                        <th>E-mail</th>
+                        <th>Address</th>
+                        <th>Credits</th>                        
                     </tr>
                 </thead>
                 <tr>
@@ -123,12 +130,10 @@
                 </thead>
                 <c:forEach items="${productorders}" var = "productorder">
                     <tr>
-
                         <c:if test="${productorder.getOrders()==order}">
                             <td>${productorder.getProduct().getTitle()} x ${productorder.getQuantity()}</td>
                             <td>${productorder.getPrice()}</td>
                         </c:if>
-
                     </tr>
                 </c:forEach>
                 <tr>
@@ -137,8 +142,8 @@
                 </tr>
             </table>
 
-            <a href="${pageContext.request.contextPath}/collection" class="btn">Continue Shopping</a>      
-            <a href="" class="btn">Checkout</a>      
+            <a href="${pageContext.request.contextPath}/collection" class="btn contshopping">Continue Shopping</a>      
+            <a href="" class="btn checkout">Checkout</a>      
 
         </div>     
 

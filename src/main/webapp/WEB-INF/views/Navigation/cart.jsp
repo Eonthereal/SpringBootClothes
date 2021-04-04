@@ -50,7 +50,9 @@
             .nextstep{
                 float: right;
             }
-
+            .nextstep:hover::after{
+                 content: ' >>'
+            }
 
         </style>
 
@@ -250,7 +252,6 @@
         <script>
                     //script για να αλλάζει το Link του add to cart
                     function linkchange(productId, orderId) {
-
                         var num = $("#" + productId).val();
                         var link = "<a href='${pageContext.request.contextPath}/user/cart/update/" + productId + "?qty=" + num + "&oid=" + orderId + "'>Update</a>";
                         document.getElementById("qtylink" + productId).innerHTML = link;

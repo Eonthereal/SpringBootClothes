@@ -3,7 +3,7 @@
 <html>
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
-        <title>Spring Boot WebSocket Chat Application | CalliCoder</title>
+        <title>Spring Boot Fashion Chat</title>
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/chat.css" />
     </head>
     <body>
@@ -28,7 +28,7 @@
         <div id="chat-page" class="hidden">
             <div class="chat-container">
                 <div class="chat-header">
-                    <h2>Spring WebSocket Chat Demo</h2>
+                    <h2>Spring Boot Fashion Chat</h2>
                 </div>
                 <div class="connecting">
                     Connecting...

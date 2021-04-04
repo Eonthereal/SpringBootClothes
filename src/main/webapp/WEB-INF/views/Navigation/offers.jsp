@@ -27,7 +27,22 @@
             <a href="${pageContext.request.contextPath}/loginpage">Login</a>
         </div>
 
-
+ <c:forEach items="${products}" var="product">
+                            <li class="col-4">
+                                <div id="${product.title}" class="col-4 grid-products" data-brand="${product.brand.brandname}" data-category="${product.category.categoryname}" data-gender="${product.gender.gendername}"  data-size="${product.size.sizename}" data-color="${product.color.colorname}" >
+                                    <img src="${pageContext.request.contextPath}/images/${product.image}">
+                                    <h4><a href="${pageContext.request.contextPath}/collection/${product.productid}"> ${product.title}</a></h4>
+                                    <div class="rating">
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star-half-o"></i>
+                                        <i class="fa fa-star-o"></i>
+                                    </div>
+                                    <p>${product.price} €</p>       
+                                </div>
+                            </li>
+                        </c:forEach> 
 
         <form:form action="${pageContext.request.contextPath}/logout" method="POST">
             <input type="submit" value="Logout">            

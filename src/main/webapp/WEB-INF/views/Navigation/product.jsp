@@ -18,42 +18,58 @@
         <script
             src="https://code.jquery.com/jquery-3.6.0.js"
             integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
-            crossorigin="anonymous">          
+            crossorigin="anonymous">
         </script>
+        <style>
+            #viewmore:hover{
+                 text-decoration: underline;
+                
+            }
+            
+            #viewmore:hover::after{
+                content: '>>'
+                
+            }
+            
+        </style>
     </head>
     <body>
         <div class="container">
             <div class="navbar">
                 <div class="logo">
-                    <img src="${pageContext.request.contextPath}/images/logo black transparent.png" width="200px">
+                    <a href="${pageContext.request.contextPath}/"><img src="${pageContext.request.contextPath}/images/logo black transparent.png" width="200px"></a>
                 </div>
                 <nav>
                     <ul id="MenuItems">
-                        <sec:authorize access ="hasRole('ADMIN')">
-                            <li><a href="${pageContext.request.contextPath}/admin">Admin</a></li>
-                            </sec:authorize> 
-                        <li><a href="${pageContext.request.contextPath}/">Home</a></li>
+                        <!--<li><a href="${pageContext.request.contextPath}/">Home</a></li>-->
                         <li><a href="${pageContext.request.contextPath}/collection">Collection</a></li>
                         <li><a href="${pageContext.request.contextPath}/offers">Offers</a></li>
                         <li><a href="${pageContext.request.contextPath}/about">About</a></li>
                         <li><a href="${pageContext.request.contextPath}/contact">Contact</a></li>
-                        <li><a href="${pageContext.request.contextPath}/loginpage">Login</a></li>
+                        <li><a href="${pageContext.request.contextPath}/chat">Chat</a></li>
+                            <sec:authorize access ="!isAuthenticated()">  
+                            <li><a href="${pageContext.request.contextPath}/loginpage">Login</a></li>
+                            </sec:authorize> 
+                            <sec:authorize access ="isAuthenticated()">  
+                            <li>
+                                <form:form id="logoutform" action="${pageContext.request.contextPath}/logout" method="POST">
+                                    <a href="javascript:{}" onclick="document.getElementById('logoutform').submit();">Logout</a>       
+                                </form:form>      
+                            </li>
+                        </sec:authorize> 
                     </ul>
                 </nav>
-                <img src="${pageContext.request.contextPath}/images/cart.png" width="30px" height="30px">
+                <a href="${pageContext.request.contextPath}/user/cart"><img src="${pageContext.request.contextPath}/images/cart.png" width="30px" height="30px"></a>
                 <img src="${pageContext.request.contextPath}/images/menu.png" class="menu-icon" onclick="menutoggle()">
 
                 <div class="row">
-                    <sec:authorize access ="hasAnyRole('ADMIN','USER')"> <!--Το sec:authedication το έβαλα ενδιάμεσα του sec:authorize γιατί έσκαγε όλο το Home όταν δεν υπήρχε Login με κάποιο ROLE -->
+                    <sec:authorize access ="isAuthenticated()"> <!--Το sec:authedication το έβαλα ενδιάμεσα του sec:authorize γιατί έσκαγε όλο το Home όταν δεν υπήρχε Login με κάποιο ROLE -->
 
-                        <span><sec:authentication property="principal.username"/></span>
-
-                        <%--<spa><sec:authentication property="principal.authorities"/></spa>--%>
+                        <a href="${pageContext.request.contextPath}/user/profile/<sec:authentication property="principal.username"/>"> <sec:authentication property="principal.username"/></a>
+                        <sec:authorize access ="hasRole('ADMIN')">
+                            <a href="${pageContext.request.contextPath}/admin"><span style='color: red'>(Admin Menu)</span></a>
+                        </sec:authorize> 
                     </sec:authorize> 
-
-                    <form:form action="${pageContext.request.contextPath}/logout" method="POST">
-                        <input type="submit" value="Logout">            
-                    </form:form>
                 </div>
             </div>
         </div>
@@ -111,8 +127,8 @@
             <!-- -----------title-------------- -->
             <div class="small-container">
                 <div class="row row-2">
-                    <h2>Related Products</h2>
-                    <p>View More</p>
+                    <h2>Other Products</h2>
+                    <p><a id="viewmore" href="${pageContext.request.contextPath}/collection">View More</a></p>
 
 
                 </div>
@@ -126,135 +142,112 @@
         <div class="small-container">
 
             <div class="row">
-                <div class="col-4">
-                    <img src="images/product-1.jpg">
-                    <h4>Red Printed Tshirt</h4>
-                    <div class="rating">
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star-half-o"></i>
-                        <i class="fa fa-star-o"></i>
-                    </div>
-                    <p>$50.00</p>
-                </div>
-                <div class="col-4">
-                    <img src="images/product-2.jpg">
-                    <h4>Black Running Shoes</h4>
-                    <div class="rating">
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star-o"></i>
-                    </div>
-                    <p>$50.00</p>
-                </div>
-                <div class="col-4">
-                    <img src="images/product-3.jpg">
-                    <h4>Grey Gym Pants</h4>
-                    <div class="rating">
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star-half-o"></i>
-                    </div>
-                    <p>$50.00</p>
-                </div>
-                <div class="col-4">
-                    <img src="images/product-4.jpg">
-                    <h4>Blue Puma Tshirt</h4>
-                    <div class="rating">
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star-o"></i>
-                    </div>
-                    <p>$50.00</p>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- /MAIN -->
-
-    <!-- FOOTER -->
-
-    <div class="footer">
-        <div class="container">
-            <div class="row">
-                <div class="footer-col-1">
-                    <h3>Download Our App</h3>
-                    <p>Download App for Android and IOS mobile phone.</p>
-                    <div class="app-logo">
-                        <img src="${pageContext.request.contextPath}/images/play-store.png">
-                        <img src="${pageContext.request.contextPath}/images/app-store.png">
-                    </div>
-                </div>
-                <div class="footer-col-2">
-                    <img src="${pageContext.request.contextPath}/images/logo transparent.png">
-                    <p>Our Purpose Is To Learn How to Make Beautiful, User-friendly and Responsive Sites.
-                    </p>
-                </div>
-                <div class="footer-col-3">
-                    <h3>Useful Links</h3>
-                    <ul>
-                        <li>Coupons</li>
-                        <li>Blog Post</li>
-                        <li>Return Policy</li>
-                        <li>Join Affiliate</li>
+                <div class="row">
+                    <ul class="row">
+                        <c:forEach items="${relatedProducts}" var="product">
+                            <li class="col-4">
+                                <div id="${product.title}" class="col-4 grid-products" data-brand="${product.brand.brandname}" data-category="${product.category.categoryname}" data-gender="${product.gender.gendername}"  data-size="${product.size.sizename}" data-color="${product.color.colorname}" >
+                                    <a href="${pageContext.request.contextPath}/collection/${product.productid}">
+                                        <img src="${pageContext.request.contextPath}/images/${product.image}">
+                                    </a>
+                                    <h4><a href="${pageContext.request.contextPath}/collection/${product.productid}">${product.title}</a></h4>
+                                    <div class="rating">
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star-half-o"></i>
+                                        <i class="fa fa-star-o"></i>
+                                    </div>
+                                    <p>${product.price} €</p>       
+                                </div>
+                            </li>
+                        </c:forEach> 
                     </ul>
                 </div>
-                <div class="footer-col-4">
-                    <h3>Follow us</h3>
-                    <ul>
-                        <li>Facebook</li>
-                        <li>Twitter</li>
-                        <li>Instagram</li>
-                        <li>Youtube</li>
-                    </ul>
+            </div>    
+
+        </div>
+    </div>
+</div>
+<!-- /MAIN -->
+
+<!-- FOOTER -->
+
+<div class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="footer-col-1">
+                <h3>Download Our App</h3>
+                <p>Download App for Android and IOS mobile phone.</p>
+                <div class="app-logo">
+                    <img src="${pageContext.request.contextPath}/images/play-store.png">
+                    <img src="${pageContext.request.contextPath}/images/app-store.png">
                 </div>
             </div>
-            <hr>
-            <p class="copyright">Copyright 2021 - CB12 Part Time</p>
+            <div class="footer-col-2">
+                <img src="${pageContext.request.contextPath}/images/logo transparent.png">
+                <p>Our Purpose Is To Learn How to Make Beautiful, User-friendly and Responsive Sites.
+                </p>
+            </div>
+            <div class="footer-col-3">
+                <h3>Useful Links</h3>
+                <ul>
+                    <li>Coupons</li>
+                    <li>Blog Post</li>
+                    <li>Return Policy</li>
+                    <li>Join Affiliate</li>
+                </ul>
+            </div>
+            <div class="footer-col-4">
+                <h3>Follow us</h3>
+                <ul>
+                    <li>Facebook</li>
+                    <li>Twitter</li>
+                    <li>Instagram</li>
+                    <li>Youtube</li>
+                </ul>
+            </div>
         </div>
-
-
+        <hr>
+        <p class="copyright">Copyright 2021 - CB12 Part Time</p>
     </div>
-    <!-- /FOOTER -->
-    <script src="${pageContext.request.contextPath}/js/burgermenu.js"></script>
-
-    <script>
-        //script για να αλλάζουν οι εικόνες
-                   var ProductImg = document.getElementById("productImg");
-                   var SmallImg = document.getElementsByClassName("small-img");
-
-                   SmallImg[0].onclick = function () {
-                       ProductImg.src = SmallImg[0].src;
-                   };
-                   SmallImg[1].onclick = function () {
-                       ProductImg.src = SmallImg[1].src;
-                   };
-                   SmallImg[2].onclick = function () {
-                       ProductImg.src = SmallImg[2].src;
-                   };
-                   SmallImg[3].onclick = function () {
-                       ProductImg.src = SmallImg[3].src;
-                   };
 
 
-    </script>
+</div>
+<!-- /FOOTER -->
+<script src="${pageContext.request.contextPath}/js/burgermenu.js"></script>
 
-    <script>  
-        //script για να αλλάζει το Link του add to cart
-            function linkchange(){
-            var num = $("#qty").val();
-            var link = "<a style='color:white' href='${pageContext.request.contextPath}/user/cart/${product.productid}?qty=" +num +"' >Add To Cart</a>";
-            document.getElementById("qtylink").innerHTML =link;
-        };
-     
-    </script>
+<script>
+                //script για να αλλάζουν οι εικόνες
+                var ProductImg = document.getElementById("productImg");
+                var SmallImg = document.getElementsByClassName("small-img");
+
+                SmallImg[0].onclick = function () {
+                    ProductImg.src = SmallImg[0].src;
+                };
+                SmallImg[1].onclick = function () {
+                    ProductImg.src = SmallImg[1].src;
+                };
+                SmallImg[2].onclick = function () {
+                    ProductImg.src = SmallImg[2].src;
+                };
+                SmallImg[3].onclick = function () {
+                    ProductImg.src = SmallImg[3].src;
+                };
+
+
+</script>
+
+<script>
+    //script για να αλλάζει το Link του add to cart
+    function linkchange() {
+        var num = $("#qty").val();
+        var link = "<a style='color:white' href='${pageContext.request.contextPath}/user/cart/${product.productid}?qty=" + num + "' >Add To Cart</a>";
+        document.getElementById("qtylink").innerHTML = link;
+    }
+    ;
+
+</script>
 
 </body>
 </html>
