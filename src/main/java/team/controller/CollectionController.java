@@ -34,11 +34,10 @@ import team.service.SizesService;
 @Controller
 @RequestMapping("/collection")
 public class CollectionController {
-    
-    
+
     @Autowired
     ProductRepo productRepo;
-    
+
     @Autowired
     BrandService brandService;
 
@@ -57,9 +56,7 @@ public class CollectionController {
     @Autowired
     ColorService colorService;
 
-    
-    
-       @ModelAttribute("brands")
+    @ModelAttribute("brands")
     public List<Brand> getBrands() {
         return brandService.findAll();
     }
@@ -83,77 +80,92 @@ public class CollectionController {
     public List<Color> getColors() {
         return colorService.findAll();
     }
-    
 
-    
-    
-    
-    
-     @GetMapping()
-    public String showProducts(Model model){
+    @GetMapping()
+    public String showProducts(Model model) {
         List<Product> products = productRepo.findAll();
         model.addAttribute("products", products);
         return ("Navigation/collection");
     }
-    
+
     @GetMapping("/filters")
-    public void getFilters(@RequestParam(value="brand", required=false) List<Brand> brands,  
-                             @RequestParam(value="category", required=false) List<Category> categories,
-                             @RequestParam(value="gender", required=false) List<Gender> genders,
-                             @RequestParam(value="size", required=false) List<Sizes> sizes,
-                             @RequestParam(value="color", required=false) List<Color> colors){
-        
-//        for (Brand x : brands){
-//            System.out.println(x);
-//              brandQ = "Select p from product p where p.brandid=1";  
-//        }    
-        
-//        for (Category x : categories){
-//            System.out.println(x);
-//              catQ = "Select p from product p where p.categoryid=1 and p.categoryid=2";
-//        }   
+    public String getFilters(@RequestParam(value = "brand", required = false) List<Brand> brands,
+            @RequestParam(value = "category", required = false) List<Category> categories,
+            @RequestParam(value = "gender", required = false) List<Gender> genders,
+            @RequestParam(value = "size", required = false) List<Sizes> sizes,
+            @RequestParam(value = "color", required = false) List<Color> colors,
+            Model model) {
+
+        System.out.println("Controller here!!!!!");
+
+        List<Integer> brandlist = new ArrayList();
+
+        List<Integer> categorylist = new ArrayList();
+
+        List<Integer> genderlist = new ArrayList();
+
+        List<Integer> sizelist = new ArrayList();
+
+        List<Integer> colorlist = new ArrayList();
+
+        for (Brand x : brands) {
+            brandlist.add(x.getBrandid());
+
+        }
+        for (Category x : categories) {
+            categorylist.add(x.getCategoryid());
+        }
+
+        for (Gender x : genders) {
+            genderlist.add(x.getGenderid());
+        }
+
+        for (Sizes x : sizes) {
+            sizelist.add(x.getSizesid());
+        }
+
+        for (Color x : colors) {
+            colorlist.add(x.getColorid());
+        }
+        List<Product> productfilters = productRepo.findByFilters(brandlist, categorylist, genderlist, sizelist, colorlist);
+        model.addAttribute("products", productfilters);
+
+        return ("Navigation/Collection");
+
 //        
-//        for (Gender x : genders){
-//            System.out.println(x);
-//        }    
-//        
-//        for (Sizes x : sizes){
-//            System.out.println(x);
-//        }    
-//        
-//        for (Color x : colors){
-//            System.out.println(x);
-//        }    
-        String finalQ = "Select p from product p where p.brandid = ????? AND p.categoryid=????? AND p.genderid=?? AND p.sizesid=??? AND p.colorid=???";
+//        if (brandlist.isEmpty()){
+//            brandlist = null;
+//        }
+        //String 
+        //inalQ = "Select p from product p where p.brandid = ????? AND p.categoryid=????? AND p.genderid=?? AND p.sizesid=??? AND p.colorid=???";
     }
-    
+
 //    
     //======================================SHOW SINGLE PRODUCT INFO==========================================
     @GetMapping("/{productid}")
-    public String showProduct(/*Product product,*/ @PathVariable("productid") int productid, Model model){
-        
+    public String showProduct(/*Product product,*/@PathVariable("productid") int productid, Model model) {
+
         Product productToShow = productRepo.findById(productid).get();
-        
+
         //Four more related products
         List<Product> relatedProducts = new ArrayList();
         List<Integer> listOfIds = new ArrayList();
-        List<Product> allProducts= productRepo.findAll();
+        List<Product> allProducts = productRepo.findAll();
 
-        
-        for (Product x: allProducts){
+        for (Product x : allProducts) {
             listOfIds.add(x.getProductid());
         }
         listOfIds.remove(Integer.valueOf(productid)); //remove the product that shows as main in sigle product info page
-         
+
         Collections.shuffle(listOfIds);
-        
-        for (int i=1; i<=4;i++){
-        relatedProducts.add(productRepo.findById(listOfIds.get(i)).get());
+
+        for (int i = 1; i <= 4; i++) {
+            relatedProducts.add(productRepo.findById(listOfIds.get(i)).get());
         }
-        model.addAttribute("relatedProducts",relatedProducts );
+        model.addAttribute("relatedProducts", relatedProducts);
         model.addAttribute("product", productToShow);
 
         return ("Navigation/product");
     }
-    
+
 }
