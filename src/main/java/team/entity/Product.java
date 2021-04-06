@@ -23,6 +23,8 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import jdk.nashorn.internal.objects.annotations.Getter;
+import jdk.nashorn.internal.objects.annotations.Setter;
 
 /**
  *
@@ -39,6 +41,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "Product.findByPrice", query = "SELECT p FROM Product p WHERE p.price = :price")
     , @NamedQuery(name = "Product.findByOffer", query = "SELECT p FROM Product p WHERE p.offer = :offer")
     , @NamedQuery(name = "Product.findByStock", query = "SELECT p FROM Product p WHERE p.stock = :stock")})
+//    , @NamedQuery(name = "Product.findByFilters", query="select p from Product p where p.brandid IN (?1) AND p.categoryid IN (?2) AND p.genderid IN (?3) AND p.sizeid IN (?4) AND p.colorid IN (?5)")})
 public class Product implements Serializable {
 
     private static final long serialVersionUID = 1L;
