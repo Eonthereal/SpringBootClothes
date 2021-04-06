@@ -7,6 +7,7 @@ package team.controller;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -83,7 +84,22 @@ public class CollectionController {
     @GetMapping()
     public String showProducts(Model model) {
         List<Product> products = productRepo.findAll();
-        model.addAttribute("products", products);
+        List<Product> productsInStock = new ArrayList();
+        List<Product> activeProducts = new ArrayList();
+        
+        for (Product p : products) {
+            if (p.getStock() != 0  ) {
+                productsInStock.add(p);
+            }
+            
+        }
+        for (Product p: productsInStock){
+            if (p.getStatus()!=0){
+                activeProducts.add(p);
+            }
+        }
+
+        model.addAttribute("products", activeProducts);
         return ("Navigation/collection");
     }
 
@@ -163,15 +179,24 @@ public class CollectionController {
         }
         //remove last "AND " and triming the last space
         query = query.substring(0, query.lastIndexOf("AND ")).trim();
-        
+
         System.out.println(query);
-        
-        List<Product> products=productRepo.findByFilters(query);
-        for (Product x:products){
-            System.out.println("TEST>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> "+x);
+
+        List<Product> products = productRepo.findByFilters(query);
+        List<Product> productsInStock = new ArrayList();
+        List<Product> activeProducts = new ArrayList();
+        for (Product p : products) {
+            if (p.getStock() != 0 ) {
+                productsInStock.add(p);
+            }
         }
-        model.addAttribute("products", products);
-        
+        for (Product p: productsInStock){
+            if (p.getStatus()!=0){
+                activeProducts.add(p);
+            }
+        }
+
+        model.addAttribute("products", activeProducts);
 
         return ("Navigation/collection");
     }
@@ -186,8 +211,20 @@ public class CollectionController {
         List<Product> relatedProducts = new ArrayList();
         List<Integer> listOfIds = new ArrayList();
         List<Product> allProducts = productRepo.findAll();
+        List<Product> productsInStock = new ArrayList();
+        List<Product> activeProducts = new ArrayList();
+        for (Product p : allProducts) {
+            if (p.getStock() != 0 ) {
+                productsInStock.add(p);
+            }
+        }
+        for (Product p: productsInStock){
+            if (p.getStatus()!=0){
+                activeProducts.add(p);
+            }
+        }
 
-        for (Product x : allProducts) {
+        for (Product x : activeProducts) {
             listOfIds.add(x.getProductid());
         }
         listOfIds.remove(Integer.valueOf(productid)); //remove the product that shows as main in sigle product info page

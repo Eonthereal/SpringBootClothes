@@ -142,13 +142,19 @@ public class ProductControllerAdmin {
     }
         // =============================DELETE=====================================    
 
-    @GetMapping("/delete")
-    public String delete(@RequestParam("id") int id, RedirectAttributes attributes) {
+    @GetMapping("/activation")
+    public String activation(@RequestParam("id") int id, RedirectAttributes attributes) {
         String minima;
 
-        productRepo.deleteById(id);
-
-        minima = "Product deleted successfully!";
+      Product product = productRepo.findById(id).get();
+      
+      if (product.getStatus()==0){
+          product.setStatus(1);          
+      }else{
+          product.setStatus(0);
+      }
+      productRepo.save(product);
+        minima = "Product Status Successfully Changed!";
         attributes.addFlashAttribute("message", minima);
         return "redirect:/admin/product";
     }
