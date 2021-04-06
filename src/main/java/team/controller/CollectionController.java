@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
+import javax.persistence.Entity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -95,52 +96,88 @@ public class CollectionController {
             @RequestParam(value = "size", required = false) List<Sizes> sizes,
             @RequestParam(value = "color", required = false) List<Color> colors,
             Model model) {
+        String query = "SELECT p FROM Product p WHERE ";
 
-        System.out.println("Controller here!!!!!");
-
-        List<Integer> brandlist = new ArrayList();
-
-        List<Integer> categorylist = new ArrayList();
-
-        List<Integer> genderlist = new ArrayList();
-
-        List<Integer> sizelist = new ArrayList();
-
-        List<Integer> colorlist = new ArrayList();
-
-        for (Brand x : brands) {
-            brandlist.add(x.getBrandid());
-
+        try {
+            String brandQuery = "brandid IN (";
+            for (int i = 0; i <= brands.size() - 1; i++) {
+                brandQuery = brandQuery.concat("'" + brands.get(i).getBrandid() + "'");
+                if (i == brands.size() - 1) {
+                    brandQuery = brandQuery.concat(") AND ");
+                } else {
+                    brandQuery = brandQuery.concat(" , ");
+                }
+            }
+            query = query + brandQuery;
+        } catch (NullPointerException e) {
         }
-        for (Category x : categories) {
-            categorylist.add(x.getCategoryid());
+        try {
+            String categoryQuery = "categoryid IN (";
+            for (int i = 0; i <= categories.size() - 1; i++) {
+                categoryQuery = categoryQuery.concat("'" + categories.get(i).getCategoryid() + "'");
+                if (i == categories.size() - 1) {
+                    categoryQuery = categoryQuery.concat(") AND ");
+                } else {
+                    categoryQuery = categoryQuery.concat(" , ");
+                }
+            }
+            query = query + categoryQuery;
+        } catch (NullPointerException e) {
         }
-
-        for (Gender x : genders) {
-            genderlist.add(x.getGenderid());
+        try {
+            String genderQuery = "genderid IN (";
+            for (int i = 0; i <= genders.size() - 1; i++) {
+                genderQuery = genderQuery.concat("'" + genders.get(i).getGenderid() + "'");
+                if (i == genders.size() - 1) {
+                    genderQuery = genderQuery.concat(") AND ");
+                } else {
+                    genderQuery = genderQuery.concat(" , ");
+                }
+            }
+            query = query + genderQuery;
+        } catch (NullPointerException e) {
         }
-
-        for (Sizes x : sizes) {
-            sizelist.add(x.getSizesid());
+        try {
+            String sizesQuery = "sizeid IN (";
+            for (int i = 0; i <= sizes.size() - 1; i++) {
+                sizesQuery = sizesQuery.concat("'" + sizes.get(i).getSizesid() + "'");
+                if (i == sizes.size() - 1) {
+                    sizesQuery = sizesQuery.concat(") AND ");
+                } else {
+                    sizesQuery = sizesQuery.concat(" , ");
+                }
+            }
+            query = query + sizesQuery;
+        } catch (NullPointerException e) {
         }
-
-        for (Color x : colors) {
-            colorlist.add(x.getColorid());
+        try {
+            String colorQuery = "colorid IN (";
+            for (int i = 0; i <= colors.size() - 1; i++) {
+                colorQuery = colorQuery.concat("'" + colors.get(i).getColorid() + "'");
+                if (i == colors.size() - 1) {
+                    colorQuery = colorQuery.concat(") AND ");
+                } else {
+                    colorQuery = colorQuery.concat(" , ");
+                }
+            }
+            query = query + colorQuery;
+        } catch (NullPointerException e) {
         }
-        List<Product> productfilters = productRepo.findByFilters(brandlist, categorylist, genderlist, sizelist, colorlist);
-        model.addAttribute("products", productfilters);
+        //remove last "AND " and triming the last space
+        query = query.substring(0, query.lastIndexOf("AND ")).trim();
+        
+        System.out.println(query);
+        
+        List<Product> products=productRepo.findByFilters(query);
+        for (Product x:products){
+            System.out.println("TEST>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> "+x);
+        }
+        model.addAttribute("products", products);
+        
 
-        return ("Navigation/Collection");
-
-//        
-//        if (brandlist.isEmpty()){
-//            brandlist = null;
-//        }
-        //String 
-        //inalQ = "Select p from product p where p.brandid = ????? AND p.categoryid=????? AND p.genderid=?? AND p.sizesid=??? AND p.colorid=???";
+        return ("Navigation/collection");
     }
 
-//    
     //======================================SHOW SINGLE PRODUCT INFO==========================================
     @GetMapping("/{productid}")
     public String showProduct(/*Product product,*/@PathVariable("productid") int productid, Model model) {

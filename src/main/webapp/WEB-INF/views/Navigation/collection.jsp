@@ -17,7 +17,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Spring Boot Fashion</title>
-        <link rel="stylesheet" href="css/style.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
         <link rel="preconnect" href="https://fonts.gstatic.com">
         <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
               rel="stylesheet">
@@ -129,43 +129,42 @@
                     <h4>Brands:</h4>
                     <li>
                         <c:forEach items="${brands}" var="brand">                              
-                            <input type="checkbox" name="brand" value="${brand.brandid}" id="${brand.brandname}" hidden>
+                            <input type="checkbox" name="brand" value="${brand.brandid}" id="${brand.brandname}" class="showSubmit" hidden>
                             <label for="${brand.brandname}">${brand.brandname}</label>
                         </c:forEach>            
                     </li>
                     <h4>Categories:</h4>
                     <li>
                         <c:forEach items="${categories}" var="category">                           
-                            <input  type="checkbox" name="category" value="${category.categoryid}" id="${category.categoryname}" hidden>
+                            <input  type="checkbox" name="category" value="${category.categoryid}" id="${category.categoryname}" class="showSubmit" hidden>
                             <label for="${category.categoryname}">${category.categoryname}</label> 
                         </c:forEach>
                     </li>
                     <h4>Gender:</h4>
                     <li>
                         <c:forEach items="${genders}" var="gender">                           
-                            <input type="checkbox" name="gender" value="${gender.genderid}" id="${gender.gendername}" hidden>
+                            <input type="checkbox" name="gender" value="${gender.genderid}" id="${gender.gendername}" class="showSubmit" hidden>
                             <label for="${gender.gendername}">${gender.gendername}</label>
                         </c:forEach>
                     </li>
                     <h4>Sizes:</h4>
                     <li>
                         <c:forEach items="${sizes}" var="size">                           
-                            <input type="checkbox" name="size"  value="${size.sizesid}" id="${size.sizename}" hidden>
+                            <input type="checkbox" name="size"  value="${size.sizesid}" id="${size.sizename}" class="showSubmit" hidden>
                             <label for="${size.sizename}">${size.sizename}</label>
                         </c:forEach>
                     </li>
                     <h4>Colors:</h4>
                     <li>
                         <c:forEach items="${colors}" var="color">
-                            <input type="checkbox" name="color"  value="${color.colorid}" id="${color.colorname}" hidden>
+                            <input type="checkbox" name="color"  value="${color.colorid}" id="${color.colorname}" class="showSubmit" hidden>
                             <label for="${color.colorname}">${color.colorname}</label>
                         </c:forEach>
                     </li>
                 </ul>
-
-                <input type="submit" value="Submit Filters"/>
-
+                <input type="submit" value="Submit Filters" class="Submit" disabled="disabled"/>
             </form:form>
+                <a class="btn" href="${pageContext.request.contextPath}/collection">Clear Filters</a>
         </div>
         <!--<input type="button" id="none" value="Clear All"/>-->
 
@@ -187,9 +186,9 @@
                         <c:forEach items="${products}" var="product">
                             <li class="col-4">
                                 <div id="${product.title}" class="col-4 grid-products" data-brand="${product.brand.brandname}" data-category="${product.category.categoryname}" data-gender="${product.gender.gendername}"  data-size="${product.size.sizename}" data-color="${product.color.colorname}" >
-                                 <a href="${pageContext.request.contextPath}/collection/${product.productid}">
-                                     <img src="${pageContext.request.contextPath}/images/${product.image}">
-                                 </a>
+                                    <a href="${pageContext.request.contextPath}/collection/${product.productid}">
+                                        <img src="${pageContext.request.contextPath}/images/${product.image}">
+                                    </a>
                                     <h4><a href="${pageContext.request.contextPath}/collection/${product.productid}">${product.title}</a></h4>
                                     <div class="rating">
                                         <i class="fa fa-star"></i>
@@ -222,12 +221,12 @@
                         <h3>Download Our App</h3>
                         <p>Download App for Android and IOS mobile phone.</p>
                         <div class="app-logo">
-                            <img src="images/play-store.png">
-                            <img src="images/app-store.png">
+                            <img src="${pageContext.request.contextPath}/images/play-store.png">
+                            <img src="${pageContext.request.contextPath}/images/app-store.png">
                         </div>
                     </div>
                     <div class="footer-col-2">
-                        <img src="images/logo transparent.png">
+                        <img src="${pageContext.request.contextPath}/images/logo transparent.png">
                         <p>Our Purpose Is To Learn How to Make Beautiful, User-friendly and Responsive Sites.
                         </p>
                     </div>
@@ -261,6 +260,15 @@
 
 
         <script>
+                    $(document).ready(function () {
+                        $('.showSubmit').click(function () {
+                            if ($(this).prop('checked') == true) {
+                                $('input[type="submit"]').prop('disabled', false);
+                            } else {
+                                $('input[type="submit"]').prop('disabled', true);
+                            }
+                        });
+                    });
                     //            $(document).ready(function () {
                     //                $(':input').change(function (evt) {
                     //                    var filter = $(':input:checked,select').map(function (index, el) {

@@ -20,8 +20,8 @@ import team.entity.Sizes;
 
 
 @Repository
-public interface ProductRepo extends JpaRepository<Product,Integer> {
-    @Query("select p from Product p where p.brandid IN (?1) AND p.categoryid IN (?2) AND p.genderid IN (?3) AND p.sizeid IN (?4) AND p.colorid IN (?5)")
-    List <Product> findByFilters(List<Integer> brand, List<Integer> category, List<Integer> gender, List<Integer> size, List<Integer> color);
+public interface ProductRepo extends JpaRepository<Product,Integer> , ProductRepoCustom{
+
+    
     
 }
