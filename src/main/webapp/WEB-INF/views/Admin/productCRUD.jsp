@@ -100,7 +100,7 @@
                             <a href="${pageContext.request.contextPath}/admin/product/activation?id=${product.productid}">Activate</a>
                             </c:if>
                             <c:if test="${product.status == 1}">
-                            <a href="${pageContext.request.contextPath}/admin/product/activation?id=${product.productid}">Deactivate</a>
+                                <a href="${pageContext.request.contextPath}/admin/product/activation?id=${product.productid}" style="color: red">Deactivate</a>
                             </c:if>
                         </td>
                     </tr>
