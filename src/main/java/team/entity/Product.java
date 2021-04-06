@@ -71,6 +71,11 @@ public class Product implements Serializable {
     @NotNull
     @Column(name = "stock")
     private int stock;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "status")
+    private int status;
+
     @JoinColumn(name = "brandid", referencedColumnName = "brandid")
     @ManyToOne(optional = false)
     private Brand brand;
@@ -120,6 +125,14 @@ public class Product implements Serializable {
 
     public Integer getProductid() {
         return productid;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
     }
 
     public void setProductid(Integer productid) {

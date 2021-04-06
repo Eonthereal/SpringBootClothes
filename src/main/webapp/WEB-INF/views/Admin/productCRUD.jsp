@@ -56,7 +56,12 @@
                             <a href="${pageContext.request.contextPath}/admin/product/update/${product.productid}">Update</a>
                         </td>
                         <td>
-                            <a href="${pageContext.request.contextPath}/admin/product/delete?id=${product.productid}">Delete</a>
+                            <c:if test="${product.status == 0}">
+                            <a href="${pageContext.request.contextPath}/admin/product/activation?id=${product.productid}">Activate</a>
+                            </c:if>
+                            <c:if test="${product.status == 1}">
+                            <a href="${pageContext.request.contextPath}/admin/product/activation?id=${product.productid}">Deactivate</a>
+                            </c:if>
                         </td>
                     </tr>
                 </c:forEach>
