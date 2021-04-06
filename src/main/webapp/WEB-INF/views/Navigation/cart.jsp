@@ -139,7 +139,7 @@
                                            </c:if>
                                        </c:if>
                                    </c:forEach>  
-                                   min='1' max="${product.stock}" id="${product.productid}" oninput="linkchange(${product.productid}, ${pendingorder.ordersid})" class="qty" />
+                                   min='1' max="${product.stock}" id="${product.productid}" oninput="linkchange(${product.productid}, ${pendingorder.ordersid})" class="qty" onkeydown="return false"/>
                             <br>
                             <a href="" id="qtylink${product.productid}"></a>   
                         </td>
