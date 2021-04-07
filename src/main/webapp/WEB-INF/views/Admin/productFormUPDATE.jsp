@@ -29,7 +29,7 @@
             <br/>
 
             <label for="price">Price :</label>
-            <form:input id="price" path="price" />
+            <form:input type="number" id="price" path="price" step="0.01" />
             <form:errors path="price"/>
             <br/>
 
@@ -39,7 +39,7 @@
             <br/>
             
             <label for="stock">Stock :</label>
-            <form:input id="stock" path="stock" />
+            <form:input type="number" id="stock" path="stock" />
             <form:errors path="stock"/>
             <br/>
          
@@ -61,6 +61,8 @@
            
             <form:hidden path="color" items="${colors}" itemLabel="colorname" itemValue="colorid" element="li" required="required"/>
             
+            
+            <form:hidden id="status" path="status"/>
 
 
 
