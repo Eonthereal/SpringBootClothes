@@ -5,16 +5,13 @@
  */
 package team.service;
 
-import java.util.List;
 import org.springframework.stereotype.Service;
-import team.entity.Color;
-
+import team.entity.Tax;
 
 @Service
-public interface ColorService {
-
+public interface TaxService {
     
-    public List<Color> findAll();
+    Tax findById(int taxid);
     
     
 }

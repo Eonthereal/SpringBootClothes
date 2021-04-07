@@ -6,24 +6,14 @@
 package team.service;
 
 import java.util.List;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import team.entity.Category;
-import team.repository.CategoryRepo;
 
-@Transactional
 @Service
-public class CategoryService {
+public interface CategoryService {
+
     
-    @Autowired
-    CategoryRepo categoryRepo;
-    
-    
-    public List<Category> findAll(){
-      return  categoryRepo.findAll();
-    }
-    
+    public List<Category> findAll();
     
     
     

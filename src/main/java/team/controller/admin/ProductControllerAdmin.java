@@ -28,7 +28,6 @@ import team.entity.Category;
 import team.entity.Color;
 import team.entity.Gender;
 import team.entity.Sizes;
-import team.entity.User;
 import team.service.BrandService;
 import team.service.CategoryService;
 import team.service.ColorService;

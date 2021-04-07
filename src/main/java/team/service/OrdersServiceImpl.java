@@ -41,4 +41,10 @@ public class OrdersServiceImpl implements OrdersService {
         return ordersRepo.findById(ordersid);
     }
     
+    @Override
+    public void deleteById(int ordersid){
+        ordersRepo.deleteById(ordersid);
+    }
+    
+    
 }

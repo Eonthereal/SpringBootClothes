@@ -5,7 +5,6 @@
  */
 package team.service;
 
-
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,29 +12,26 @@ import org.springframework.transaction.annotation.Transactional;
 import team.entity.Product;
 import team.repository.ProductRepo;
 
-
 @Service
 @Transactional
-public class ProductServiceImpl implements ProductService{
-    
+public class ProductServiceImpl implements ProductService {
+
     @Autowired
     ProductRepo productRepo;
-    
-    
-     @Override
+
+    @Override
     public List<Product> findAll() {
         return productRepo.findAll();
     }
 
     @Override
-    public Product createProduct(Product product) {       
-       return productRepo.save(product); 
+    public Product createProduct(Product product) {
+        return productRepo.save(product);
     }
 
     @Override
-    public Product findById(int productId) {        
-        Product product=productRepo.findById(productId).get();
-//        System.out.println("Service implement>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"+product.toString());
+    public Product findById(int productId) {
+        Product product = productRepo.findById(productId).get();
         return product;
     }
 
@@ -45,6 +41,4 @@ public class ProductServiceImpl implements ProductService{
 
     }
 
-   
-    
 }
