@@ -21,7 +21,7 @@ public interface OrdersService {
     
     Orders findById(int ordersid);
    
-
+    public void deleteById(int ordersid);
     
     
     

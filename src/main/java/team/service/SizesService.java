@@ -6,23 +6,15 @@
 package team.service;
 
 import java.util.List;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import team.entity.Sizes;
-import team.repository.SizesRepo;
 
-@Transactional
+
 @Service
-public class SizesService {
+public interface SizesService {
+
     
-    @Autowired
-    SizesRepo sizesRepo;
-    
-    
-    public List<Sizes> findAll(){
-        return sizesRepo.findAll();
-    }
+    public List<Sizes> findAll();
     
     
 }

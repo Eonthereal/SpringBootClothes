@@ -10,22 +10,34 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import team.entity.ProductOrders;
+import team.entity.ProductOrdersId;
 import team.repository.ProductOrdersRepo;
 
 @Transactional
 @Service
-public class ProductOrdersServiceImpl implements ProductOrdersService{
-    
+public class ProductOrdersServiceImpl implements ProductOrdersService {
+
     @Autowired
     ProductOrdersRepo productOrdersRepo;
-          
 
     @Override
     public List<ProductOrders> findAll() {
-       return productOrdersRepo.findAll();    
+        return productOrdersRepo.findAll();
     }
-    
-   
-    
-    
+
+    @Override
+    public ProductOrders save(ProductOrders productOrders) {
+        return productOrdersRepo.save(productOrders);
+    }
+
+    @Override
+    public void deleteById(ProductOrdersId id) {
+        productOrdersRepo.deleteById(id);
+    }
+
+    @Override
+    public ProductOrders findById(ProductOrdersId id) {
+        return productOrdersRepo.findById(id).get();
+    }
+
 }
