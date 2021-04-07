@@ -83,16 +83,7 @@
         <div class="small-container" >
  <h1>Order Details</h1>
  <br>
-<!--            <p>${order}</p>
-            <p>${tax}</p>
-            <p>${productorders}</p>
-            -->
 
-            <%--<c:forEach items="${productorders}" var = "productorder">--%>
-            <%--<c:if test="${productorder.getOrders()==order}">--%>
-                <!--<p>${productorder.getProduct()} </p>-->
-            <%--</c:if>--%>
-            <%--</c:forEach>--%>
 
             <h2>Customer Details</h2>
 
@@ -132,13 +123,13 @@
                     <tr>
                         <c:if test="${productorder.getOrders()==order}">
                             <td>${productorder.getProduct().getTitle()} x ${productorder.getQuantity()}</td>
-                            <td>${productorder.getPrice()}</td>
+                            <td>${productorder.getPrice()} €</td>
                         </c:if>
                     </tr>
                 </c:forEach>
                 <tr>
                     <td>Total Cost (VAT included): </td> 
-                    <td>${order.totalcost} </td>       
+                    <td>${order.totalcost} €</td>       
                 </tr>
             </table>
 
