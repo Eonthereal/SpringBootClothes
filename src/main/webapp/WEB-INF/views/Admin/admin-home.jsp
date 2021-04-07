@@ -17,6 +17,7 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     </head>
     <body>
+        <!--Header bar-->
         <div class="container">
             <div class="navbar">
                 <div class="logo">
@@ -55,17 +56,66 @@
                 </div>
             </div>
         </div>
-        <div class="small-container">
-            <h1>Admin Section</h1>
+        <!--Header bar-->               
 
 
 
+
+
+        <div class="sidebar">
+            <br>
+            <h3>Admin Panel</h3>
+            <br>
             <a href="${pageContext.request.contextPath}/admin/product">List of Products</a>
             <br>
             <a href="${pageContext.request.contextPath}/admin/user">List of Users</a>
+
             <br>
             <br>
+
         </div>
+        <div class="small-container" id="adminView" >
+
+            <br>
+
+            <h2>Products</h2>
+
+            <table border="1">
+                <thead>
+
+                    <tr>
+                        <th>Total Products</th>   
+                        <th>Active Products</th>  
+                        <th>Inactive Products</th>  
+                    </tr>
+                </thead>
+                <tr>
+                    <td>${totalProducts}</td>
+                    <td>${productStatusList.get(0)}</td>
+                    <td>${productStatusList.get(1)}</td>
+                </tr>
+
+            </table>
+
+
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         <!-- FOOTER -->
 
         <div class="footer">
