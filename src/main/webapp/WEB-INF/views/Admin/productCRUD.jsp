@@ -90,17 +90,22 @@
                         <td>${product.offer}</td>
                         <td>${product.size.sizename}</td>
                         <td>${product.color.colorname}</td>
-                        <td>${product.stock}</td>
+                        <c:if test="${product.stock == 0}">
+                        <td style="color: red">${product.stock}</td>
+                        </c:if>
+                        <c:if test="${product.stock > 0}">
+                        <td style="color: green">${product.stock}</td>
+                        </c:if>
 
                         <td>      
                             <a href="${pageContext.request.contextPath}/admin/product/update/${product.productid}">Update</a>
                         </td>
                         <td>
                             <c:if test="${product.status == 0}">
-                            <a href="${pageContext.request.contextPath}/admin/product/activation?id=${product.productid}">Activate</a>
+                            <a href="${pageContext.request.contextPath}/admin/product/activation?id=${product.productid}" style="color: red">Inactive</a>
                             </c:if>
                             <c:if test="${product.status == 1}">
-                                <a href="${pageContext.request.contextPath}/admin/product/activation?id=${product.productid}" style="color: red">Deactivate</a>
+                                <a href="${pageContext.request.contextPath}/admin/product/activation?id=${product.productid}" >Active</a>
                             </c:if>
                         </td>
                     </tr>
