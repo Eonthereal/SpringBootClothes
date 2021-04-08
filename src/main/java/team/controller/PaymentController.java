@@ -1,22 +1,24 @@
 package team.controller;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.stripe.model.Coupon;
 import static java.lang.Integer.parseInt;
+import java.time.LocalDate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import static org.springframework.web.bind.annotation.RequestMethod.POST;
+import team.entity.Orders;
+import team.entity.ProductOrders;
 import team.entity.Response;
+import team.entity.User;
+import team.service.OrdersService;
+import team.service.ProductService;
 //import com.stripe.service.StripeService;
 //import com.stripe.utils.Response;
 import team.service.StripeService;
+import team.service.UserService;
 
 @Controller
 @RequestMapping("user/cart/checkout/payment")
@@ -24,14 +26,19 @@ public class PaymentController {
 
 //    @Value("${stripe.key.public}")
 //    private String API_PUBLIC_KEY;
-
     @Autowired
     private StripeService stripeService;
+
+    @Autowired
+    OrdersService ordersService;
+    @Autowired
+    ProductService productService;
+    @Autowired
+    UserService userService;
 
 //    public PaymentController(StripeService stripeService) {
 //        this.stripeService = stripeService;
 //    }
-
 //	@GetMapping("/")
 //	public String homepage() {
 //		return "homepage";
@@ -47,7 +54,6 @@ public class PaymentController {
 //        model.addAttribute("stripePublicKey", API_PUBLIC_KEY);
 //        return "charge";
 //    }
-
 //    @PostMapping("/create-subscription")
 //    public @ResponseBody
 //    Response createSubscription(String email, String token, String plan, String coupon) {
@@ -70,7 +76,6 @@ public class PaymentController {
 //
 //        return new Response(true, "Success! your subscription id is " + subscriptionId);
 //    }
-
 //    @PostMapping("/cancel-subscription")
 //    public @ResponseBody
 //    Response cancelSubscription(String subscriptionId) {
@@ -83,7 +88,6 @@ public class PaymentController {
 //
 //        return new Response(true, "Subscription cancelled successfully");
 //    }
-
 //    @PostMapping("/coupon-validator")
 //    public @ResponseBody
 //    Response couponValidator(String code) {
@@ -98,22 +102,21 @@ public class PaymentController {
 //        return new Response(false, "This coupon code is not available. This may be because it has expired or has "
 //                + "already been applied to your account.");
 //    }
-
 //    @PostMapping("/create-charge")
 //    public @ResponseBody
-    @RequestMapping(value = "/create-charge", method = RequestMethod.GET)
+    @RequestMapping(value = "/create-charge/{ordersid}", method = RequestMethod.GET)
     public @ResponseBody
-            //afou i vivvliothiki tou indou pairnei mono int os amount kai den pairnei float. ti kanoume?
-            // orizoume sto controller to amount os string etsi oste meta to poso na to epexergastoume me java kodika oti morfi kai na exei
-    Response createCharge(String email, String token, String amount) {
-        
-        System.out.println("--------Controller amount 1 :  "+amount);
-        
+    //afou i vivvliothiki tou indou pairnei mono int os amount kai den pairnei float. ti kanoume?
+    // orizoume sto controller to amount os string etsi oste meta to poso na to epexergastoume me java kodika oti morfi kai na exei
+    Response createCharge(String email, String token, String amount, @PathVariable("ordersid") int ordersid) {
+
+        System.out.println("--------Controller amount 1 :  " + amount);
+
         //afout opos katalavame i vivliothiki tou indou kanei ta dio teleutaia psifia tou arithmou dekadika tote kai emeis afairoume to koma apo to poso mas etsi oste na to perasoume sto rest api
         //me auto to tropo o int arithmos mas tha exei  kai ta dio dekadika mesa, kai to rest api tou indou afou ta 2 teleutaia psifia ta katalavainei os decimal tha ta kanei metatropi autos
-        int fixedAmount = parseInt(amount.replace(".","").replace(",",""));
-        
-          System.out.println("--------Controller amount 1 :  "+fixedAmount);
+        int fixedAmount = parseInt(amount.replace(".", "").replace(",", ""));
+
+        System.out.println("--------Controller amount 1 :  " + fixedAmount);
 
         if (token == null) {
             return new Response(false, "Stripe payment token is missing. Please try again later.");
@@ -122,23 +125,41 @@ public class PaymentController {
         String chargeId = stripeService.createCharge(email, token, fixedAmount);// 9.99 usd
 
         if (chargeId != null) {
+
+            System.out.println("--------Controller amount 2 :  " + amount);
+            int productOrderQty;
+            int productStock;
+
+            Orders order = ordersService.findById(ordersid);
+
+            for (ProductOrders x : order.getProductList()) {
+                productOrderQty = x.getQuantity();
+                productStock = x.getProduct().getStock();
+                x.getProduct().setStock(productStock - productOrderQty);
+                productService.saveProduct(x.getProduct());
+                
+            }
+            int orderCredits = (int) Math.round(order.getTotalcost()/5);
+            int currentCredits = order.getUser().getCredits();
+            User user = order.getUser();
             
-            System.out.println("--------Controller amount 2 :  "+amount);
+            user.setCredits(currentCredits+orderCredits);
             
+            userService.updateUser(user);
+            
+
+            order.setStatus("SUBMITTED");
+            order.setOrderdate(LocalDate.now());
+
+            ordersService.saveOrder(order);
+
             return new Response(true, "The payment completed successfully with charge id:  " + chargeId);
-            
-            
-            // Insert to db
-            
-            
+
         } else {
-            
+
             return new Response(false, "An error occured with your payment. Please Contact Support.");
         }
 
-      // System.out.println("dfasdfdsa fasdfasdf sadfas fsa");
-
-
-
+        // System.out.println("dfasdfdsa fasdfasdf sadfas fsa");
     }
 }

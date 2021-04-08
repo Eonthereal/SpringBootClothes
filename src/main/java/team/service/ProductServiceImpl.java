@@ -41,4 +41,9 @@ public class ProductServiceImpl implements ProductService {
 
     }
 
+    @Override
+    public Product saveProduct(Product product) {
+        return productRepo.save(product);
+    }
+
 }
