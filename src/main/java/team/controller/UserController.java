@@ -21,8 +21,6 @@ public class UserController {
     @Autowired
     UserService userService;
 
-   
-
     @GetMapping("/profile/{principal.username}")
     public String showUserProfile(Principal principal, Model model) {
 
