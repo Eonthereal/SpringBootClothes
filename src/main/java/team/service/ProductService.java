@@ -20,5 +20,5 @@ public interface ProductService {
     
     List<Product> findByFilters(String query);
     
-    
+    Product saveProduct(Product product);
 }

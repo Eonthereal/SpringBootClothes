@@ -78,125 +78,125 @@
         </div>
 
 
-    <!-----MAIN----->
-    <div class="small-container">
-        <div class="row row-2">
-            <h2>checkout</h2>
-        </div>
-
-        <div class="row">
-
-            <!-------------------------------------------------------------------------------- -->
-            <!-- Stripe -->
-            <!-------------------------------------------------------------------------------- -->
-
-            <div class="card mb-4">
-                <div class="card-body">
-                    <h5>Leather Bag</h5>
-                    <p id="product-price">${order.totalcost}</p>
-                </div>
+        <!-----MAIN----->
+        <div class="small-container">
+            <div class="row row-2">
+                <h2>checkout</h2>
             </div>
 
-            <form action="#" id="payment-form" method="post">
-                <input id="api-key" type="hidden" value="${stripePublicKey}">
-                <div class="form-group">
-                    <label class="font-weight-medium" for="card-element">
-                        Enter credit or debit card below
-                    </label>
-                    <div class="w-100" id="card-element">
-                        <!-- A Stripe Element will be inserted here. -->
-                    </div>
-                </div>
-                <div class="form-group">
-                    <input class="form-control" id="email" name="email"
-                           placeholder="Email Address" type="email" required>
-                </div>
-                <!-- Used to display Element errors. -->
-                <div class="text-danger w-100" id="card-errors" role="alert"></div>
-                <div class="form-group pt-2">
-                    <button class="btn btn-primary btn-block" id="submitButton" type="submit">
-                        Pay With Your Card
-                    </button>
-                    <div class="small text-muted mt-2">
-                        Pay securely with Stripe. By clicking the button above, you agree
-                        to our <a target="_blank" href="#">Terms of Service</a>,
-                        <a target="_blank" href="#">Privacy</a> and
-                        <a target="_blank" href="#">Refund</a> policies.
-
-                    </div>
-                </div>
-
-
-            </form>
-            <!-------------------------------------------------------------------------------- -->
-
-
-
-
-
-        </div>
-        <!-- <div class="page-btn">
-            <span>1</span>
-            <span>2</span>
-            <span>3</span>
-            <span>4</span>
-            <span>&#8594;</span>
-        </div> -->
-    </div>
-    <!-- /MAIN -->
-
-    <!-- FOOTER -->
-
-    <div class="footer">
-        <div class="container">
             <div class="row">
-                <div class="footer-col-1">
-                    <h3>Download Our App</h3>
-                    <p>Download App for Android and IOS mobile phone.</p>
-                    <div class="app-logo">
-                        <img src="${pageContext.request.contextPath}/images/play-store.png">
-                        <img src="${pageContext.request.contextPath}/images/app-store.png">
+
+                <!-------------------------------------------------------------------------------- -->
+                <!-- Stripe -->
+                <!-------------------------------------------------------------------------------- -->
+
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h5>Total Amount in €</h5>
+                        <p id="product-price">${order.totalcost}</p>
                     </div>
                 </div>
-                <div class="footer-col-2">
-                    <img src="${pageContext.request.contextPath}/images/logo transparent.png">
-                    <p>Our Purpose Is To Learn How to Make Beautiful, User-friendly and Responsive Sites.
-                    </p>
-                </div>
-                <div class="footer-col-3">
-                    <h3>Useful Links</h3>
-                    <ul>
-                        <li>Coupons</li>
-                        <li>Blog Post</li>
-                        <li>Return Policy</li>
-                        <li>Join Affiliate</li>
-                    </ul>
-                </div>
-                <div class="footer-col-4">
-                    <h3>Follow us</h3>
-                    <ul>
-                        <li>Facebook</li>
-                        <li>Twitter</li>
-                        <li>Instagram</li>
-                        <li>Youtube</li>
-                    </ul>
-                </div>
+
+                <form action="#" id="payment-form" method="post">
+                    <input id="api-key" type="hidden" value="${stripePublicKey}">
+                    <div class="form-group">
+                        <label class="font-weight-medium" for="card-element">
+                            Enter credit or debit card below
+                        </label>
+                        <div class="w-100" id="card-element">
+                            <!-- A Stripe Element will be inserted here. -->
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control" id="email" name="email"
+                               placeholder="Email Address" type="email" required>
+                    </div>
+                    <!-- Used to display Element errors. -->
+                    <div class="text-danger w-100" id="card-errors" role="alert"></div>
+                    <div class="form-group pt-2">
+                        <button class="btn btn-primary btn-block" id="submitButton" type="submit" >
+                            Pay With Your Card
+                        </button>
+                        <div class="small text-muted mt-2">
+                            Pay securely with Stripe. By clicking the button above, you agree
+                            to our <a target="_blank" href="#">Terms of Service</a>,
+                            <a target="_blank" href="#">Privacy</a> and
+                            <a target="_blank" href="#">Refund</a> policies.
+
+                        </div>
+                    </div>
+
+
+                </form>
+                <!-------------------------------------------------------------------------------- -->
+
+
+
+
+
             </div>
-            <hr>
-            <p class="copyright">Copyright 2021 - CB12 Part Time</p>
+            <!-- <div class="page-btn">
+                <span>1</span>
+                <span>2</span>
+                <span>3</span>
+                <span>4</span>
+                <span>&#8594;</span>
+            </div> -->
         </div>
+        <!-- /MAIN -->
+
+        <!-- FOOTER -->
+
+        <div class="footer">
+            <div class="container">
+                <div class="row">
+                    <div class="footer-col-1">
+                        <h3>Download Our App</h3>
+                        <p>Download App for Android and IOS mobile phone.</p>
+                        <div class="app-logo">
+                            <img src="${pageContext.request.contextPath}/images/play-store.png">
+                            <img src="${pageContext.request.contextPath}/images/app-store.png">
+                        </div>
+                    </div>
+                    <div class="footer-col-2">
+                        <img src="${pageContext.request.contextPath}/images/logo transparent.png">
+                        <p>Our Purpose Is To Learn How to Make Beautiful, User-friendly and Responsive Sites.
+                        </p>
+                    </div>
+                    <div class="footer-col-3">
+                        <h3>Useful Links</h3>
+                        <ul>
+                            <li>Coupons</li>
+                            <li>Blog Post</li>
+                            <li>Return Policy</li>
+                            <li>Join Affiliate</li>
+                        </ul>
+                    </div>
+                    <div class="footer-col-4">
+                        <h3>Follow us</h3>
+                        <ul>
+                            <li>Facebook</li>
+                            <li>Twitter</li>
+                            <li>Instagram</li>
+                            <li>Youtube</li>
+                        </ul>
+                    </div>
+                </div>
+                <hr>
+                <p class="copyright">Copyright 2021 - CB12 Part Time</p>
+            </div>
 
 
-    </div>
-    <!-- /FOOTER -->
-    <script src="${pageContext.request.contextPath}/js/burgermenu.js"></script>
-    <!--<script src="${pageContext.request.contextPath}/js/payment.js"></script>-->
+        </div>
+        <!-- /FOOTER -->
+        <script src="${pageContext.request.contextPath}/js/burgermenu.js"></script>
+        <!--<script src="${pageContext.request.contextPath}/js/payment.js"></script>-->
 
 
 
 
-    <!--custom javascript for handling subscription-->
-    <script>
+        <!--custom javascript for handling subscription-->
+        <script>
                     $(document).ready(function () {
                         var API_KEY = 'pk_test_51IcYb5LHOzT4nl4bd3BYOpBNl3SAPSsGwEX0K1AFxlbLce5G7hNkSnaExlsCYu1ZMzutv8nwvY27xMoEaZ99GaCL00FYjiILpS';
                         // Create a Stripe client.
@@ -227,10 +227,17 @@
                             event.preventDefault();
                             // handle payment
                             handlePayments();
+                            
+                            setTimeout(function () {
+                              window.location.href = "${pageContext.request.contextPath}";
+                            }, 4000);
+
+
                         });
 
                         //handle card submission
                         function handlePayments() {
+                        document.getElementById("submitButton").disabled = true;
                             stripe.createToken(card).then(function (result) {
                                 if (result.error) {
                                     // Inform the user if there was an error.
@@ -245,7 +252,7 @@
                                     //var pPrice =parseDouble($('#product-price').html());
 
                                     $.get(
-                                            "payment/create-charge",
+                                            "payment/create-charge/${order.ordersid}",
                                             {email: email, token: token, amount: pPrice},
                                             function (data) {
                                                 alert(data.details);
@@ -255,6 +262,6 @@
                         }
                     });
 
-    </script>
-</body>
+        </script>
+    </body>
 </html>

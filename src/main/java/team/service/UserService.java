@@ -22,6 +22,8 @@ public interface UserService extends UserDetailsService {
     User createUser(User user);
     
     
+    User updateUser(User user);
+    
     
     
 }
