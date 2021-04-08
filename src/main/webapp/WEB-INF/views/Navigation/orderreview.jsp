@@ -134,7 +134,7 @@
             </table>
 
             <a href="${pageContext.request.contextPath}/collection" class="btn contshopping">Continue Shopping</a>      
-            <a href="" class="btn checkout">Checkout</a>      
+            <a href="${pageContext.request.contextPath}/user/cart/checkout/${order.ordersid}" class="btn checkout">Checkout</a>      
 
         </div>     
 
