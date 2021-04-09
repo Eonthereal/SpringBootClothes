@@ -73,7 +73,7 @@ public class UserServiceImpl implements UserService {
         return user;
 }
     
-    //H createUser χρησιμοποιήτε στο UserContollerAdmin για το createUser
+    //H createUser χρησιμοποιείται στο UserContollerAdmin για το createUser
     @Override
     public User createUser(User user) {
         String plainPassword = user.getPassword();

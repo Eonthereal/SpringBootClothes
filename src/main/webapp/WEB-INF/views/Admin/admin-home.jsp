@@ -15,9 +15,15 @@
         <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
               rel="stylesheet">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.1/css/bootstrap.min.css" rel="stylesheet">
+        <style type="text/css">
+            body {
+                margin-top: 20px;
+            }
+        </style>
     </head>
     <body>
-        <!--Header bar-->
+        <!-- Header -->
         <div class="container">
             <div class="navbar">
                 <div class="logo">
@@ -28,7 +34,7 @@
                         <!--<li><a href="${pageContext.request.contextPath}/">Home</a></li>-->
                         <li><a href="${pageContext.request.contextPath}/collection">Collection</a></li>
                         <li><a href="${pageContext.request.contextPath}/offers">Offers</a></li>
-                        <li><a a href="${pageContext.request.contextPath}/about">About</a></li>
+                        <li><a href="${pageContext.request.contextPath}/about">About</a></li>
                         <li><a href="${pageContext.request.contextPath}/contact">Contact</a></li>
                         <li><a href="${pageContext.request.contextPath}/chat">Chat</a></li>
                             <sec:authorize access ="!isAuthenticated()">  
@@ -45,9 +51,9 @@
                 </nav>
                 <a href="${pageContext.request.contextPath}/user/cart"><img src="${pageContext.request.contextPath}/images/cart.png" width="30px" height="30px"></a>
                 <img src="${pageContext.request.contextPath}/images/menu.png" class="menu-icon" onclick="menutoggle()">
-
                 <div class="row">
                     <sec:authorize access ="isAuthenticated()"> <!--Το sec:authedication το έβαλα ενδιάμεσα του sec:authorize γιατί έσκαγε όλο το Home όταν δεν υπήρχε Login με κάποιο ROLE -->
+
                         <a href="${pageContext.request.contextPath}/user/profile/<sec:authentication property="principal.username"/>"> <sec:authentication property="principal.username"/></a>
                         <sec:authorize access ="hasRole('ADMIN')">
                             <a href="${pageContext.request.contextPath}/admin"><span style='color: red'>(Admin Menu)</span></a>
@@ -56,68 +62,115 @@
                 </div>
             </div>
         </div>
-        <!--Header bar-->               
+        <!-- /Header -->
 
+        <!-- Main -->
+        <div class="container bootstrap snippets bootdey">
+            <!-- upper section -->
+            <div class="row">
+                <div class="col-md-3">
+                    <!-- left -->
+                    <p><strong><i class="glyphicon glyphicon-briefcase"></i> Toolbox</strong></p>
+                    <hr>
+                    <ul class="nav nav-pills nav-stacked">
+                        <li><a href="${pageContext.request.contextPath}/admin/product"><i class="glyphicon glyphicon-list-alt"></i> List of Products</a></li>
+                        <li><a href="${pageContext.request.contextPath}/admin/user"><i class="glyphicon glyphicon-list-alt"></i> List of Users</a>
+                        <li><a href="${pageContext.request.contextPath}/admin/order"><i class="glyphicon glyphicon-list-alt"></i> List of Orders</a>
+                    </ul>
+                    <hr>
+                </div><!-- /span-3 -->
+                <div class="col-md-9">
+                    <!-- column 2 -->
+                    <a href="#"><strong><i class="glyphicon glyphicon-dashboard"></i> My Dashboard</strong></a>
+                    <hr>
+                    <div class="row">
+                        <div class="col-md-10">
+                            <!-- Products-->
+                            <div class="row--">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4>Product Summary</h4>
+                                        <h5>(Total Products: ${totalProducts})</h5>
+                                    </div>
+                                    <div class="panel-body">
+                                        <small>Active Products (${productStatusList.get(0)})</small>
+                                        <div class="progress">
+                                            <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="${productStatusList.get(0)/totalProducts*100}" aria-valuemin="0"
+                                                 aria-valuemax="100" style="width: ${productStatusList.get(0)/totalProducts*100}%">
+                                                <span class="sr-only">${productStatusList.get(0)/totalProducts*100}% Complete</span>
+                                            </div>
+                                        </div>
+                                        <small>Inactive Products (${productStatusList.get(1)})</small>
+                                        <div class="progress">
+                                            <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="${productStatusList.get(1)/totalProducts*100}"
+                                                 aria-valuemin="0" aria-valuemax="100" style="width: ${productStatusList.get(1)/totalProducts*100}%">
+                                                <span class="sr-only">${productStatusList.get(1)/totalProducts*100}% Complete</span>
+                                            </div>
+                                        </div>
+                                    </div>
 
+                                </div>
+                                <!--/panel-body-->
+                            </div>
+                            <!--/panel-->
 
+                            <hr>
 
+                            <!--Orders-->
+                            <div class="row--">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4>Orders Summary</h4>
+                                        <h5>(Total Orders: ${totalOrders})</h5>
+                                    </div>
+                                    <div class="panel-body">
 
-        <div class="sidebar">
-            <br>
-            <h3>Admin Panel</h3>
-            <br>
-            <a href="${pageContext.request.contextPath}/admin/product">List of Products</a>
-            <br>
-            <a href="${pageContext.request.contextPath}/admin/user">List of Users</a>
+                                        <small>Pending Orders (${ordersStatusList.get(0)})</small>
+                                        <div class="progress">
+                                            <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="${ordersStatusList.get(0)/totalOrders*100}"
+                                                 aria-valuemin="0" aria-valuemax="100" style="width: ${ordersStatusList.get(0)/totalOrders*100}%">
+                                                <span class="sr-only">${ordersStatusList.get(0)/totalOrders*100}% Complete</span>
+                                            </div>
+                                        </div>
+                                        <small>Submitted Orders (${ordersStatusList.get(1)})</small>
+                                        <div class="progress">
+                                            <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="${ordersStatusList.get(1)/totalOrders*100}" aria-valuemin="0"
+                                                 aria-valuemax="100" style="width: ${ordersStatusList.get(1)/totalOrders*100}%">
+                                                <span class="sr-only">${ordersStatusList.get(1)/totalOrders*100}% Complete</span>
+                                            </div>
+                                        </div>
+                                        <small>Completed Orders (${ordersStatusList.get(2)})</small>
+                                        <div class="progress">
+                                            <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="${ordersStatusList.get(2)/totalOrders*100}"
+                                                 aria-valuemin="0" aria-valuemax="100" style="width: ${ordersStatusList.get(2)/totalOrders*100}%">
+                                                <span class="sr-only">${ordersStatusList.get(2)/totalOrders*100}% Complete</span>
+                                            </div>
+                                        </div>
+                                        <small>Cancelled Orders (${ordersStatusList.get(3)})</small>
+                                        <div class="progress">
+                                            <div class="progress-bar progress-bar-secondary" role="progressbar" aria-valuenow="${ordersStatusList.get(3)/totalOrders*100}"
+                                                 aria-valuemin="0" aria-valuemax="100" style="width: ${ordersStatusList.get(3)/totalOrders*100}%">
+                                                <span class="sr-only">${ordersStatusList.get(3)/totalOrders*100}% Complete</span>
+                                            </div>
+                                        </div>    
+                                    </div>
+                                </div>
+                                <!--/panel-body-->
+                            </div>
+                        </div>
+                        <!--/col-->
 
-            <br>
-            <br>
-
+                    </div>
+                    <!--/row-->
+                </div>
+                <!--/col-span-9-->
+            </div>
+            <!-- /upper section -->
         </div>
-        <div class="small-container" id="adminView" >
-
-            <br>
-
-            <h2>Products</h2>
-
-            <table border="1">
-                <thead>
-
-                    <tr>
-                        <th>Total Products</th>   
-                        <th>Active Products</th>  
-                        <th>Inactive Products</th>  
-                    </tr>
-                </thead>
-                <tr>
-                    <td>${totalProducts}</td>
-                    <td>${productStatusList.get(0)}</td>
-                    <td>${productStatusList.get(1)}</td>
-                </tr>
-
-            </table>
-
-
-        </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        <!--/container-->
+        <!-- /Main -->
 
         <!-- FOOTER -->
-
         <div class="footer">
             <div class="container">
                 <div class="row">
@@ -157,11 +210,11 @@
                 <p class="copyright">Copyright 2021 - CB12 Part Time</p>
             </div>
 
-
         </div>
         <!-- /FOOTER -->
         <script src="${pageContext.request.contextPath}/js/burgermenu.js"></script>   
-
+        <script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+        <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.1/js/bootstrap.min.js"></script>
 
     </body>
 </html>

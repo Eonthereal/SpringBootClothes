@@ -27,6 +27,11 @@ public class AdminController {
         List <Integer> productStatusList = adminService.productStatus();
         model.addAttribute("totalProducts", totalProducts);
         model.addAttribute("productStatusList", productStatusList);
+        
+        int totalOrders = adminService.totalOrders();
+        List <Integer> ordersStatusList = adminService.ordersStatus();
+        model.addAttribute("totalOrders", totalOrders);
+        model.addAttribute("ordersStatusList", ordersStatusList);
         return "Admin/admin-home";
     }
  
