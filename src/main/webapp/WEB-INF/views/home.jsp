@@ -79,7 +79,7 @@
                         <h1>Give Your Spring Boot Project<br> A New Style!</h1>
                         <p>Success isn't alway about greatness. It's about consistency. Cosistent <br>hard work gains
                             success. Greatness will come.</p>
-                        <a href="" class="btn">Explore now &#8594;</a>
+                        <a href="${pageContext.request.contextPath}/collection" class="btn">Explore now &#8594;</a>
                     </div>
                     <div class="col-2">
                         <img src="images/models1.png">
@@ -276,7 +276,7 @@
                             your own risk.
                         </small>
                         <br>
-                        <a href="" class="btn">Buy Now &#8594;</a>
+                        <a href="${pageContext.request.contextPath}/collection/36" class="btn">Buy Now &#8594;</a>
                     </div>
                 </div>
             </div>
@@ -314,20 +314,7 @@
                         <img src="images/Kostas.png">
                         <h3>Kostas Katsavaros</h3>
                     </div>
-                    <div class="col-3">
-                        <i class="fa fa-quote-left"></i>
-                        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Blanditiis ipsam deleniti consectetur
-                            voluptatum, assumenda quibusdam iste in adipisci.</p>
-                        <div class="rating">
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star-o"></i>
-                        </div>
-                        <img src="images/Alex.png">
-                        <h3>Alex Michailidis</h3>
-                    </div>
+
                     <div class="col-3">
                         <i class="fa fa-quote-left"></i>
                         <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Blanditiis ipsam deleniti consectetur
@@ -359,7 +346,7 @@
                         <img src="images/logo-coca-cola.png">
                     </div>
                     <div class="col-5">
-                        <img src="images/logo-paypal.png">
+                        <img src="images/logo-Stripe.png">
                     </div>
                     <div class="col-5">
                         <img src="images/asus-logo.png">
@@ -409,8 +396,8 @@
                 <p class="copyright">Copyright 2021 - CB12 Part Time</p>
             </div>
 
-        <!-- js for toggle menu -->
-        <script src="js/burgermenu.js"></script>
+            <!-- js for toggle menu -->
+            <script src="js/burgermenu.js"></script>
 
     </body>
 </html>

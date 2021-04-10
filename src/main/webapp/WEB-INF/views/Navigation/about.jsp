@@ -61,72 +61,67 @@
         <!-----MAIN----->
         <div class="small-container">
             <div class="row row-2">
-                <h2>PAGE TITLE</h2>
+                <h2>About Us</h2>
+
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam euismod ut lacus ac hendrerit. Nullam porttitor risus velit. Phasellus interdum interdum nibh, in aliquet magna efficitur eu. Morbi nec semper velit. Integer tristique quis ligula cursus faucibus. Pellentesque pulvinar felis eu ullamcorper consequat. Sed et tristique risus. Vivamus pretium luctus nisl a congue. Vivamus tempor consequat lacus, ac ornare ante tempus a. In ac pharetra sem, vel dignissim massa. Cras leo nunc, feugiat a orci a, porta ultricies nisi. Vestibulum et odio turpis. Integer laoreet mauris lectus, et tristique ipsum faucibus eget. Donec quis mauris maximus, aliquam nisi sed, pharetra nunc. Integer posuere egestas dui, non tincidunt orci vulputate non. Proin tincidunt est in venenatis convallis. 
+
+                </p>
+                
+                <p>Mauris ultrices odio ac ligula tincidunt euismod. Vestibulum finibus, dui vel tincidunt vehicula, arcu mauris mattis nunc, pretium finibus sem nunc eu felis. Praesent id convallis est. Cras quis hendrerit elit. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nam suscipit nisi in magna tincidunt tristique. Vestibulum tellus tellus, ultricies vel tristique in, accumsan at sem. </p>
+                <p>In hac habitasse platea dictumst. Morbi condimentum orci eget nibh accumsan aliquet. Praesent suscipit, sapien sed volutpat scelerisque, leo massa efficitur turpis, at condimentum lacus elit in nulla. Donec interdum posuere fermentum. Nulla ac sem fringilla, rhoncus nunc tincidunt, gravida dolor. Nam pretium aliquet consectetur. Etiam eget urna at magna tincidunt varius vel at leo. Aenean faucibus ex diam, et ullamcorper nisl semper gravida. Sed non egestas mi, ut laoreet nisi. Suspendisse viverra molestie dolor vitae blandit. </p>
+                <p>Etiam eget sem eget arcu viverra faucibus eu ut ligula. Vestibulum mollis luctus imperdiet. Curabitur vel ornare purus. Nulla condimentum malesuada diam dapibus ullamcorper. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent ultricies odio tortor, quis vulputate leo tempus a. Donec a justo eu ligula imperdiet mollis et quis magna. Mauris ullamcorper ipsum quis condimentum blandit. Aliquam neque lorem, facilisis sit amet tortor sed, tincidunt blandit lectus. Sed ornare lectus diam, vel varius diam fermentum at. Proin volutpat enim at sapien elementum feugiat. Nulla commodo porttitor mattis. Mauris tempor commodo risus, sit amet eleifend elit interdum non. Duis vehicula enim lectus, eget aliquam metus consectetur vitae. Quisque imperdiet mauris vitae risus sodales ultricies. </p>
+                <p>In eu tellus ut metus tempor venenatis non id lorem. Ut et neque vitae erat efficitur consectetur. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Curabitur quis congue mauris. Duis at pretium arcu. Vivamus suscipit lorem dui, eu efficitur velit luctus id. Nam luctus lorem lectus, in euismod erat consectetur eu. Cras ultricies metus nibh. </p>
+
 
             </div>
-            <div class="row">
-                ROW 1
             </div>
-            <div class="row">
-                ROW 2
-            </div>
-            <div class="row">
-                ROW 3
-            </div>
-            <!-- <div class="page-btn">
-                <span>1</span>
-                <span>2</span>
-                <span>3</span>
-                <span>4</span>
-                <span>&#8594;</span>
-            </div> -->
-        </div>
-        <!-- /MAIN -->
+            <!-- /MAIN -->
 
-        <!-- FOOTER -->
+            <!-- FOOTER -->
 
-        <div class="footer">
-            <div class="container">
-                <div class="row">
-                    <div class="footer-col-1">
-                        <h3>Download Our App</h3>
-                        <p>Download App for Android and IOS mobile phone.</p>
-                        <div class="app-logo">
-                            <img src="images/play-store.png">
-                            <img src="images/app-store.png">
+            <div class="footer">
+                <div class="container">
+                    <div class="row">
+                        <div class="footer-col-1">
+                            <h3>Download Our App</h3>
+                            <p>Download App for Android and IOS mobile phone.</p>
+                            <div class="app-logo">
+                                <img src="images/play-store.png">
+                                <img src="images/app-store.png">
+                            </div>
+                        </div>
+                        <div class="footer-col-2">
+                            <img src="images/logo transparent.png">
+                            <p>Our Purpose Is To Learn How to Make Beautiful, User-friendly and Responsive Sites.
+                            </p>
+                        </div>
+                        <div class="footer-col-3">
+                            <h3>Useful Links</h3>
+                            <ul>
+                                <li>Coupons</li>
+                                <li>Blog Post</li>
+                                <li>Return Policy</li>
+                                <li>Join Affiliate</li>
+                            </ul>
+                        </div>
+                        <div class="footer-col-4">
+                            <h3>Follow us</h3>
+                            <ul>
+                                <li>Facebook</li>
+                                <li>Twitter</li>
+                                <li>Instagram</li>
+                                <li>Youtube</li>
+                            </ul>
                         </div>
                     </div>
-                    <div class="footer-col-2">
-                        <img src="images/logo transparent.png">
-                        <p>Our Purpose Is To Learn How to Make Beautiful, User-friendly and Responsive Sites.
-                        </p>
-                    </div>
-                    <div class="footer-col-3">
-                        <h3>Useful Links</h3>
-                        <ul>
-                            <li>Coupons</li>
-                            <li>Blog Post</li>
-                            <li>Return Policy</li>
-                            <li>Join Affiliate</li>
-                        </ul>
-                    </div>
-                    <div class="footer-col-4">
-                        <h3>Follow us</h3>
-                        <ul>
-                            <li>Facebook</li>
-                            <li>Twitter</li>
-                            <li>Instagram</li>
-                            <li>Youtube</li>
-                        </ul>
-                    </div>
+                    <hr>
+                    <p class="copyright">Copyright 2021 - CB12 Part Time</p>
                 </div>
-                <hr>
-                <p class="copyright">Copyright 2021 - CB12 Part Time</p>
+
+
             </div>
-
-
-        </div>
-        <!-- /FOOTER -->
-        <script src="js/burgermenu.js"></script>
+            <!-- /FOOTER -->
+            <script src="js/burgermenu.js"></script>
     </body>
 </html>
