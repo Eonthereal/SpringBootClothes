@@ -18,8 +18,22 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
         <style>
-            #productTable{
-                align-items: flex-start;
+/*            .purchased-products{
+                display: grid;
+                justify-content: space-between;
+            }*/
+
+            .purchased-products p{
+                text-align: center;
+
+            }
+
+            .purchased-products img{
+                margin-left: auto;
+                margin-right: auto;
+                display: block;
+                width: 300px;
+                height: auto;
 
             }
 
@@ -167,23 +181,23 @@
 
                 <div class="container">
                     <div>
-                        <h3>Products Purchased</h3>
+                        <h3>Purchased Products</h3>
                     </div>
 
 
 
+                    <div class="row">
+                        <c:forEach items="${userProducts}" var="product">
+                            <div class="purchased-products ">
+                                <a href="${pageContext.request.contextPath}/collection/${product.productid}"> 
+                                    <img id="image" src="${pageContext.request.contextPath}/images/${product.image}">
+                                </a>
+                                <p>${product.title}, 
+                                    ${product.color.colorname} ${product.category.categoryname} for ${product.gender.gendername}, from ${product.brand.brandname}</p>
 
-                    <c:forEach items="${userProducts}" var="product">
-                        <div>
-                            <a href="${pageContext.request.contextPath}/collection/${product.productid}"> <img id="image" 
-                                 src="${pageContext.request.contextPath}/images/${product.image}"> </a>
-                            ${product.title}, 
-                            ${product.color.colorname} ${product.category.categoryname} for ${product.gender.gendername}, from ${product.brand.brandname}
-                            <br>
-                            <hr>
-                        </div>
-                    </c:forEach>
-
+                            </div>
+                        </c:forEach>
+                    </div>
 
 
                 </div>
