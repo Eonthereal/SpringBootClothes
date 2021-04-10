@@ -58,26 +58,25 @@
             </div>
         </div>
         <div class="small-container">
-            <div class="row row-2">
-                <h2>PAGE TITLE</h2>
-
-            </div>
-            <div class="row">
-                ROW 1
-            </div>
-            <div class="row">
-                ROW 2
-            </div>
-            <div class="row">
-                ROW 3
-            </div>
-            <!-- <div class="page-btn">
-                <span>1</span>
-                <span>2</span>
-                <span>3</span>
-                <span>4</span>
-                <span>&#8594;</span>
-            </div> -->
+            
+            <form>
+            <br/>
+            <label for="name">Name :</label>
+            <input type="text" id="name" />
+            <%--<form:errors path="title"/>--%>
+            <br/>
+            <label for="textarea">Write your Message:</label>
+            <br/>
+            <textarea id="textarea" name="textarea"
+          rows="15" cols="131"></textarea>
+           <br/>
+           <input type="submit" value="Send Message" class="btn">
+            </form>
+                
+                
+        
+        
+        
         </div>
         <!-- /MAIN -->
 

@@ -78,10 +78,10 @@
             <div class="row">
                 <div class="col-2">
                     <img src="${pageContext.request.contextPath}/images/${product.image}" width="100%" id="productImg">
-                    <!--Θέλει φτιάξιμο-->
+     
                     <div class="small-img-row">
                         <div class="small-img-col">
-                            <img src="${pageContext.request.contextPath}/images/gallery-1.jpg" width="100%" class="small-img">
+                            <img src="${pageContext.request.contextPath}/images/${product.image}" width="100%" class="small-img">
                         </div>
                         <div class="small-img-col">
                             <img src="${pageContext.request.contextPath}/images/gallery-2.jpg" width="100%" class="small-img">
@@ -93,33 +93,26 @@
                             <img src="${pageContext.request.contextPath}/images/gallery-4.jpg" width="100%" class="small-img">
                         </div>
                     </div>
-                    <!------------------->
+                 
                 </div>
 
                 <div class="col-2">
-                    <!--Θέλει φτιάξιμο-->
+       
                     <p><a href="${pageContext.request.contextPath}/collection">Collection</a> / ${product.category.categoryname}</p> 
-                    <!------------------->
+              
                     <h1>${product.color.colorname} ${product.title}, ${product.category.categoryname} by ${product.brand.brandname}</h1>
                     <h4>${product.price} €</h4>
-                    <!--Θέλει φτιάξιμο-->
-                    <select>
-                        <option>Select Size</option>
-                        <option>Small</option>
-                        <option>XL</option>
-                        <option>Large</option>
-                        <option>Medium</option>
-                        <option>Small</option>
-                    </select>
-                    <!------------------->
-                    <input type="number" min="1" max="${product.stock}" value="1" id="qty" oninput="linkchange()">
+     
+                    <h5>Size: ${product.size.sizename}</h5>
+         
+                    <input type="number" min="1" max="${product.stock}" value="1" id="qty" oninput="linkchange()" onkeydown="return false">
                     <a href="${pageContext.request.contextPath}/user/cart/${product.productid}?qty=1" class="btn" id="qtylink">Add To Cart</a>
                     <h3>Product Details <i class="fa fa-indent"></i></h3>
                     <br>
-                    <!--Θέλει φτιάξιμο-->
+        
                     <p>Give yourself a wardrobe style upgrade with the ${product.brand.brandname}'s ${product.title}. Mix it with other products and create your own sport and casual 
                         looks for your morning, evening and night appearences.</p> 
-                    <!------------------->
+                  
 
 
                 </div>

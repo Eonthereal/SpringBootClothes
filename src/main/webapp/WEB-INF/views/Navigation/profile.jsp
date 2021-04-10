@@ -28,14 +28,14 @@
 
             }
 
-            .purchased-products img{
+/*            .purchased-products img{
                 margin-left: auto;
                 margin-right: auto;
                 display: block;
                 width: 300px;
                 height: auto;
 
-            }
+            }*/
 
         </style>
     </head>
@@ -188,11 +188,12 @@
 
                     <div class="row">
                         <c:forEach items="${userProducts}" var="product">
-                            <div class="purchased-products ">
+                            <div class="col-4">
                                 <a href="${pageContext.request.contextPath}/collection/${product.productid}"> 
                                     <img id="image" src="${pageContext.request.contextPath}/images/${product.image}">
                                 </a>
                                 <p>${product.title}, 
+                                    <br>
                                     ${product.color.colorname} ${product.category.categoryname} for ${product.gender.gendername}, from ${product.brand.brandname}</p>
 
                             </div>
