@@ -91,7 +91,7 @@ public class AdminServiceImpl implements AdminService {
         for (Orders o : listOfOrders) {
             if (o.getStatus().equals("PENDING")) {
                 pendingOrders = pendingOrders + 1;
-            } else if (o.getStatus().equals("SUBMITED")){
+            } else if (o.getStatus().equals("SUBMITTED")){
                 submittedOrders = submittedOrders + 1;
             } else if (o.getStatus().equals("COMPLETED")){
                 completedOrders = completedOrders + 1;
