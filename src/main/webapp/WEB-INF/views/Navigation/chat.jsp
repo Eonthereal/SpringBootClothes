@@ -5,6 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
         <title>Spring Boot Fashion Chat</title>
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/chat.css" />
+        <link rel="shortcut icon" href="${pageContext.request.contextPath}/images/logo transparent.png" type="image/x-icon">
     </head>
     <body>
         <noscript>
@@ -17,6 +18,7 @@
                 <form id="usernameForm" name="usernameForm">
                     <div class="form-group">
                         <input type="text" id="name" placeholder="Username" autocomplete="off" class="form-control" />
+                        
                     </div>
                     <div class="form-group">
                         <button type="submit" class="accent username-submit">Start Chatting</button>
