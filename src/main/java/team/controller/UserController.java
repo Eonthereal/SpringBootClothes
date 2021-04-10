@@ -6,31 +6,41 @@
 package team.controller;
 
 import java.security.Principal;
+import java.util.List;
+import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import team.entity.Orders;
+import team.entity.Product;
 import team.entity.User;
-import team.service.UserService;
+import team.service.ProfileService;
 
 @Controller
 @RequestMapping("/user")
 public class UserController {
 
     @Autowired
-    UserService userService;
+    ProfileService profileService;
+
 
     @GetMapping("/profile/{principal.username}")
     public String showUserProfile(Principal principal, Model model) {
 
-        User user = userService.findByUsername(principal.getName());
+        User user = profileService.showUserProfile(principal.getName());
+        List<Orders> ordersList = user.getOrdersList();
+        List<Orders> complOrderList = profileService.findCompletedOrders(ordersList);
+        Set<Product> userProducts = profileService.getUserProducts(complOrderList);
 
+
+        model.addAttribute("userProducts", userProducts);
+        model.addAttribute("ordersCount", ordersList.size());
+        model.addAttribute("orders", complOrderList);
         model.addAttribute("user", user);
 
         return "Navigation/profile";
     }
-
-
 
 }

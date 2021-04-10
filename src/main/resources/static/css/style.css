@@ -17,6 +17,7 @@ body {
 nav {
     flex: 1;
     text-align: right;
+    
 }
 
 nav ul {
@@ -26,14 +27,20 @@ nav ul {
 nav ul li {
     display: inline-block;
     margin-right: 20px;
+  
 }
 nav ul li form a{
     font-size:16px;
+      
 }
 
 a {
     text-decoration: none;
     color: #555;
+}
+
+nav ul li a:hover{
+    text-decoration: underline;
 }
 
 p {

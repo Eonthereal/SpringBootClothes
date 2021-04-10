@@ -11,10 +11,33 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Spring Boot Fashion</title>
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/profile.css">
         <link rel="preconnect" href="https://fonts.gstatic.com">
         <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
               rel="stylesheet">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+        <style>
+/*            .purchased-products{
+                display: grid;
+                justify-content: space-between;
+            }*/
+
+            .purchased-products p{
+                text-align: center;
+
+            }
+
+            .purchased-products img{
+                margin-left: auto;
+                margin-right: auto;
+                display: block;
+                width: 300px;
+                height: auto;
+
+            }
+
+        </style>
     </head>
     <body>
         <div class="container">
@@ -58,38 +81,135 @@
                 </div>
             </div>
         </div>
-        <div class="small-container">
-            <div class="row row-2">
-                <h2>Your Profile Page</h2>
+        <br>
+        <br>
+        <div class="container">
+            <div class="main-body">
+
+
+
+
+                <div class="row gutters-sm">
+                    <div class="col-md-4 mb-3">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="d-flex flex-column align-items-center text-center">
+                                    <img src="${pageContext.request.contextPath}/images/profile-pic.bmp" alt="Admin" class="rounded-circle" width="150">
+                                    <div class="mt-3">
+                                        <h4>${user.username}</h4>
+                                        <p class="text-secondary mb-1">Credits: ${user.credits}</p>
+                                        <p class="text-muted font-size-sm">Orders: ${ordersCount}</p>
+                                        <a href="${pageContext.request.contextPath}/collection" class="btn btn-primary">Purchase</a>
+                                        <a href="${pageContext.request.contextPath}/chat" class="btn btn-primary">Chat</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <h6 class="mb-0">Full Name</h6>
+                                    </div>
+                                    <div class="col-sm-9 text-secondary">
+                                        ${user.firstname} ${user.lastname}
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <h6 class="mb-0">Email</h6>
+                                    </div>
+                                    <div class="col-sm-9 text-secondary">
+                                        ${user.email}
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <h6 class="mb-0">Phonenumber</h6>
+                                    </div>
+                                    <div class="col-sm-9 text-secondary">
+                                        ${user.phonenumber}
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        </div>
+                        <div>
+                            <h3>Completed Orders</h3>
+                        </div>
+                        <div class="row gutters-sm">
+
+                            <table border="1">
+                                <thead>
+                                    <tr>
+                                        <th>Code</th>
+
+                                        <th colspan="4">Address</th>
+                                        <th>Status</th>
+                                        <th>Total Cost</th>
+                                        <th>Date</th>
+
+                                    </tr>
+                                </thead>
+                                <c:forEach items="${orders}" var ="orders">
+                                    <tr>
+                                        <td>${orders.ordersid}</td>
+
+                                        <td colspan="4">${orders.address} ${orders.city}, ${orders.zipcode}</td>
+                                        <td>${orders.status}</td>
+                                        <td>${orders.totalcost}</td>
+                                        <td>${orders.orderdate}</td>
+
+
+                                    </c:forEach>
+
+
+                                </tr>
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="container">
+                    <div>
+                        <h3>Purchased Products</h3>
+                    </div>
+
+
+
+                    <div class="row">
+                        <c:forEach items="${userProducts}" var="product">
+                            <div class="purchased-products ">
+                                <a href="${pageContext.request.contextPath}/collection/${product.productid}"> 
+                                    <img id="image" src="${pageContext.request.contextPath}/images/${product.image}">
+                                </a>
+                                <p>${product.title}, 
+                                    ${product.color.colorname} ${product.category.categoryname} for ${product.gender.gendername}, from ${product.brand.brandname}</p>
+
+                            </div>
+                        </c:forEach>
+                    </div>
+
+
+                </div>
 
             </div>
-            <div class="row">
-                Name: ${user.firstname}                
-                <br>
-                Last Name: ${user.lastname}
-                <br>
-                E-mail: ${user.email}
-                <br>
-                Username: ${user.username}
-                <br>
-                Phone: ${user.phonenumber}
-                <br>
-                Credits: ${user.credits}
-            </div>
-            <div class="row">
-                ROW 2
-            </div>
-            <div class="row">
-                ROW 3
-            </div>
-            <!-- <div class="page-btn">
-                <span>1</span>
-                <span>2</span>
-                <span>3</span>
-                <span>4</span>
-                <span>&#8594;</span>
-            </div> -->
         </div>
+
+
+
+
+
+
         <!-- /MAIN -->
 
         <!-- FOOTER -->
