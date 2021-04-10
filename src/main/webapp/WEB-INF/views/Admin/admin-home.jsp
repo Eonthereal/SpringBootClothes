@@ -75,7 +75,7 @@
                     <ul class="nav nav-pills nav-stacked">
                         <li><a href="${pageContext.request.contextPath}/admin/product"><i class="glyphicon glyphicon-list-alt"></i> List of Products</a></li>
                         <li><a href="${pageContext.request.contextPath}/admin/user"><i class="glyphicon glyphicon-list-alt"></i> List of Users</a>
-                        <li><a href="${pageContext.request.contextPath}/admin/order"><i class="glyphicon glyphicon-list-alt"></i> List of Orders</a>
+                        <li><a href="${pageContext.request.contextPath}/admin/orders"><i class="glyphicon glyphicon-list-alt"></i> List of Orders</a>
                     </ul>
                     <hr>
                 </div><!-- /span-3 -->

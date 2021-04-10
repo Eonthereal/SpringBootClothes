@@ -22,7 +22,7 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     </head>
     <body>
-       <div class="container">
+        <div class="container">
             <div class="navbar">
                 <div class="logo">
                     <a href="${pageContext.request.contextPath}/"><img src="${pageContext.request.contextPath}/images/logo black transparent.png" width="200px"></a>
@@ -77,8 +77,7 @@
                         <th>Status</th>
                         <th>Total cost</th>
                         <th>Order date</th>
-                        <th>Tax</th>
-                        <th colspan="2">Actions</th>
+                        <th colspan="2">Update Status</th>
                     </tr>
                 </thead>
                 <c:forEach items="${listOfOrders}" var = "orders">
@@ -91,25 +90,60 @@
                         <td>${orders.status}</td>
                         <td>${orders.totalcost}</td>
                         <td>${orders.orderdate}</td>
-                        <td>${orders.tax}</td>
-
-
                         <td>      
-                            <a href="${pageContext.request.contextPath}/admin/order/update/${orders.ordersid}">Update</a>
+                            <form:form action="${pageContext.request.contextPath}/admin/orders/update/${orders.ordersid}" method="GET" modelAttribute="orders">
+                                <select name="status" onchange="this.form.submit()">
+                                    <option value="">Choose Status</option>
+                                    <option value="SUBMITTED">Submit</option>
+                                    <option value="COMPLETED">Complete</option>
+                                    <option value="CANCELED">Cancel</option>
+                                </select>
+                            </form:form>
                         </td>
-<!--                        <td>
-                            <c:if test="${product.status == 0}">
-                            <a href="${pageContext.request.contextPath}/admin/product/activation?id=${product.productid}" style="color: red">Inactive</a>
-                            </c:if>
-                            <c:if test="${product.status == 1}">
-                                <a href="${pageContext.request.contextPath}/admin/product/activation?id=${product.productid}" >Active</a>
-                            </c:if>
-                        </td>-->
                     </tr>
                 </c:forEach>
             </table>
         </div>
-            <br>         
+        <br>         
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         <!-- FOOTER -->
 
         <div class="footer">
@@ -155,7 +189,7 @@
         </div>
         <!-- /FOOTER -->
         <script src="${pageContext.request.contextPath}/js/burgermenu.js"></script>   
-            
-            
+
+
     </body>
 </html>
