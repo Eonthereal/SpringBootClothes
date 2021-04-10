@@ -5,6 +5,7 @@
  */
 package team.service;
 
+import java.util.List;
 import org.springframework.stereotype.Service;
 import team.entity.Orders;
 
@@ -22,6 +23,12 @@ public interface OrdersService {
     Orders findById(int ordersid);
    
     public void deleteById(int ordersid);
+    
+    
+    //-----Admin-------
+    
+    List <Orders> findAll();
+    
     
     
     

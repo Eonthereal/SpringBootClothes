@@ -10,7 +10,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import team.entity.Orders;
 import team.entity.Product;
+import team.repository.OrdersRepo;
 import team.repository.ProductRepo;
 
 /**
@@ -23,7 +25,12 @@ public class AdminServiceImpl implements AdminService {
 
     @Autowired
     ProductRepo productRepo;
-
+    
+    @Autowired
+    OrdersRepo ordersRepo;
+    
+    
+    //-------------------------Products----------------------
     @Override
     public List<Product> findAll() {
         return productRepo.findAll();
@@ -54,6 +61,52 @@ public class AdminServiceImpl implements AdminService {
         productStatusList.add(inactiveProducts);
 
         return productStatusList;
+    }
+    
+    
+    //-------------------------Orders----------------------
+    @Override
+    public List<Orders> findAllOrders(){
+    return ordersRepo.findAll();
+    }
+    
+    
+    @Override
+    public int totalOrders() {
+        int count;
+        List <Orders> listOfOrders = ordersRepo.findAll();
+        count = listOfOrders.size();
+        return count;
+    }
+    
+    
+    @Override
+    public List<Integer> ordersStatus() {
+        int pendingOrders = 0;
+        int completedOrders = 0;
+        int submittedOrders = 0;
+        int cancelledOrders = 0;
+        List<Orders> listOfOrders = ordersRepo.findAll();
+        List<Integer> ordersStatusList = new ArrayList();
+        for (Orders o : listOfOrders) {
+            if (o.getStatus().equals("PENDING")) {
+                pendingOrders = pendingOrders + 1;
+            } else if (o.getStatus().equals("SUBMITED")){
+                submittedOrders = submittedOrders + 1;
+            } else if (o.getStatus().equals("COMPLETED")){
+                completedOrders = completedOrders + 1;
+            }else{
+                cancelledOrders = cancelledOrders + 1;
+            }
+        }
+// -----ordersStatusList = {pendingOrders, submittedOrders, completedOrders, cancelledOrders}        
+        
+        ordersStatusList.add(pendingOrders);
+        ordersStatusList.add(submittedOrders);
+        ordersStatusList.add(completedOrders);
+        ordersStatusList.add(cancelledOrders);
+
+        return ordersStatusList;
     }
 
 }
