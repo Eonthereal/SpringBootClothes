@@ -16,60 +16,51 @@
               rel="stylesheet">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
         <link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.1/css/bootstrap.min.css" rel="stylesheet">
-        <style type="text/css">
-            body {
-                margin-top: 20px;
-            }
-        </style>
+
     </head>
     <body>
         <!-- Header -->
-        <div class="container">
-            <div class="navbar">
-                <div class="logo">
-                    <a href="${pageContext.request.contextPath}/"><img src="${pageContext.request.contextPath}/images/logo black transparent.png" width="200px"></a>
+        <div id="top-nav" class="navbar navbar-default navbar-static-top">
+            <div class="container bootstrap snippets bootdey">
+                <div class="navbar-header">
+                    <a href="${pageContext.request.contextPath}/"><img src="${pageContext.request.contextPath}/images/logo black transparent.png" width="100px"></a>
                 </div>
-                <nav>
-                    <ul id="MenuItems">
-                        <!--<li><a href="${pageContext.request.contextPath}/">Home</a></li>-->
-                        <li><a href="${pageContext.request.contextPath}/collection">Collection</a></li>
-                        <li><a href="${pageContext.request.contextPath}/offers">Offers</a></li>
-                        <li><a href="${pageContext.request.contextPath}/about">About</a></li>
-                        <li><a href="${pageContext.request.contextPath}/contact">Contact</a></li>
-                        <li><a href="${pageContext.request.contextPath}/chat">Chat</a></li>
-                            <sec:authorize access ="!isAuthenticated()">  
-                            <li><a href="${pageContext.request.contextPath}/loginpage">Login</a></li>
-                            </sec:authorize> 
-                            <sec:authorize access ="isAuthenticated()">  
-                            <li>
-                                <form:form id="logoutform" action="${pageContext.request.contextPath}/logout" method="POST">
-                                    <a href="javascript:{}" onclick="document.getElementById('logoutform').submit();">Logout</a>       
-                                </form:form>      
-                            </li>
-                        </sec:authorize> 
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" role="button" data-toggle="dropdown" href="#">
+                                <i class="glyphicon glyphicon-user"></i> Admin <span class="caret"></span></a>
+                            <ul id="g-account-menu" class="dropdown-menu" role="menu">
+                                <li>
+                                    <sec:authorize access ="isAuthenticated()"> <!--Το sec:authedication το έβαλα ενδιάμεσα του sec:authorize γιατί έσκαγε όλο το Home όταν δεν υπήρχε Login με κάποιο ROLE -->
+                                        <a href="${pageContext.request.contextPath}/user/profile/<sec:authentication property="principal.username"/>">My Profile (<sec:authentication property="principal.username"/>)</a>
+                                    </sec:authorize> 
+                                </li>
+                                <li><a href="${pageContext.request.contextPath}/chat">Chat</a></li>
+                                    <sec:authorize access ="!isAuthenticated()">  
+                                    <li><a href="${pageContext.request.contextPath}/loginpage">Login</a></li>
+                                    </sec:authorize> 
+                                    <sec:authorize access ="isAuthenticated()">  
+                                    <li>
+                                        <form:form id="logoutform" action="${pageContext.request.contextPath}/logout" method="POST">
+                                            <a href="javascript:{}" onclick="document.getElementById('logoutform').submit();" style="color:black;"><i class="glyphicon glyphicon-lock"></i> Logout</a>       
+                                        </form:form>      
+                                    </li>
+                                </sec:authorize> 
+                            </ul>
+                        </li>
                     </ul>
-                </nav>
-                <a href="${pageContext.request.contextPath}/user/cart"><img src="${pageContext.request.contextPath}/images/cart.png" width="30px" height="30px"></a>
-                <img src="${pageContext.request.contextPath}/images/menu.png" class="menu-icon" onclick="menutoggle()">
-                <div class="row">
-                    <sec:authorize access ="isAuthenticated()"> <!--Το sec:authedication το έβαλα ενδιάμεσα του sec:authorize γιατί έσκαγε όλο το Home όταν δεν υπήρχε Login με κάποιο ROLE -->
-
-                        <a href="${pageContext.request.contextPath}/user/profile/<sec:authentication property="principal.username"/>"> <sec:authentication property="principal.username"/></a>
-                        <sec:authorize access ="hasRole('ADMIN')">
-                            <a href="${pageContext.request.contextPath}/admin"><span style='color: red'>(Admin Menu)</span></a>
-                        </sec:authorize> 
-                    </sec:authorize> 
                 </div>
-            </div>
+            </div><!-- /container -->
         </div>
         <!-- /Header -->
 
-        <!-- Main -->
+        <!-- MAIN -->
         <div class="container bootstrap snippets bootdey">
             <!-- upper section -->
-            <div class="row">
+            <div class="row--">
+                <!-- Toolbox -->
                 <div class="col-md-3">
-                    <!-- left -->
                     <p><strong><i class="glyphicon glyphicon-briefcase"></i> Toolbox</strong></p>
                     <hr>
                     <ul class="nav nav-pills nav-stacked">
@@ -78,13 +69,17 @@
                         <li><a href="${pageContext.request.contextPath}/admin/orders"><i class="glyphicon glyphicon-list-alt"></i> List of Orders</a>
                     </ul>
                     <hr>
-                </div><!-- /span-3 -->
+                </div><!-- /span-3|||---Toolbox -->
+
+                <!--Main Content -->
                 <div class="col-md-9">
                     <!-- column 2 -->
-                    <a href="#"><strong><i class="glyphicon glyphicon-dashboard"></i> My Dashboard</strong></a>
+                    <sec:authorize access ="hasRole('ADMIN')">
+                        <a href="${pageContext.request.contextPath}/admin"><strong><i class="glyphicon glyphicon-dashboard"></i> Admin Home</strong></a>
+                                </sec:authorize> 
                     <hr>
                     <div class="row">
-                        <div class="col-md-10">
+                        <div class="col-md-12">
                             <!-- Products-->
                             <div class="row--">
                                 <div class="panel panel-default">
@@ -163,12 +158,13 @@
                     </div>
                     <!--/row-->
                 </div>
-                <!--/col-span-9-->
+                <!--/col-span-9|||---Main Content ---->
             </div>
             <!-- /upper section -->
-        </div>
-        <!--/container-->
-        <!-- /Main -->
+        </div><!--/container||| MAIN-->
+
+
+
 
         <!-- FOOTER -->
         <div class="footer">

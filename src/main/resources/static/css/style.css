@@ -168,8 +168,11 @@ h4 {
 
 /*-------ADMIN-------*/
 
-
-#navbar navbar-inverse navbar-static-top{
+.dashboard :hover{
+    color:pink;
+    
+}
+/*#navbar navbar-inverse navbar-static-top{
         background: #6bce1b;
     
 }
@@ -183,7 +186,7 @@ h4 {
 
 }
 
-/*----Sidebar-----*/
+----Sidebar-----
 
 .sidebar{
     background: #000;
@@ -193,7 +196,7 @@ h4 {
     width: 250px;
     border-color: #3f6791;
     box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22) !important;
-}
+}*/
 
 .sidebar a{
     color: #fff;  

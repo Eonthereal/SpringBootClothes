@@ -1,75 +1,241 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
-<%@taglib uri = "http://www.springframework.org/tags/form" prefix= "form" %>
-
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-
-
-        <title>User Update</title>
+        <title>Java</title><meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Spring Boot Fashion</title>
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/add_update.css">
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+              rel="stylesheet">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.1/css/bootstrap.min.css" rel="stylesheet">
     </head>
     <body>
-        <h1>Add/Edit a User</h1>        
 
-        <form:form action="${pageContext.request.contextPath}/admin/user/update" method="POST" modelAttribute="user">          
-
-            <form:hidden id="userid" path="userid"/>
-
-            <br/>
-            <label for="username">username :</label>
-            <form:input id="username" path="username"/>
-            <form:errors path="username"/>
-            <br/>
-
-            <form:input type="hidden" id="password" path="password" />
-
-            <label for="email">email :</label>
-            <form:input id="email" path="email" />
-            <form:errors path="email"/>
-            <br/>
-
-            <label for="firstname">firstname :</label>
-            <form:input id="firstname" path="firstname" />
-            <form:errors path="firstname"/>
-            <br/>
-
-            <label for="lastname">lastname :</label>
-            <form:input id="lastname" path="lastname" />
-            <form:errors path="lastname"/>
-            <br/>
-
-            <label for="phonenumber">phonenumber :</label>
-            <form:input id="phonenumber" path="phonenumber" />
-            <form:errors path="phonenumber"/>
-            <br/>
-
-            <label for="credits">credits :</label>
-            <form:input id="credits" path="credits" />
-            <form:errors path="credits"/>
-            <br/>            
-
-            <%--path = το όνομα το που "καταγράφετε" το στοιχείο. Εδώ είναι to userList του User --%>
-            <%--items = το ονομα που έχουμε δώσει στο πεδίο του ModelAttributes(βλ. UserControllerAdmin class) --%>
-            <%--itemLabel = από πιο πεδίο θα πέρνουν τα ονόματα τους τα Labels στην HTML --%>
-            <%--itemValue = από πιο πεδίο θα πέρνει τιμή --%>
-            <%--itemLabel =  τι tag θα έχει στην HTML--%>
-
-            <p><strong>Choose Role:</strong></p>
-            <form:radiobuttons path="roleList" items="${roles}" itemLabel="type" itemValue="roleid" element="li"/>
-            <form:errors path="roleList"/>
+        <!-- Header -->
+        <div id="top-nav" class="navbar navbar-default navbar-static-top">
+            <div class="container bootstrap snippets bootdey">
+                <div class="navbar-header">
+                    <a href="${pageContext.request.contextPath}/"><img src="${pageContext.request.contextPath}/images/logo black transparent.png" width="100px"></a>
+                </div>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" role="button" data-toggle="dropdown" href="#">
+                                <i class="glyphicon glyphicon-user"></i> Admin <span class="caret"></span></a>
+                            <ul id="g-account-menu" class="dropdown-menu" role="menu">
+                                <li>
+                                    <sec:authorize access ="isAuthenticated()"> <!--Το sec:authedication το έβαλα ενδιάμεσα του sec:authorize γιατί έσκαγε όλο το Home όταν δεν υπήρχε Login με κάποιο ROLE -->
+                                        <a href="${pageContext.request.contextPath}/user/profile/<sec:authentication property="principal.username"/>">My Profile (<sec:authentication property="principal.username"/>)</a>
+                                    </sec:authorize> 
+                                </li>
+                                <li><a href="${pageContext.request.contextPath}/chat">Chat</a></li>
+                                    <sec:authorize access ="!isAuthenticated()">  
+                                    <li><a href="${pageContext.request.contextPath}/loginpage">Login</a></li>
+                                    </sec:authorize> 
+                                    <sec:authorize access ="isAuthenticated()">  
+                                    <li>
+                                        <form:form id="logoutform" action="${pageContext.request.contextPath}/logout" method="POST">
+                                            <a href="javascript:{}" onclick="document.getElementById('logoutform').submit();" style="color:black;"><i class="glyphicon glyphicon-lock"></i> Logout</a>       
+                                        </form:form>      
+                                    </li>
+                                </sec:authorize> 
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div><!-- /container -->
+        </div>
+        <!-- /Header -->    
 
 
+        <!-- MAIN -->
+        <div class="container bootstrap snippets bootdey">
+            <!-- upper section -->
+            <div class="row--">
+                <!-- Toolbox -->
+                <div class="col-md-3">
+                    <p><strong><i class="glyphicon glyphicon-briefcase"></i> Toolbox</strong></p>
+                    <hr>
+                    <ul class="nav nav-pills nav-stacked">
+                        <li><a href="${pageContext.request.contextPath}/admin/product"><i class="glyphicon glyphicon-list-alt"></i> List of Products</a></li>
+                        <li><a href="${pageContext.request.contextPath}/admin/user"><i class="glyphicon glyphicon-list-alt"></i> List of Users</a>
+                        <li><a href="${pageContext.request.contextPath}/admin/orders"><i class="glyphicon glyphicon-list-alt"></i> List of Orders</a>
+                    </ul>
+                    <hr>
+                </div><!-- /span-3|||---Toolbox -->
 
-            <br/>
-            <input type="submit" value="Submit"/>
-        </form:form>
+                <!--Main Content -->
+                <div class="col-md-9">
+                    <!-- column 2 -->
+                    <!--<div class="dashboard">-->
+                    <sec:authorize access ="hasRole('ADMIN')">
+                        <a href="${pageContext.request.contextPath}/admin"><strong><i class="glyphicon glyphicon-dashboard"></i> Admin Home</strong></a> / <a href="${pageContext.request.contextPath}/admin/user"><strong>List of Users</strong></a><a class="dashboard" style="text-decoration:none;" onmouseover="this.style.color = '#478BCA';" onmouseout="this.style.color = '';"> / Update user</a>
+                                </sec:authorize> 
+                    <!--</div>-->   
+                    <hr>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="row-2">
+                                <div class="panel">      
+                                    <form:form action="${pageContext.request.contextPath}/admin/user/update" method="POST" modelAttribute="user" class="form-horizontal">          
+                                        <%--<form:hidden id="userid" path="userid"/>--%>
+                                        <fieldset class="fieldset">
+                                            <h3 class="fieldset-title">Update User</h3>
+                                            <form:hidden id="userid" path="userid"/>
 
-            
-        
-            
-            
+                                            <!--Username-->
+                                            <div class="form-group">
+                                                <label for="username" class="col-md-2 col-sm-3 col-xs-12 control-label">Username</label>
+                                                <div class="col-md-10 col-sm-9 col-xs-12">
+                                                    <form:input id="username" path="username"  />
+                                                    <form:errors path="username"/>
+                                                </div>
+                                            </div>
+
+
+                                            <form:input type="hidden" id="password" path="password" />
+
+                                            <!--email-->
+                                            <div class="form-group">
+                                                <label for="email" class="col-md-2 col-sm-3 col-xs-12 control-label">email</label>
+                                                <div class="col-md-10 col-sm-9 col-xs-12">
+                                                    <form:input id="email" path="email" />
+                                                    <form:errors path="email"/>
+                                                </div>
+                                            </div> 
+
+                                            <!--firstname-->
+                                            <div class="form-group">
+                                                <label for="firstname" class="col-md-2 col-sm-3 col-xs-12 control-label">Firstname</label>
+                                                <div class="col-md-10 col-sm-9 col-xs-12">
+                                                    <form:input id="firstname" path="firstname" />
+                                                    <form:errors path="firstname"/>
+                                                </div>
+                                            </div> 
+
+                                            <!--Lastname-->
+                                            <div class="form-group">
+                                                <label for="lastname" class="col-md-2 col-sm-3 col-xs-12 control-label">Lastname</label>
+                                                <div class="col-md-10 col-sm-9 col-xs-12">
+                                                    <form:input id="lastname" path="lastname" />
+                                                    <form:errors path="lastname"/>
+                                                </div>
+                                            </div>
+                                            <!--Phonenumber-->
+                                            <div class="form-group">
+                                                <label for="phonenumber" class="col-md-2 col-sm-3 col-xs-12 control-label">Phonenumber</label>
+                                                <div class="col-md-10 col-sm-9 col-xs-12">
+                                                    <form:input id="phonenumber" path="phonenumber" />
+                                                    <form:errors path="phonenumber"/>
+                                                </div>
+                                            </div>
+
+                                            <!--Credits-->
+                                            <div class="form-group">
+                                                <label for="credits" class="col-md-2 col-sm-3 col-xs-12 control-label">Credits</label>
+                                                <div class="col-md-10 col-sm-9 col-xs-12">
+                                                    <form:input id="credits" path="credits" />
+                                                    <form:errors path="credits"/>
+                                                </div>
+                                            </div>          
+
+                                            <%--path = το όνομα το που "καταγράφετε" το στοιχείο. Εδώ είναι to userList του User --%>
+                                            <%--items = το ονομα που έχουμε δώσει στο πεδίο του ModelAttributes(βλ. UserControllerAdmin class) --%>
+                                            <%--itemLabel = από πιο πεδίο θα πέρνουν τα ονόματα τους τα Labels στην HTML --%>
+                                            <%--itemValue = από πιο πεδίο θα πέρνει τιμή --%>
+                                            <%--itemLabel =  τι tag θα έχει στην HTML--%>
+
+                                            <!--Role-->
+                                            <div class="col-md-2">
+                                                <p><strong>Choose Role</strong></p>
+                                                <div class="control-group">
+                                                    <div class="radio">
+                                                        <form:radiobuttons path="roleList" items="${roles}" itemLabel="type" itemValue="roleid" element="ul" required="required"/>
+                                                        <form:errors path="roleList"/>
+                                                    </div>
+                                                </div>
+                                            </div> 
+
+
+                                            <div class="form-group">
+                                                <div class="col-md-10 col-sm-9 col-xs-12 col-md-push-2 col-sm-push-3 col-xs-push-0">
+                                                    <input class="btn btn-primary" style="background-color:#6BCE1B; border-color:#6BCE1B" type="submit" value="Submit"/>
+                                                </div>
+                                            </div>
+                                        </fieldset>
+                                    </form:form>
+                                    <br>
+                                </div>
+                                <!--/col-->
+                            </div>
+                        </div>
+                    </div>
+                    <!--/row-->
+                </div>
+                <!--/col-span-9|||---Main Content ---->
+            </div>
+            <!-- /upper section -->
+        </div><!--/container||| MAIN-->
+
+
+
+
+        <!-- FOOTER -->
+
+        <div class="footer">
+            <div class="container">
+                <div class="row">
+                    <div class="footer-col-1">
+                        <h3>Download Our App</h3>
+                        <p>Download App for Android and IOS mobile phone.</p>
+                        <div class="app-logo">
+                            <img src="${pageContext.request.contextPath}/images/play-store.png">
+                            <img src="${pageContext.request.contextPath}/images/app-store.png">
+                        </div>
+                    </div>
+                    <div class="footer-col-2">
+                        <img src="${pageContext.request.contextPath}/images/logo transparent.png">
+                        <p>Our Purpose Is To Learn How to Make Beautiful, User-friendly and Responsive Sites.
+                        </p>
+                    </div>
+                    <div class="footer-col-3">
+                        <h3>Useful Links</h3>
+                        <ul>
+                            <li>Coupons</li>
+                            <li>Blog Post</li>
+                            <li>Return Policy</li>
+                            <li>Join Affiliate</li>
+                        </ul>
+                    </div>
+                    <div class="footer-col-4">
+                        <h3>Follow us</h3>
+                        <ul>
+                            <li>Facebook</li>
+                            <li>Twitter</li>
+                            <li>Instagram</li>
+                            <li>Youtube</li>
+                        </ul>
+                    </div>
+                </div>
+                <hr>
+                <p class="copyright">Copyright 2021 - CB12 Part Time</p>
+            </div>
+
+
+        </div>
+        <!-- /FOOTER -->
+        <script src="${pageContext.request.contextPath}/js/burgermenu.js"></script>   
+        <script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+        <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.1/js/bootstrap.min.js"></script>
 
     </body>
 </html>
+
