@@ -123,52 +123,6 @@
         </div>
         <!----------------------------------------------------------------COLLECTION----------------------------------------------->
 
-
-        <div class="filter small-container">
-            <form:form id="filters" action="${pageContext.request.contextPath}/collection/filters" method="GET" modelAttribute="filters">
-                <ul >
-                    <h4>Brands:</h4>
-                    <li>
-                        <c:forEach items="${brands}" var="brand">                              
-                            <input type="checkbox" name="brand" value="${brand.brandid}" id="${brand.brandname}" class="showSubmit" hidden>
-                            <label for="${brand.brandname}">${brand.brandname}</label>
-                        </c:forEach>            
-                    </li>
-                    <h4>Categories:</h4>
-                    <li>
-                        <c:forEach items="${categories}" var="category">                           
-                            <input  type="checkbox" name="category" value="${category.categoryid}" id="${category.categoryname}" class="showSubmit" hidden>
-                            <label for="${category.categoryname}">${category.categoryname}</label> 
-                        </c:forEach>
-                    </li>
-                    <h4>Gender:</h4>
-                    <li>
-                        <c:forEach items="${genders}" var="gender">                           
-                            <input type="checkbox" name="gender" value="${gender.genderid}" id="${gender.gendername}" class="showSubmit" hidden>
-                            <label for="${gender.gendername}">${gender.gendername}</label>
-                        </c:forEach>
-                    </li>
-                    <h4>Sizes:</h4>
-                    <li>
-                        <c:forEach items="${sizes}" var="size">                           
-                            <input type="checkbox" name="size"  value="${size.sizesid}" id="${size.sizename}" class="showSubmit" hidden>
-                            <label for="${size.sizename}">${size.sizename}</label>
-                        </c:forEach>
-                    </li>
-                    <h4>Colors:</h4>
-                    <li>
-                        <c:forEach items="${colors}" var="color">
-                            <input type="checkbox" name="color"  value="${color.colorid}" id="${color.colorname}" class="showSubmit" hidden>
-                            <label for="${color.colorname}">${color.colorname}</label>
-                        </c:forEach>
-                    </li>
-                </ul>
-                <input type="submit" value="Submit Filters" class="Submit" disabled="disabled"/>
-            </form:form>
-                <a class="btn" href="${pageContext.request.contextPath}/collection">Clear Filters</a>
-        </div>
-        <!--<input type="button" id="none" value="Clear All"/>-->
-
         <div class="small-container">
             <div class="row row-2">
                 <h2>All Products</h2>
@@ -179,7 +133,57 @@
                     <option>Sort by rating</option>
                     <option>Sort by sale/option>
                 </select>
-            </div>               
+            </div>  
+
+            <button type="submit" id="showfilters-btn" class="btn btn-light" style="border-color:#6BCE1B; background-color:white; border-radius:0; color:black">Show/Hide Filters</button>
+            <div id="filters" style="display: none;">
+                <div class="filter small-container"> 
+                    <form:form id="filters" action="${pageContext.request.contextPath}/collection/filters" method="GET" modelAttribute="filters">
+                        <ul >
+                            <h4>Brands:</h4>
+                            <li>
+                                <c:forEach items="${brands}" var="brand">                              
+                                    <input type="checkbox" name="brand" value="${brand.brandid}" id="${brand.brandname}" class="showSubmit" hidden>
+                                    <label for="${brand.brandname}">${brand.brandname}</label>
+                                </c:forEach>            
+                            </li>
+                            <h4>Categories:</h4>
+                            <li>
+                                <c:forEach items="${categories}" var="category">                           
+                                    <input  type="checkbox" name="category" value="${category.categoryid}" id="${category.categoryname}" class="showSubmit" hidden>
+                                    <label for="${category.categoryname}">${category.categoryname}</label> 
+                                </c:forEach>
+                            </li>
+                            <h4>Gender:</h4>
+                            <li>
+                                <c:forEach items="${genders}" var="gender">                           
+                                    <input type="checkbox" name="gender" value="${gender.genderid}" id="${gender.gendername}" class="showSubmit" hidden>
+                                    <label for="${gender.gendername}">${gender.gendername}</label>
+                                </c:forEach>
+                            </li>
+                            <h4>Sizes:</h4>
+                            <li>
+                                <c:forEach items="${sizes}" var="size">                           
+                                    <input type="checkbox" name="size"  value="${size.sizesid}" id="${size.sizename}" class="showSubmit" hidden>
+                                    <label for="${size.sizename}">${size.sizename}</label>
+                                </c:forEach>
+                            </li>
+                            <h4>Colors:</h4>
+                            <li>
+                                <c:forEach items="${colors}" var="color">
+                                    <input type="checkbox" name="color"  value="${color.colorid}" id="${color.colorname}" class="showSubmit" hidden>
+                                    <label for="${color.colorname}">${color.colorname}</label>
+                                </c:forEach>
+                            </li>
+                        </ul>
+                        <input type="submit" value="Submit Filters" class="Submit" disabled="disabled"/>
+                    </form:form>
+                    <a class="btn" href="${pageContext.request.contextPath}/collection">Clear Filters</a>
+                </div>
+                <!--<input type="button" id="none" value="Clear All"/>-->
+            </div>
+
+
 
             <div class="row">
                 <div class="row">
@@ -270,6 +274,20 @@
                             }
                         });
                     });
+
+
+
+
+                    $(document).ready(function () {
+                        $("#showfilters-btn").click(function () {
+                            $("#filters").toggle(1000);
+                        });
+                    });
+//                    $(document).ready(function () {
+//                        $("#final-addcrs-btn").click(function () {
+//                            $("#addcourse").toggle(1000);
+//                        });
+//                    });
                     //            $(document).ready(function () {
                     //                $(':input').change(function (evt) {
                     //                    var filter = $(':input:checked,select').map(function (index, el) {
